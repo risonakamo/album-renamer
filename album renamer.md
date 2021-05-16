@@ -59,3 +59,16 @@ the reordering system should have a focus for the following tasks:
 - should show a groupname, but should not be very permanent. maybe make it auto generated groupname, but allow renaming
     - in the same area where the groupname is showing, have auto sort by name. maybe will need more auto sorts but at least this should be good for now
 - for thumbnails, should show the entire image, but in a square area. perhaps have a keyboard button and double click open the image in the default program. keyboard button would be so that selections are not inturrupted
+
+# initial reorder phase design task
+- what a group looks like with images of varying sizes
+- what a selected item looks like
+- what it looks like when items are dragged on top of something
+- what a group title looks like when items are dragged on top of it
+- names under thumbnail images
+- what it looks like to drag into new group zone
+    - what group zone looks like normally
+- thumbnail size slider
+- proceed to rename phase button
+- scrollbar showing marks of starts of groups
+- footer showing number of groups, number of images
