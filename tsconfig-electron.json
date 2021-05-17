@@ -1,0 +1,17 @@
+{
+    "compilerOptions":{
+        "strict":true,
+        "outDir":"build/app",
+        "target":"ESNext",
+        "lib":["ESNext","DOM"],
+        "module":"commonjs",
+        "esModuleInterop":true
+    },
+    "include":[
+        "**/*.d.ts",
+        "app/*.ts"
+    ],
+    "exclude":[
+        "node_modules"
+    ]
+}

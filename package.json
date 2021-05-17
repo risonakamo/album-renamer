@@ -1,0 +1,30 @@
+{
+  "name": "album-renamer",
+  "version": "1.0.0",
+  "scripts": {
+    "build-app": "tsc --project tsconfig-electron.json",
+    "run-app": "electron .",
+    "dev-app": "npm run build-app && npm run run-app"
+  },
+  "main": "build/app/main.js",
+  "dependencies": {
+    "@babel/core": "^7.14.2",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/react": "^17.0.5",
+    "@types/react-dom": "^17.0.5",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.4",
+    "electron": "^12.0.7",
+    "fork-ts-checker-webpack-plugin": "^6.2.9",
+    "less": "^4.1.1",
+    "less-loader": "^9.0.0",
+    "mini-css-extract-plugin": "^1.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.2.4",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpackbar": "5.0.0-3"
+  }
+}

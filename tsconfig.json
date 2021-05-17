@@ -1,0 +1,17 @@
+{
+    "compilerOptions":{
+        "strict":true,
+        "jsx":"react",
+        "lib":["dom","ESNext"],
+        "target":"ESNext",
+        "esModuleInterop":true,
+        "baseUrl":".",
+        "moduleResolution":"node"
+    },
+    "include":[
+
+    ],
+    "exclude":[
+        "node_modules"
+    ]
+}
