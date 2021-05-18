@@ -10,8 +10,8 @@ function main():void
 function mainWindow():void
 {
     new BrowserWindow({
-        width:800,
-        height:600
+        width:1520,
+        height:890
     }).loadFile("web/index.html");
 }
 

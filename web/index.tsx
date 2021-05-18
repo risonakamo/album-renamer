@@ -1,12 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// import "./index.less";
+import "./index.less";
 
 function IndexMain():JSX.Element
 {
   return <>
-    hello2
+    <div className="header-zone">
+
+    </div>
+    <div className="image-zone">
+
+    </div>
+    <footer className="footer-zone">
+
+    </footer>
   </>;
 }
 
