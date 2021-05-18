@@ -4,7 +4,9 @@
   "scripts": {
     "build-app": "tsc --project tsconfig-electron.json",
     "run-app": "electron .",
-    "dev-app": "npm run build-app && npm run run-app"
+    "dev": "npm run build-app && npm run run-app",
+    "build-web":"webpack",
+    "watch":"webpack --watch"
   },
   "main": "build/app/main.js",
   "dependencies": {
