@@ -6,13 +6,24 @@ import "./index.less";
 function IndexMain():JSX.Element
 {
   return <>
-    <div className="header-zone">
+    <section className="header-zone top-section">
 
-    </div>
-    <div className="image-zone">
+    </section>
 
-    </div>
-    <footer className="footer-zone">
+    <section className="image-zone top-section">
+      <div className="image-row">
+        <div className="title-area">
+          <h2>Group 1</h2>
+        </div>
+        <div className="thumbnail-area">
+          <div className="thumbnail-item">
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer className="footer-zone top-section">
 
     </footer>
   </>;

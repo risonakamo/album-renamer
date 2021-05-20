@@ -4,8 +4,74 @@
 @main-background: #1b1920;
 @main-text: #ebe8e6;
 
+@header-highlight: #2778e6;
+
+html
+{
+    height: 100%;
+}
+
 body
 {
+    height: 100%;
     background-color: @main-background;
     color: @main-text;
+    margin: 0;
+}
+
+h2
+{
+    margin: 0;
+    font-family: "roboto mono";
+    font-weight: 400;
+    color: @header-highlight;
+    font-size: 22px;
+}
+
+.main
+{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.top-section
+{
+    width: 100%;
+}
+
+.header-zone
+{
+    height: 60px;
+}
+
+.image-zone
+{
+    flex: 1;
+}
+
+.footer-zone
+{
+    // tempcolour
+    @footer-background: #334f70;
+
+    height: 22px;
+    background-color: @footer-background;
+}
+
+.image-row
+{
+    .title-area
+    {
+        height: 35px;
+        padding: 4px 18px 4px 18px;
+        box-sizing: border-box;
+        margin-bottom: 8px;
+    }
+
+    .thumbnail-item
+    {
+        width: 200px;
+        height: 200px;
+    }
 }
