@@ -1,17 +1,24 @@
 import React from "react";
 
+import ThumbnailItem from "components/thumbnail-item/thumbnail-item";
+
 import "./image-row.less";
 
-export default function ImageRow():JSX.Element
+interface ImageRowProps
+{
+  images:ImageData[]
+}
+
+export default function ImageRow(props:ImageRowProps):JSX.Element
 {
   return <div className="image-row">
     <div className="title-area">
       <h2>Group 1</h2>
     </div>
     <div className="thumbnail-area">
-      <div className="thumbnail-item">
-
-      </div>
+      <ThumbnailItem/>
+      <ThumbnailItem/>
+      <ThumbnailItem/>
     </div>
   </div>;
 }
