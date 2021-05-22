@@ -10,7 +10,7 @@ interface ThumbnailItemProps
 
   onSelected?(data:ImageData2):void
   onDeselect?(data:ImageData2):void
-  onDragStart?(data:ImageData2):void
+  onDragStart?(data:ImageData2,selected:boolean):void
   onDropped?(data:ImageData2):void
 }
 
@@ -19,8 +19,10 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   const [isWideFit,setWideFit]=useState<boolean>(false);
   const [isDraggedOver,setDraggedOver]=useState<boolean>(false);
 
-  const imgElement=useRef<HTMLImageElement>(null);
   const dragEnterCount=useRef<number>(0);
+  const dragActive=useRef<boolean>(false);
+
+  const imgElement=useRef<HTMLImageElement>(null);
 
   /*-- MEMBER FUNCTIONS --*/
   /** auto fit image on image load */
@@ -55,12 +57,24 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   /** DRAG HANDLERS */
   function dragBegin():void
   {
-    props.onDragStart?.(props.data);
+    props.onDragStart?.(props.data,!!props.selected);
+    dragActive.current=true;
+  }
+
+  function handleDragEnd():void
+  {
+    dragActive.current=false;
   }
 
   function handleDrop():void
   {
-    props.onDropped?.(props.data);
+    // cancel if dropped on itself
+    if (!dragActive.current)
+    {
+      props.onDropped?.(props.data);
+    }
+
+    dragActive.current=false;
 
     setDraggedOver(false);
     dragEnterCount.current=0;
@@ -100,7 +114,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
 
   return <div className="thumbnail-item" onClick={handleClick} onDragStart={dragBegin}
     onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}
-    onDragLeave={handleDragLeave}
+    onDragLeave={handleDragLeave} onDragEnd={handleDragEnd}
   >
     <div className={cx("image-space",imageSpaceClass)}>
       <img src={props.data.path} className={cx(imgElementClasses)}

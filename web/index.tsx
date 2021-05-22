@@ -59,6 +59,11 @@ function IndexMain():JSX.Element
     setSelectedImages([]);
   }
 
+  function moveSingleItemToDropTarget(dropitem:ImageData2,moveitem:ImageData2):void
+  {
+
+  }
+
   /** render image rows */
   function renderImageRows():JSX.Element[]
   {

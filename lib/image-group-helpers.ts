@@ -52,15 +52,16 @@ function insertIntoGroup(droppoint:ImageData2,items:ImageData2[],
         return group;
     }
 
-    if (!removeDropPoint)
+    var indexInc:number=1;
+    if (removeDropPoint)
     {
-        droppointIndex++;
+        indexInc=0;
     }
 
     return {
         ...group,
         items:[
-            ...group.items.slice(0,droppointIndex),
+            ...group.items.slice(0,droppointIndex+indexInc),
             ...items,
             ...group.items.slice(droppointIndex+1)
         ]
