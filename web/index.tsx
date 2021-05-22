@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import ImageRow from "components/image-row/image-row";
 
-import {dropAtTarget} from "lib/image-group-helpers";
+import {dropAtTarget,dropAtTargetGroup} from "lib/image-group-helpers";
 
 import "./index.less";
 
@@ -67,17 +67,29 @@ function IndexMain():JSX.Element
 
     else
     {
-      moveSingleItemToDropTarget(dropitem,currentDragItem.current!);
+      setImageGroups(dropAtTarget(dropitem,[currentDragItem.current!],theImageGroups))
     }
 
     currentDragItem.current=null;
     currentDragItemSelected.current=false;
   }
 
-  /** move a single item to after the drop target. does not affect selections */
-  function moveSingleItemToDropTarget(dropitem:ImageData2,moveitem:ImageData2):void
+  /** move operation into a target group */
+  function moveItemsToDropGroup(group:ImageGroup):void
   {
-    setImageGroups(dropAtTarget(dropitem,[moveitem],theImageGroups))
+    if (currentDragItemSelected.current)
+    {
+      setImageGroups(dropAtTargetGroup(group,theSelectedImages,theImageGroups));
+      setSelectedImages([]);
+    }
+
+    else
+    {
+      setImageGroups(dropAtTargetGroup(group,[currentDragItem.current!],theImageGroups));
+    }
+
+    currentDragItem.current=null;
+    currentDragItemSelected.current=false;
   }
 
   /** thumbnail drag began. save the item that is being dragged right now */
@@ -93,7 +105,8 @@ function IndexMain():JSX.Element
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
       return <ImageRow images={x} onThumbnailSelected={addSelectedImage}
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
-        key={i} onThumbnailDrop={moveItemsToDropTarget} onThumbnailDragStart={thumbnailDragBegin}/>;
+        key={i} onThumbnailDrop={moveItemsToDropTarget} onThumbnailDragStart={thumbnailDragBegin}
+        onGroupDrop={moveItemsToDropGroup}/>;
     });
   }
 

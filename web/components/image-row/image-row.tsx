@@ -16,6 +16,8 @@ interface ImageRowProps
 
   onThumbnailDragStart?(data:ImageData2,selected:boolean):void
   onThumbnailDrop?(data:ImageData2):void
+
+  onGroupDrop?(group:ImageGroup):void
 }
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
@@ -51,6 +53,8 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
 
   function handleDrop():void
   {
+    props.onGroupDrop?.(props.images);
+
     setDraggedOver(false);
     dragEnterCount.current=0;
   }
