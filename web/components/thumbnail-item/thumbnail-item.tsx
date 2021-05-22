@@ -6,6 +6,10 @@ import "./thumbnail-item.less";
 interface ThumbnailItemProps
 {
   data:ImageData2
+  selected?:boolean
+
+  onSelected?(data:ImageData2):void
+  onDeselect?(data:ImageData2):void
 }
 
 export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
@@ -27,13 +31,31 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     }
   }
 
+  /** handle item clicked */
+  function itemClicked():void
+  {
+    if (!props.selected)
+    {
+      props.onSelected?.(props.data);
+    }
+
+    else
+    {
+      props.onDeselect?.(props.data);
+    }
+  }
+
   const imgElementClasses={
     wide:isWideFit,
     tall:!isWideFit
   };
 
-  return <div className="thumbnail-item">
-    <div className="image-space">
+  const imageSpaceClass={
+    selected:props.selected
+  };
+
+  return <div className="thumbnail-item" onClick={itemClicked}>
+    <div className={cx("image-space",imageSpaceClass)}>
       <img src={props.data.path} className={cx(imgElementClasses)}
         ref={imgElement} onLoad={imageLoaded}/>
     </div>

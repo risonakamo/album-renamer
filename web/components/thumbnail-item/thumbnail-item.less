@@ -1,8 +1,13 @@
+// tempcolour
+@selected-colour: #1980e8;
+@selected-border-colour: white;
+
 .thumbnail-item
 {
     display: inline-block;
     width: 200px;
     margin: 0 5px 16px 5px;
+    cursor: pointer;
 
     .image-space
     {
@@ -27,6 +32,18 @@
             {
                 height: auto;
                 width: 100%;
+            }
+        }
+
+        &.selected
+        {
+            background-color: fade(@selected-colour,30%);
+            border: 3px dashed @selected-border-colour;
+            box-sizing: border-box;
+
+            img
+            {
+                opacity: .5;
             }
         }
     }
