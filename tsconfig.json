@@ -14,7 +14,8 @@
     "include":[
         "**/*.d.ts",
         "web/*.tsx",
-        "web/*.ts"
+        "web/*.ts",
+        "lib/*.ts"
     ],
     "exclude":[
         "node_modules"

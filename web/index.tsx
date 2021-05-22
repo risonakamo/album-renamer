@@ -6,27 +6,35 @@ import ImageRow from "components/image-row/image-row";
 
 import "./index.less";
 
-const sampleData1:ImageData2[]=[
-  {path:"../sampleimages/2.png",name:"2.png"},
-  {path:"../sampleimages/1.png",name:"2.png"},
-  {path:"../sampleimages/4.jpg",name:"2.png"},
-  {path:"../sampleimages/1.png",name:"2.png"}
-];
-
-const sampleData2:ImageData2[]=[
-  {path:"../sampleimages/8.png",name:"2.png"},
-  {path:"../sampleimages/3.png",name:"2.png"},
-  {path:"../sampleimages/7.png",name:"2.png"},
-  {path:"../sampleimages/5.jpg",name:"2.png"},
-  {path:"../sampleimages/9.jpg",name:"2.png"},
-  {path:"../sampleimages/7.png",name:"2.png"},
-  {path:"../sampleimages/1.png",name:"2.png"},
-  {path:"../sampleimages/2.png",name:"2.png"}
+const sampleData3:ImageGroup[]=[
+  {
+    name:"group1",
+    items:[
+      {path:"../sampleimages/2.png",name:"2.png"},
+      {path:"../sampleimages/1.png",name:"2.png"},
+      {path:"../sampleimages/4.jpg",name:"2.png"},
+      {path:"../sampleimages/1.png",name:"2.png"}
+    ]
+  },
+  {
+    name:"group22",
+    items:[
+      {path:"../sampleimages/8.png",name:"2.png"},
+      {path:"../sampleimages/3.png",name:"2.png"},
+      {path:"../sampleimages/7.png",name:"2.png"},
+      {path:"../sampleimages/5.jpg",name:"2.png"},
+      {path:"../sampleimages/9.jpg",name:"2.png"},
+      {path:"../sampleimages/7.png",name:"2.png"},
+      {path:"../sampleimages/1.png",name:"2.png"},
+      {path:"../sampleimages/2.png",name:"2.png"}
+    ]
+  }
 ];
 
 function IndexMain():JSX.Element
 {
   const [theSelectedImages,setSelectedImages]=useState<ImageData2[]>([]);
+  const [theImageGroups,setImageGroups]=useState<ImageGroup[]>(sampleData3);
 
   /** add an image as another selected image */
   function addSelectedImage(imagedata:ImageData2):void
@@ -45,16 +53,23 @@ function IndexMain():JSX.Element
     }));
   }
 
+  /** render image rows */
+  function renderImageRows():JSX.Element[]
+  {
+    return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
+      return <ImageRow images={x} onThumbnailSelected={addSelectedImage}
+        selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
+        key={i}/>;
+    });
+  }
+
   return <>
     <section className="header-zone top-section">
 
     </section>
 
     <section className="image-zone top-section">
-      <ImageRow images={sampleData1} onThumbnailSelected={addSelectedImage}
-        selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}/>
-      <ImageRow images={sampleData2} onThumbnailSelected={addSelectedImage}
-        selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}/>
+      {renderImageRows()}
     </section>
 
     <footer className="footer-zone top-section">

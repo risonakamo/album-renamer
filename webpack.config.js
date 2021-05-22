@@ -61,7 +61,8 @@ module.exports={
         extensions:[".tsx",".ts",".jsx",".js"],
         alias:{
             components:`${__dirname}/web/components`,
-            css:`${__dirname}/web/css`
+            css:`${__dirname}/web/css`,
+            lib:`${__dirname}/lib`
         }
     },
 
