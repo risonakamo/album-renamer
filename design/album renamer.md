@@ -79,3 +79,8 @@ the reordering system should have a focus for the following tasks:
 - more styled scrollbar with larger width
 - thumbnail zooming
 - ability to make copies of items
+- deselect all button
+    - esc on keyboard
+- "undoing selections" system, for accidentally deselecting or selecting something incorrectly
+- have drag arrow appear on drop target
+- selection order numbers

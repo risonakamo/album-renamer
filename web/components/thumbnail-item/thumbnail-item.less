@@ -1,6 +1,7 @@
 // tempcolour
 @selected-colour: #1980e8;
 @selected-border-colour: white;
+@drop-target-border: #699c2c;
 
 .thumbnail-item
 {
@@ -8,6 +9,7 @@
     width: 200px;
     margin: 0 5px 16px 5px;
     cursor: pointer;
+    user-select: none;
 
     .image-space
     {
@@ -16,6 +18,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        box-sizing: border-box;
 
         img
         {
@@ -39,12 +42,16 @@
         {
             background-color: fade(@selected-colour,30%);
             border: 3px dashed @selected-border-colour;
-            box-sizing: border-box;
 
             img
             {
                 opacity: .5;
             }
+        }
+
+        &.drop-target
+        {
+            border: 3px dashed @drop-target-border;
         }
     }
 

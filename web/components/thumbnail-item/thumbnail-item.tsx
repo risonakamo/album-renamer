@@ -10,13 +10,19 @@ interface ThumbnailItemProps
 
   onSelected?(data:ImageData2):void
   onDeselect?(data:ImageData2):void
+  onDragStart?(data:ImageData2):void
+  onDropped?(data:ImageData2):void
 }
 
 export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
 {
   const [isWideFit,setWideFit]=useState<boolean>(false);
-  const imgElement=useRef<HTMLImageElement>(null);
+  const [isDraggedOver,setDraggedOver]=useState<boolean>(false);
 
+  const imgElement=useRef<HTMLImageElement>(null);
+  const dragEnterCount=useRef<number>(0);
+
+  /*-- MEMBER FUNCTIONS --*/
   /** auto fit image on image load */
   function imageLoaded():void
   {
@@ -31,8 +37,9 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     }
   }
 
+  /*-- HANDLERS --*/
   /** handle item clicked */
-  function itemClicked():void
+  function handleClick():void
   {
     if (!props.selected)
     {
@@ -45,16 +52,56 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     }
   }
 
+  /** DRAG HANDLERS */
+  function dragBegin():void
+  {
+    props.onDragStart?.(props.data);
+  }
+
+  function handleDrop():void
+  {
+    props.onDropped?.(props.data);
+
+    setDraggedOver(false);
+    dragEnterCount.current=0;
+  }
+
+  function handleDragEnter(e:React.DragEvent):void
+  {
+    e.preventDefault();
+    setDraggedOver(true);
+    dragEnterCount.current++;
+  }
+
+  function handleDragLeave(e:React.DragEvent):void
+  {
+    dragEnterCount.current--;
+    if (!dragEnterCount.current)
+    {
+      setDraggedOver(false);
+    }
+  }
+
+  function handleDragOver(e:React.DragEvent):void
+  {
+    e.preventDefault();
+  }
+
+  /*-- RENDER --*/
   const imgElementClasses={
     wide:isWideFit,
     tall:!isWideFit
   };
 
   const imageSpaceClass={
-    selected:props.selected
+    selected:props.selected,
+    "drop-target":isDraggedOver
   };
 
-  return <div className="thumbnail-item" onClick={itemClicked}>
+  return <div className="thumbnail-item" onClick={handleClick} onDragStart={dragBegin}
+    onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}
+    onDragLeave={handleDragLeave}
+  >
     <div className={cx("image-space",imageSpaceClass)}>
       <img src={props.data.path} className={cx(imgElementClasses)}
         ref={imgElement} onLoad={imageLoaded}/>
