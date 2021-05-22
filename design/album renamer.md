@@ -60,7 +60,7 @@ the reordering system should have a focus for the following tasks:
     - in the same area where the groupname is showing, have auto sort by name. maybe will need more auto sorts but at least this should be good for now
 - for thumbnails, should show the entire image, but in a square area. perhaps have a keyboard button and double click open the image in the default program. keyboard button would be so that selections are not inturrupted
 
-# initial reorder phase design task (tracked with issues)
+# initial reorder phase design task (COMPLETE) (tracked with issues)
 - ~~what a group looks like with images of varying sizes~~
 - what a selected item looks like
 - what it looks like when items are dragged on top of something
@@ -72,22 +72,3 @@ the reordering system should have a focus for the following tasks:
 - proceed to rename phase button
 - scrollbar showing marks of starts of groups
 - footer showing number of groups, number of images
-
-# to implement later
-- ellipsis in the middle of text instead of at the end
-    - will need to do some manual logic. right now using the css's default text overflow
-- more styled scrollbar with larger width
-- thumbnail zooming
-- ability to make copies of items
-- deselect all button
-    - esc on keyboard
-- "undoing selections" system, for accidentally deselecting or selecting something incorrectly
-- have drag arrow appear on drop target
-- selection order numbers
-
-# things to decide
-- ~~what to do if dragged an item that was not selected while a selection is going on~~
-    - currently set to allow single item dragging, if item is not selected
-- ~~should it allow dragging onto itself? or should that just cancel the operation so nothing happens?~~
-    - currently will do nothing if dragged into itself
-- maybe in the future disallow dragging into a selected item. possibly a rare use case, just have to see how it is used
