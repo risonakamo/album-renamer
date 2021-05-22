@@ -86,5 +86,8 @@ the reordering system should have a focus for the following tasks:
 - selection order numbers
 
 # things to decide
-- what to do if dragged an item that was not selected while a selection is going on
-- should it allow dragging onto itself? or should that just cancel the operation so nothing happens?
+- ~~what to do if dragged an item that was not selected while a selection is going on~~
+    - currently set to allow single item dragging, if item is not selected
+- ~~should it allow dragging onto itself? or should that just cancel the operation so nothing happens?~~
+    - currently will do nothing if dragged into itself
+- maybe in the future disallow dragging into a selected item. possibly a rare use case, just have to see how it is used

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useRef} from "react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
 
@@ -35,6 +35,9 @@ function IndexMain():JSX.Element
   const [theSelectedImages,setSelectedImages]=useState<ImageData2[]>([]);
   const [theImageGroups,setImageGroups]=useState<ImageGroup[]>(sampleData3);
 
+  const currentDragItem=useRef<ImageData2|null>(null);
+  const currentDragItemSelected=useRef<boolean>(false);
+
   /** add an image as another selected image */
   function addSelectedImage(imagedata:ImageData2):void
   {
@@ -55,13 +58,33 @@ function IndexMain():JSX.Element
   /** perform move operation to the given target, modifying the image groups */
   function moveItemsToDropTarget(dropitem:ImageData2):void
   {
-    setImageGroups(dropAtTarget(dropitem,theSelectedImages,theImageGroups));
-    setSelectedImages([]);
+    // if the item being dragged is selected
+    if (currentDragItemSelected.current)
+    {
+      setImageGroups(dropAtTarget(dropitem,theSelectedImages,theImageGroups));
+      setSelectedImages([]);
+    }
+
+    else
+    {
+      moveSingleItemToDropTarget(dropitem,currentDragItem.current!);
+    }
+
+    currentDragItem.current=null;
+    currentDragItemSelected.current=false;
   }
 
+  /** move a single item to after the drop target. does not affect selections */
   function moveSingleItemToDropTarget(dropitem:ImageData2,moveitem:ImageData2):void
   {
+    setImageGroups(dropAtTarget(dropitem,[moveitem],theImageGroups))
+  }
 
+  /** thumbnail drag began. save the item that is being dragged right now */
+  function thumbnailDragBegin(item:ImageData2,selected:boolean):void
+  {
+    currentDragItem.current=item;
+    currentDragItemSelected.current=selected;
   }
 
   /** render image rows */
@@ -70,7 +93,7 @@ function IndexMain():JSX.Element
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
       return <ImageRow images={x} onThumbnailSelected={addSelectedImage}
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
-        key={i} onThumbnailDrop={moveItemsToDropTarget}/>;
+        key={i} onThumbnailDrop={moveItemsToDropTarget} onThumbnailDragStart={thumbnailDragBegin}/>;
     });
   }
 
