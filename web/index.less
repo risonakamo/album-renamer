@@ -6,6 +6,8 @@
 
 @header-highlight: #2778e6;
 
+@footer-background: #334f70;
+
 html
 {
     height: 100%;
@@ -17,6 +19,7 @@ body
     background-color: @main-background;
     color: @main-text;
     margin: 0;
+    font-family: "roboto";
 }
 
 h2
@@ -26,6 +29,12 @@ h2
     font-weight: 400;
     color: @header-highlight;
     font-size: 22px;
+}
+
+p
+{
+    margin: 0;
+    font-size: 13px;
 }
 
 .main
@@ -52,9 +61,6 @@ h2
 
 .footer-zone
 {
-    // tempcolour
-    @footer-background: #334f70;
-
     height: 22px;
     background-color: @footer-background;
 }

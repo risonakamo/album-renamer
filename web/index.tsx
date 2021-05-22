@@ -13,7 +13,7 @@ function IndexMain():JSX.Element
     </section>
 
     <section className="image-zone top-section">
-      <ImageRow/>
+      <ImageRow images={[]}/>
     </section>
 
     <footer className="footer-zone top-section">

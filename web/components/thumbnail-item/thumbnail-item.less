@@ -1,5 +1,48 @@
 .thumbnail-item
 {
+    display: inline-block;
     width: 200px;
-    height: 200px;
+    margin-bottom: 16px;
+
+    .image-space
+    {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img
+        {
+            height: 100%;
+            width: 100%;
+
+            &.tall
+            {
+                height: 100%;
+                width: auto;
+            }
+
+            &.wide
+            {
+                height: auto;
+                width: 100%;
+            }
+        }
+    }
+
+    .title-zone
+    {
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+
+        p
+        {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            padding: 0px 17px;
+        }
+    }
 }
