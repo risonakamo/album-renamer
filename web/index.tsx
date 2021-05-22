@@ -4,6 +4,8 @@ import _ from "lodash";
 
 import ImageRow from "components/image-row/image-row";
 
+import {dropAtTarget} from "lib/image-group-helpers";
+
 import "./index.less";
 
 const sampleData3:ImageGroup[]=[
@@ -13,7 +15,7 @@ const sampleData3:ImageGroup[]=[
       {path:"../sampleimages/2.png",name:"2.png"},
       {path:"../sampleimages/1.png",name:"2.png"},
       {path:"../sampleimages/4.jpg",name:"2.png"},
-      {path:"../sampleimages/1.png",name:"2.png"}
+      {path:"../sampleimages/6.png",name:"2.png"},
     ]
   },
   {
@@ -24,9 +26,6 @@ const sampleData3:ImageGroup[]=[
       {path:"../sampleimages/7.png",name:"2.png"},
       {path:"../sampleimages/5.jpg",name:"2.png"},
       {path:"../sampleimages/9.jpg",name:"2.png"},
-      {path:"../sampleimages/7.png",name:"2.png"},
-      {path:"../sampleimages/1.png",name:"2.png"},
-      {path:"../sampleimages/2.png",name:"2.png"}
     ]
   }
 ];
@@ -53,13 +52,20 @@ function IndexMain():JSX.Element
     }));
   }
 
+  /** perform move operation to the given target, modifying the image groups */
+  function moveItemsToDropTarget(dropitem:ImageData2):void
+  {
+    setImageGroups(dropAtTarget(dropitem,theSelectedImages,theImageGroups));
+    setSelectedImages([]);
+  }
+
   /** render image rows */
   function renderImageRows():JSX.Element[]
   {
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
       return <ImageRow images={x} onThumbnailSelected={addSelectedImage}
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
-        key={i}/>;
+        key={i} onThumbnailDrop={moveItemsToDropTarget}/>;
     });
   }
 

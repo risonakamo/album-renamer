@@ -84,3 +84,7 @@ the reordering system should have a focus for the following tasks:
 - "undoing selections" system, for accidentally deselecting or selecting something incorrectly
 - have drag arrow appear on drop target
 - selection order numbers
+
+# things to decide
+- what to do if dragged an item that was not selected while a selection is going on
+- should it allow dragging onto itself? or should that just cancel the operation so nothing happens?

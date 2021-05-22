@@ -13,6 +13,8 @@ interface ImageRowProps
 
   onThumbnailSelected?(data:ImageData2):void
   onThumbnailDeselected?(data:ImageData2):void
+
+  onThumbnailDrop?(data:ImageData2):void
 }
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
@@ -62,7 +64,8 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   {
     return _.map(images.items,(x:ImageData2,i:number):JSX.Element=>{
       return <ThumbnailItem data={x} key={i} onSelected={props.onThumbnailSelected}
-        selected={isSelected(x)} onDeselect={props.onThumbnailDeselected}/>;
+        selected={isSelected(x)} onDeselect={props.onThumbnailDeselected}
+        onDropped={props.onThumbnailDrop}/>;
     });
   }
 
