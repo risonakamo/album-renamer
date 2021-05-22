@@ -1,5 +1,6 @@
-import React from "react";
+import React,{useState,useRef} from "react";
 import _ from "lodash";
+import cx from "classnames";
 
 import ThumbnailItem from "components/thumbnail-item/thumbnail-item";
 
@@ -16,12 +17,44 @@ interface ImageRowProps
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
 {
+  const [isDraggedOver,setDraggedOver]=useState<boolean>(false);
+
+  const dragEnterCount=useRef<number>(0);
+
   /** determine if an image data is selected */
   function isSelected(data:ImageData2):boolean
   {
     return _.find(props.selectedImages,(x:ImageData2):boolean=>{
       return x.path==data.path;
     })!=undefined;
+  }
+
+  /** DRAG HANDLERS */
+  function handleDEnter(e:React.DragEvent):void
+  {
+    e.preventDefault();
+    setDraggedOver(true);
+    dragEnterCount.current++;
+  }
+
+  function handleDLeave():void
+  {
+    dragEnterCount.current--;
+    if (!dragEnterCount.current)
+    {
+      setDraggedOver(false);
+    }
+  }
+
+  function handleDrop():void
+  {
+    setDraggedOver(false);
+    dragEnterCount.current=0;
+  }
+
+  function handleDOver(e:React.DragEvent):void
+  {
+    e.preventDefault();
   }
 
   /** render thumbnail items */
@@ -33,8 +66,14 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     });
   }
 
+  const titleAreaClass={
+    "drop-target":isDraggedOver
+  };
+
   return <div className="image-row">
-    <div className="title-area">
+    <div className={cx("title-area",titleAreaClass)} onDragEnter={handleDEnter} onDragLeave={handleDLeave}
+      onDrop={handleDrop} onDragOver={handleDOver}
+    >
       <h2>Group 1</h2>
     </div>
     <div className="thumbnail-area">

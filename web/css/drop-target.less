@@ -1,0 +1,10 @@
+// tempcolour
+@drop-target-border: #699c2c;
+@border-size: 3px;
+
+// element gains a green border to represent a drop target
+.drop-target-border()
+{
+    outline: 3px dashed @drop-target-border;
+    outline-offset: -@border-size;
+}

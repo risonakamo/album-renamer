@@ -1,7 +1,8 @@
+@import (reference) "~css/drop-target";
+
 // tempcolour
 @selected-colour: #1980e8;
 @selected-border-colour: white;
-@drop-target-border: #699c2c;
 
 .thumbnail-item
 {
@@ -51,7 +52,7 @@
 
         &.drop-target
         {
-            border: 3px dashed @drop-target-border;
+            .drop-target-border();
         }
     }
 
