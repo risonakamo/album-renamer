@@ -73,6 +73,9 @@ the reordering system should have a focus for the following tasks:
 - scrollbar showing marks of starts of groups
 - footer showing number of groups, number of images
 
-# ideas to implement later
+# to implement later
 - ellipsis in the middle of text instead of at the end
     - will need to do some manual logic. right now using the css's default text overflow
+- more styled scrollbar with larger width
+- thumbnail zooming
+- ability to make copies of items
