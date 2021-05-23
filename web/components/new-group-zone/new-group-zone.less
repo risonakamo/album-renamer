@@ -1,0 +1,17 @@
+@hover-border-colour: white;
+
+.new-group-zone
+{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover
+    {
+        outline: 2px dashed fade(@hover-border-colour,45%);
+        outline-offset: -2px;
+    }
+}

@@ -19,6 +19,9 @@
 - things break when dragging incorrect things and dropping them
 - preload the group name
     - group name is editable but needs to be set from props at least when it is first created
+- do some animations/transitions for css
+- some sort of response for hovering over thumbnails
+    - maybe fade them out a little and make it bluish?
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~
@@ -38,3 +41,5 @@
 - group name sort button
 - deselect all button
     - esc on keyboard
+- group needs to have some sort of key since name can now be changed
+- drag into area to create group from dragged items

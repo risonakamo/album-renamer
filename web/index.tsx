@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import _ from "lodash";
 
 import ImageRow from "components/image-row/image-row";
+import NewGroupZone from "components/new-group-zone/new-group-zone";
 
 import {dropAtTarget,dropAtTargetGroup,replaceGroup} from "lib/image-group-helpers";
 
@@ -105,6 +106,18 @@ function IndexMain():JSX.Element
     currentDragItemSelected.current=selected;
   }
 
+  /** add a new group to the state */
+  function addGroup(items:ImageData2[]=[]):void
+  {
+    setImageGroups([
+      ...theImageGroups,
+      {
+        name:"new group",
+        items
+      }
+    ]);
+  }
+
   /** render image rows */
   function renderImageRows():JSX.Element[]
   {
@@ -118,7 +131,7 @@ function IndexMain():JSX.Element
 
   return <>
     <section className="header-zone top-section">
-
+      <NewGroupZone onClick={addGroup}/>
     </section>
 
     <section className="image-zone top-section">
