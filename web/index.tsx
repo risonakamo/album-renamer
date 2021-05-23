@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import ImageRow from "components/image-row/image-row";
 
-import {dropAtTarget,dropAtTargetGroup} from "lib/image-group-helpers";
+import {dropAtTarget,dropAtTargetGroup,replaceGroup} from "lib/image-group-helpers";
 
 import "./index.less";
 
@@ -12,20 +12,20 @@ const sampleData3:ImageGroup[]=[
   {
     name:"group1",
     items:[
-      {path:"../sampleimages/2.png",name:"1.png"},
-      {path:"../sampleimages/1.png",name:"2.png"},
-      {path:"../sampleimages/4.jpg",name:"3.png"},
-      {path:"../sampleimages/6.png",name:"4.png"},
+      {path:"../sampleimages/2.png",name:"2.png"},
+      {path:"../sampleimages/1.png",name:"1.png"},
+      {path:"../sampleimages/4.jpg",name:"4.png"},
+      {path:"../sampleimages/6.png",name:"6.png"},
     ]
   },
   {
     name:"group22",
     items:[
-      {path:"../sampleimages/8.png",name:"6.png"},
-      {path:"../sampleimages/3.png",name:"8.png"},
-      {path:"../sampleimages/7.png",name:"9.png"},
-      {path:"../sampleimages/5.jpg",name:"10.png"},
-      {path:"../sampleimages/9.jpg",name:"11.png"},
+      {path:"../sampleimages/8.png",name:"8.png"},
+      {path:"../sampleimages/3.png",name:"3.png"},
+      {path:"../sampleimages/7.png",name:"7.png"},
+      {path:"../sampleimages/5.jpg",name:"5.png"},
+      {path:"../sampleimages/9.jpg",name:"9.png"},
     ]
   }
 ];
@@ -92,6 +92,12 @@ function IndexMain():JSX.Element
     currentDragItemSelected.current=false;
   }
 
+  /** update groups with a replacement group */
+  function doReplaceGroup(group:ImageGroup):void
+  {
+    setImageGroups(replaceGroup(group,theImageGroups));
+  }
+
   /** thumbnail drag began. save the item that is being dragged right now */
   function thumbnailDragBegin(item:ImageData2,selected:boolean):void
   {
@@ -106,7 +112,7 @@ function IndexMain():JSX.Element
       return <ImageRow images={x} onThumbnailSelected={addSelectedImage}
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
         key={i} onThumbnailDrop={moveItemsToDropTarget} onThumbnailDragStart={thumbnailDragBegin}
-        onGroupDrop={moveItemsToDropGroup}/>;
+        onGroupDrop={moveItemsToDropGroup} onGroupSorted={doReplaceGroup}/>;
     });
   }
 

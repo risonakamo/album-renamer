@@ -14,6 +14,8 @@
 - when making the real drop arrow, make it pretty visible since the dragged ghost image kind of obscures it
 - drop arrow when dragging over group title
 - different icons for az sort state
+- use natural sort for group az sort
+- az sort should toggle between reverse and not reverse until a movement has been made, where it should do non reverse first
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~

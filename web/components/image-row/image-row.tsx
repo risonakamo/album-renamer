@@ -4,6 +4,8 @@ import cx from "classnames";
 
 import ThumbnailItem from "components/thumbnail-item/thumbnail-item";
 
+import {sortGroupAlpha} from "lib/image-group-helpers";
+
 import "./image-row.less";
 
 interface ImageRowProps
@@ -18,6 +20,9 @@ interface ImageRowProps
   onThumbnailDrop?(data:ImageData2):void
 
   onGroupDrop?(group:ImageGroup):void
+
+  /** group was sorted. returns group that is sorted. */
+  onGroupSorted?(group:ImageGroup):void
 }
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
@@ -34,7 +39,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     })+1;
   }
 
-  /** DRAG HANDLERS */
+  /**-- DRAG HANDLERS --*/
   function handleDEnter(e:React.DragEvent):void
   {
     e.preventDefault();
@@ -63,6 +68,13 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   {
     e.preventDefault();
   }
+  /**-- end DRAG HANDLERS --*/
+
+  /** handle az sort button */
+  function azSortHandler():void
+  {
+    props.onGroupSorted?.(sortGroupAlpha(props.images));
+  }
 
   /** render thumbnail items */
   function renderThumbnailItems(images:ImageGroup):JSX.Element[]
@@ -86,7 +98,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       onDrop={handleDrop} onDragOver={handleDOver}
     >
       <h2>{props.images.name}</h2>
-      <div className="title-button">
+      <div className="title-button" onClick={azSortHandler}>
         <img src="assets/temp_az-sort.png"/>
       </div>
     </div>

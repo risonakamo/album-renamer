@@ -52,6 +52,47 @@ export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],gr
     return groups;
 }
 
+/** sort ImageGroup's items with natural name sort */
+export function sortGroupAlpha(group:ImageGroup,reverse:boolean=false):ImageGroup
+{
+    group={
+        ...group,
+        items:_.sortBy(group.items,(x:ImageData2):string=>{
+            return x.name;
+        })
+    };
+
+    if (reverse)
+    {
+        _.reverse(group.items);
+    }
+
+    return group;
+}
+
+/** replace a group with another group in an array of groups by matching name, or add it
+ *  if it didn't exist. */
+export function replaceGroup(group:ImageGroup,groups:ImageGroup[]):ImageGroup[]
+{
+    var added:boolean=false;
+    groups=_.map(groups,(x:ImageGroup):ImageGroup=>{
+        if (x.name==group.name)
+        {
+            added=true;
+            return group;
+        }
+
+        return x;
+    });
+
+    if (!added)
+    {
+        groups.push(group);
+    }
+
+    return groups;
+}
+
 /** given a set of items's paths, removes them from the target group. returns the group with them removed */
 function removeFromGroup(removeItemsPaths:Set<string>,group:ImageGroup):ImageGroup
 {
