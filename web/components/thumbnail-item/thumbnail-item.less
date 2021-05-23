@@ -20,6 +20,7 @@
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
+        position: relative;
 
         img
         {
@@ -39,14 +40,36 @@
             }
         }
 
+        .selected-overlay
+        {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: fade(@selected-colour,20%);
+            outline: 3px dashed @selected-border-colour;
+            outline-offset: -3px;
+            pointer-events: none;
+            opacity: 0;
+
+            p
+            {
+                font-size: 30px;
+            }
+        }
+
         &.selected
         {
-            background-color: fade(@selected-colour,30%);
-            border: 3px dashed @selected-border-colour;
-
             img
             {
-                opacity: .5;
+                opacity: .6;
+            }
+
+            .selected-overlay
+            {
+                opacity: 1;
             }
         }
 

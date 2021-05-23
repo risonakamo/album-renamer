@@ -119,6 +119,9 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     <div className={cx("image-space",imageSpaceClass)}>
       <img src={props.data.path} className={cx(imgElementClasses)}
         ref={imgElement} onLoad={imageLoaded}/>
+      <div className="selected-overlay">
+        <p>12</p>
+      </div>
     </div>
     <div className="title-zone">
       <p>{props.data.name}</p>
