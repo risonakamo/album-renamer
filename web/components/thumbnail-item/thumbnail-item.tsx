@@ -7,6 +7,7 @@ interface ThumbnailItemProps
 {
   data:ImageData2
   selected?:boolean
+  selectionNumber?:number
 
   onSelected?(data:ImageData2):void
   onDeselect?(data:ImageData2):void
@@ -112,6 +113,8 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     "drop-target":isDraggedOver
   };
 
+  const selectionNumber:number=props.selectionNumber || 0;
+
   return <div className="thumbnail-item" onClick={handleClick} onDragStart={dragBegin}
     onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}
     onDragLeave={handleDragLeave} onDragEnd={handleDragEnd}
@@ -120,7 +123,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
       <img src={props.data.path} className={cx(imgElementClasses)}
         ref={imgElement} onLoad={imageLoaded}/>
       <div className="selected-overlay">
-        <p>12</p>
+        <p>{selectionNumber}</p>
       </div>
     </div>
     <div className="title-zone">

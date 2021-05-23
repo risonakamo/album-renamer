@@ -26,12 +26,12 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
 
   const dragEnterCount=useRef<number>(0);
 
-  /** determine if an image data is selected */
-  function isSelected(data:ImageData2):boolean
+  /** determine if an image data is selected. returns the selection number or -1 if not selected */
+  function isSelected(data:ImageData2):number
   {
-    return _.find(props.selectedImages,(x:ImageData2):boolean=>{
+    return _.findIndex(props.selectedImages,(x:ImageData2):boolean=>{
       return x.path==data.path;
-    })!=undefined;
+    })+1;
   }
 
   /** DRAG HANDLERS */
@@ -68,9 +68,12 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   function renderThumbnailItems(images:ImageGroup):JSX.Element[]
   {
     return _.map(images.items,(x:ImageData2,i:number):JSX.Element=>{
+      var selectionIndex:number=isSelected(x);
+
       return <ThumbnailItem data={x} key={i} onSelected={props.onThumbnailSelected}
-        selected={isSelected(x)} onDeselect={props.onThumbnailDeselected}
-        onDropped={props.onThumbnailDrop} onDragStart={props.onThumbnailDragStart}/>;
+        selected={!!selectionIndex} onDeselect={props.onThumbnailDeselected}
+        onDropped={props.onThumbnailDrop} onDragStart={props.onThumbnailDragStart}
+        selectionNumber={selectionIndex}/>;
     });
   }
 

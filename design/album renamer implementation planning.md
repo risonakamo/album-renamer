@@ -8,6 +8,7 @@
 - right click to insert here, for when scrolling far away to insert?
     - or perhaps something at the bottom to represent the selected items, and can just drag that?
 - have recently moved items be some colour for a while before fading away
+- see if can adjust the drag sensitivity, but maybe not, since with explorer it is still pretty sensitive
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~
