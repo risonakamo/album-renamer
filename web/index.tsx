@@ -109,11 +109,11 @@ function IndexMain():JSX.Element
   }
 
   /** add a new group to the state */
-  function doaddGroup(items:ImageData2[]=[]):void
+  function addEmptyGroup():void
   {
     setImageGroups(addGroup(
       "newgroup",
-      items,
+      [],
       theImageGroups
     ));
   }
@@ -131,7 +131,7 @@ function IndexMain():JSX.Element
 
   return <>
     <section className="header-zone top-section">
-      <NewGroupZone onClick={doaddGroup}/>
+      <NewGroupZone onClick={addEmptyGroup}/>
     </section>
 
     <section className="image-zone top-section">

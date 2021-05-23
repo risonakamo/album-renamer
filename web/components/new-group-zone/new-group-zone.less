@@ -1,3 +1,6 @@
+@import (reference) "~css/drop-target";
+
+// tempcolour
 @hover-border-colour: white;
 
 .new-group-zone
@@ -14,5 +17,10 @@
     {
         outline: 2px dashed fade(@hover-border-colour,45%);
         outline-offset: -2px;
+    }
+
+    &.drop-target
+    {
+        .drop-target-border();
     }
 }
