@@ -125,6 +125,9 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
       <div className="selected-overlay">
         <p>{selectionNumber}</p>
       </div>
+      <div className="drop-overlay">
+        <img src="assets/temp_drop-arrow.png"/>
+      </div>
     </div>
     <div className="title-zone">
       <p>{props.data.name}</p>

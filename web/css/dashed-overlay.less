@@ -1,0 +1,14 @@
+// makes an element an overlay element with a dashed border.
+.dashed-overlay(@background,@border-colour)
+{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: @background;
+    outline: 3px dashed @border-colour;
+    outline-offset: -3px;
+    pointer-events: none;
+}

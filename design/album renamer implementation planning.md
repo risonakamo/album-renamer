@@ -10,6 +10,9 @@
 - have recently moved items be some colour for a while before fading away
 - see if can adjust the drag sensitivity, but maybe not, since with explorer it is still pretty sensitive
 - have status area show number selected
+- padding for group titles seems tight
+- when making the real drop arrow, make it pretty visible since the dragged ghost image kind of obscures it
+- drop arrow when dragging over group title
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~
