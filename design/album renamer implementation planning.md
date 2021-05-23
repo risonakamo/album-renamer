@@ -16,6 +16,9 @@
 - different icons for az sort state
 - use natural sort for group az sort
 - az sort should toggle between reverse and not reverse until a movement has been made, where it should do non reverse first
+- things break when dragging incorrect things and dropping them
+- preload the group name
+    - group name is editable but needs to be set from props at least when it is first created
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~

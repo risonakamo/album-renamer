@@ -11,7 +11,10 @@ function mainWindow():void
 {
     new BrowserWindow({
         width:1520,
-        height:890
+        height:890,
+        webPreferences:{
+            spellcheck:false
+        }
     }).loadFile("web/index.html");
 }
 

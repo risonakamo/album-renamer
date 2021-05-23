@@ -97,7 +97,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     <div className={cx("title-area",titleAreaClass)} onDragEnter={handleDEnter} onDragLeave={handleDLeave}
       onDrop={handleDrop} onDragOver={handleDOver}
     >
-      <h2>{props.images.name}</h2>
+      <h2 contentEditable={true} suppressContentEditableWarning={true}>asdasd</h2>
       <div className="title-button" onClick={azSortHandler}>
         <img src="assets/temp_az-sort.png"/>
       </div>
