@@ -86,6 +86,9 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       onDrop={handleDrop} onDragOver={handleDOver}
     >
       <h2>{props.images.name}</h2>
+      <div className="title-button">
+        <img src="assets/temp_az-sort.png"/>
+      </div>
     </div>
     <div className="thumbnail-area">
       {renderThumbnailItems(props.images)}

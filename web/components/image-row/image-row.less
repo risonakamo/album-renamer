@@ -5,10 +5,30 @@
     .title-area
     {
         height: 35px;
-        padding: 4px 18px 4px 18px;
         box-sizing: border-box;
         margin-bottom: 8px;
         box-sizing: border-box;
+
+        h2
+        {
+            display: inline-block;
+            vertical-align: top;
+            padding: 2px 5px 4px 20px;
+        }
+
+        .title-button
+        {
+            display: inline-block;
+            height: 100%;
+            width: 45px;
+            cursor: pointer;
+            opacity: .5;
+
+            &:hover
+            {
+                opacity: 1;
+            }
+        }
 
         &.drop-target
         {
