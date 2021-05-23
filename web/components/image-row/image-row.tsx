@@ -10,7 +10,7 @@ import "./image-row.less";
 
 interface ImageRowProps
 {
-  images:ImageGroup
+  imagegroup:ImageGroup
   selectedImages:ImageData2[]
 
   onThumbnailSelected?(data:ImageData2):void
@@ -58,7 +58,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
 
   function handleDrop():void
   {
-    props.onGroupDrop?.(props.images);
+    props.onGroupDrop?.(props.imagegroup);
 
     setDraggedOver(false);
     dragEnterCount.current=0;
@@ -73,7 +73,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   /** handle az sort button */
   function azSortHandler():void
   {
-    props.onGroupSorted?.(sortGroupAlpha(props.images));
+    props.onGroupSorted?.(sortGroupAlpha(props.imagegroup));
   }
 
   /** render thumbnail items */
@@ -103,7 +103,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       </div>
     </div>
     <div className="thumbnail-area">
-      {renderThumbnailItems(props.images)}
+      {renderThumbnailItems(props.imagegroup)}
     </div>
   </div>;
 }

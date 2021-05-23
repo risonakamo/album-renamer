@@ -109,7 +109,7 @@ function IndexMain():JSX.Element
   function renderImageRows():JSX.Element[]
   {
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
-      return <ImageRow images={x} onThumbnailSelected={addSelectedImage}
+      return <ImageRow imagegroup={x} onThumbnailSelected={addSelectedImage}
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
         key={i} onThumbnailDrop={moveItemsToDropTarget} onThumbnailDragStart={thumbnailDragBegin}
         onGroupDrop={moveItemsToDropGroup} onGroupSorted={doReplaceGroup}/>;
