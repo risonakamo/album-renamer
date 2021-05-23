@@ -5,7 +5,7 @@ import _ from "lodash";
 import ImageRow from "components/image-row/image-row";
 import NewGroupZone from "components/new-group-zone/new-group-zone";
 
-import {dropAtTarget,dropAtTargetGroup,replaceGroup} from "lib/image-group-helpers";
+import {dropAtTarget,dropAtTargetGroup,replaceGroup,addGroup} from "lib/image-group-helpers";
 
 import "./index.less";
 
@@ -17,7 +17,8 @@ const sampleData3:ImageGroup[]=[
       {path:"../sampleimages/1.png",name:"1.png"},
       {path:"../sampleimages/4.jpg",name:"4.png"},
       {path:"../sampleimages/6.png",name:"6.png"},
-    ]
+    ],
+    key:1
   },
   {
     name:"group22",
@@ -27,7 +28,8 @@ const sampleData3:ImageGroup[]=[
       {path:"../sampleimages/7.png",name:"7.png"},
       {path:"../sampleimages/5.jpg",name:"5.png"},
       {path:"../sampleimages/9.jpg",name:"9.png"},
-    ]
+    ],
+    key:2
   }
 ];
 
@@ -107,15 +109,13 @@ function IndexMain():JSX.Element
   }
 
   /** add a new group to the state */
-  function addGroup(items:ImageData2[]=[]):void
+  function doaddGroup(items:ImageData2[]=[]):void
   {
-    setImageGroups([
-      ...theImageGroups,
-      {
-        name:"new group",
-        items
-      }
-    ]);
+    setImageGroups(addGroup(
+      "newgroup",
+      items,
+      theImageGroups
+    ));
   }
 
   /** render image rows */
@@ -131,7 +131,7 @@ function IndexMain():JSX.Element
 
   return <>
     <section className="header-zone top-section">
-      <NewGroupZone onClick={addGroup}/>
+      <NewGroupZone onClick={doaddGroup}/>
     </section>
 
     <section className="image-zone top-section">

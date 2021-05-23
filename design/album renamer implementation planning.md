@@ -22,6 +22,8 @@
 - do some animations/transitions for css
 - some sort of response for hovering over thumbnails
     - maybe fade them out a little and make it bluish?
+- remove button for group
+- make title area taller so easier to drag things into
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~

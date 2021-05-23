@@ -28,7 +28,7 @@ export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],gr
 
     var insertedIntoGroup:boolean=false;
     groups=_.map(groups,(x:ImageGroup):ImageGroup=>{
-        if (x.name!=dropgroup.name)
+        if (x.key!=dropgroup.key)
         {
             return x;
         }
@@ -40,13 +40,7 @@ export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],gr
     // if failed to insert into a group, add a new group
     if (!insertedIntoGroup)
     {
-        groups=[
-            ...groups,
-            {
-                name:"newgroup",
-                items:moveItems
-            }
-        ];
+        groups=addGroup("newgroup",moveItems,groups);
     }
 
     return groups;
@@ -76,7 +70,7 @@ export function replaceGroup(group:ImageGroup,groups:ImageGroup[]):ImageGroup[]
 {
     var added:boolean=false;
     groups=_.map(groups,(x:ImageGroup):ImageGroup=>{
-        if (x.name==group.name)
+        if (x.key==group.key)
         {
             added=true;
             return group;
@@ -91,6 +85,29 @@ export function replaceGroup(group:ImageGroup,groups:ImageGroup[]):ImageGroup[]
     }
 
     return groups;
+}
+
+/** add a new group to the array of groups */
+export function addGroup(name:string,items:ImageData2[],groups:ImageGroup[]):ImageGroup[]
+{
+    var maxgroup:ImageGroup|undefined=_.maxBy(groups,(x:ImageGroup):number=>{
+        return x.key;
+    });
+
+    var maxkey:number=0;
+    if (maxgroup)
+    {
+        maxkey=maxgroup.key+1;
+    }
+
+    return [
+        ...groups,
+        {
+            name,
+            items,
+            key:maxkey
+        }
+    ];
 }
 
 /** given a set of items's paths, removes them from the target group. returns the group with them removed */

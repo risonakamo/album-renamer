@@ -10,4 +10,5 @@ interface ImageGroup
 {
     name:string
     items:ImageData2[]
+    key:number
 }
