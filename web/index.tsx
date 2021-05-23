@@ -12,20 +12,20 @@ const sampleData3:ImageGroup[]=[
   {
     name:"group1",
     items:[
-      {path:"../sampleimages/2.png",name:"2.png"},
+      {path:"../sampleimages/2.png",name:"1.png"},
       {path:"../sampleimages/1.png",name:"2.png"},
-      {path:"../sampleimages/4.jpg",name:"2.png"},
-      {path:"../sampleimages/6.png",name:"2.png"},
+      {path:"../sampleimages/4.jpg",name:"3.png"},
+      {path:"../sampleimages/6.png",name:"4.png"},
     ]
   },
   {
     name:"group22",
     items:[
-      {path:"../sampleimages/8.png",name:"2.png"},
-      {path:"../sampleimages/3.png",name:"2.png"},
-      {path:"../sampleimages/7.png",name:"2.png"},
-      {path:"../sampleimages/5.jpg",name:"2.png"},
-      {path:"../sampleimages/9.jpg",name:"2.png"},
+      {path:"../sampleimages/8.png",name:"6.png"},
+      {path:"../sampleimages/3.png",name:"8.png"},
+      {path:"../sampleimages/7.png",name:"9.png"},
+      {path:"../sampleimages/5.jpg",name:"10.png"},
+      {path:"../sampleimages/9.jpg",name:"11.png"},
     ]
   }
 ];

@@ -9,6 +9,7 @@
     - or perhaps something at the bottom to represent the selected items, and can just drag that?
 - have recently moved items be some colour for a while before fading away
 - see if can adjust the drag sensitivity, but maybe not, since with explorer it is still pretty sensitive
+- have status area show number selected
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~
@@ -16,6 +17,7 @@
 - ~~should it allow dragging onto itself? or should that just cancel the operation so nothing happens?~~
     - currently will do nothing if dragged into itself
 - maybe in the future disallow dragging into a selected item. possibly a rare use case, just have to see how it is used
+- maybe dragging onto itself should select/deselect?
 
 # next steps (TRACKED WITH ISSUES)
 - dropping into a group
