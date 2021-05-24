@@ -1,4 +1,5 @@
 # to implement later
+## 1
 - ellipsis in the middle of text instead of at the end
     - will need to do some manual logic. right now using the css's default text overflow
 - more styled scrollbar with larger width
@@ -9,25 +10,23 @@
     - or perhaps something at the bottom to represent the selected items, and can just drag that?
 - have recently moved items be some colour for a while before fading away
 - see if can adjust the drag sensitivity, but maybe not, since with explorer it is still pretty sensitive
-- have status area show number selected
-- padding for group titles seems tight
 - when making the real drop arrow, make it pretty visible since the dragged ghost image kind of obscures it
-- drop arrow when dragging over group title
-- different icons for az sort state
+
+## 2
+- fix some slight flashing when reordering
+- deselect button instead of just keyboard key
+
+## 3
+- remove button for group
 - use natural sort for group az sort
-- az sort should toggle between reverse and not reverse until a movement has been made, where it should do non reverse first
-- things break when dragging incorrect things and dropping them
-- preload the group name
-    - group name is editable but needs to be set from props at least when it is first created
 - do some animations/transitions for css
 - some sort of response for hovering over thumbnails
     - maybe fade them out a little and make it bluish?
-- remove button for group
-- make title area taller so easier to drag things into
-- move image group state manipulation into custom hook or use redux
-- fix some slight flashing when reordering
-- deselect button instead of just keyboard key
-- increase spacing between image rows
+
+## 4
+- drop arrow when dragging over group title
+- az sort should toggle between reverse and not reverse until a movement has been made, where it should do non reverse first
+    - different icons for az sort state
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~
@@ -37,7 +36,7 @@
 - maybe in the future disallow dragging into a selected item. possibly a rare use case, just have to see how it is used
 - maybe dragging onto itself should select/deselect?
 
-# next steps (TRACKED WITH ISSUES)
+# ~~next steps~~ (COMPLETE) (TRACKED WITH ISSUES)
 - dropping into a group
 - dropping to make a new group
 - have drag arrow appear on drop target
@@ -49,3 +48,14 @@
     - esc on keyboard
 - group needs to have some sort of key since name can now be changed
 - drag into area to create group from dragged items
+
+# next steps 2 (TRACKING WITH ISSUES)
+- make title area taller so easier to drag things into
+    - padding for group titles seems tight
+- move image group state manipulation into custom hook or use redux
+- increase spacing between image rows
+- preload the group name
+    - group name is editable but needs to be set from props at least when it is first created
+- things break when dragging incorrect things and dropping them
+- make status area
+    - have status area show number selected
