@@ -115,7 +115,23 @@ function IndexMain():JSX.Element
       "newgroup",
       [],
       theImageGroups
-    ));
+    ).groups);
+  }
+
+  /** add a new group and move the currently selected items into that group */
+  function addGroupWithSelectItems():void
+  {
+    var newgroup:ImageGroup;
+    var newgroups:ImageGroup[];
+    var {newgroup,groups:newgroups}=addGroup(
+      "newgroup",
+      theSelectedImages,
+      theImageGroups
+    );
+
+    setImageGroups(newgroups);
+
+    moveItemsToDropGroup(newgroup);
   }
 
   /** render image rows */
@@ -131,7 +147,7 @@ function IndexMain():JSX.Element
 
   return <>
     <section className="header-zone top-section">
-      <NewGroupZone onClick={addEmptyGroup}/>
+      <NewGroupZone onClick={addEmptyGroup} onDrop={addGroupWithSelectItems}/>
     </section>
 
     <section className="image-zone top-section">

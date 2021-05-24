@@ -7,6 +7,12 @@ interface RemoveTargetsResult
     droppointSelected:boolean
 }
 
+interface AddGroupResult
+{
+    newgroup:ImageGroup
+    groups:ImageGroup[]
+}
+
 /** given an ordered array of ImageData to move and a single ImageData, attempts to move all selected
  *  items to the position after the selected ImageData. if the drop point image data is one of the
  *  ImageDatas queued to be moved, it will be moved as well. returns new ImageGroup array with the move */
@@ -40,7 +46,7 @@ export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],gr
     // if failed to insert into a group, add a new group
     if (!insertedIntoGroup)
     {
-        groups=addGroup("newgroup",moveItems,groups);
+        var {newgroup,groups}=addGroup("newgroup",moveItems,groups);
     }
 
     return groups;
@@ -88,7 +94,7 @@ export function replaceGroup(group:ImageGroup,groups:ImageGroup[]):ImageGroup[]
 }
 
 /** add a new group to the array of groups */
-export function addGroup(name:string,items:ImageData2[],groups:ImageGroup[]):ImageGroup[]
+export function addGroup(name:string,items:ImageData2[],groups:ImageGroup[]):AddGroupResult
 {
     var maxgroup:ImageGroup|undefined=_.maxBy(groups,(x:ImageGroup):number=>{
         return x.key;
@@ -100,14 +106,19 @@ export function addGroup(name:string,items:ImageData2[],groups:ImageGroup[]):Ima
         maxkey=maxgroup.key+1;
     }
 
-    return [
-        ...groups,
-        {
-            name,
-            items,
-            key:maxkey
-        }
-    ];
+    var newgroup:ImageGroup={
+        name,
+        items,
+        key:maxkey
+    };
+
+    return {
+        newgroup,
+        groups:[
+            ...groups,
+            newgroup
+        ]
+    };
 }
 
 /** given a set of items's paths, removes them from the target group. returns the group with them removed */
