@@ -26,6 +26,8 @@
 - make title area taller so easier to drag things into
 - move image group state manipulation into custom hook or use redux
 - fix some slight flashing when reordering
+- deselect button instead of just keyboard key
+- increase spacing between image rows
 
 # things to decide
 - ~~what to do if dragged an item that was not selected while a selection is going on~~

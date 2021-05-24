@@ -1,4 +1,4 @@
-import React,{useState,useRef} from "react";
+import React,{useState,useRef,useEffect} from "react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
 
@@ -38,8 +38,20 @@ function IndexMain():JSX.Element
   const [theSelectedImages,setSelectedImages]=useState<ImageData2[]>([]);
   const [theImageGroups,setImageGroups]=useState<ImageGroup[]>(sampleData3);
 
+  /** the current item being dragged */
   const currentDragItem=useRef<ImageData2|null>(null);
+  /** if the current item being dragged is also selected */
   const currentDragItemSelected=useRef<boolean>(false);
+
+  /** key handlers */
+  useEffect(()=>{
+    document.addEventListener("keydown",(e:KeyboardEvent):void=>{
+      if (e.key=="Escape")
+      {
+        deselectAll();
+      }
+    });
+  },[]);
 
   /** add an image as another selected image */
   function addSelectedImage(imagedata:ImageData2):void
@@ -132,6 +144,12 @@ function IndexMain():JSX.Element
     setImageGroups(newgroups);
 
     moveItemsToDropGroup(newgroup);
+  }
+
+  /** clear selected images */
+  function deselectAll():void
+  {
+    setSelectedImages([]);
   }
 
   /** render image rows */
