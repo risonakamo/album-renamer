@@ -62,7 +62,8 @@ module.exports={
         alias:{
             components:`${__dirname}/web/components`,
             css:`${__dirname}/web/css`,
-            lib:`${__dirname}/lib`
+            lib:`${__dirname}/lib`,
+            hooks:`${__dirname}/web/hooks`
         }
     },
 

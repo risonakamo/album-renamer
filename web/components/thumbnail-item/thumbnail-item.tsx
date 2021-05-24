@@ -1,6 +1,8 @@
 import React,{useRef,useState} from "react";
 import cx from "classnames";
 
+import {useDraggedOver} from "hooks/useDraggedOver";
+
 import "./thumbnail-item.less";
 
 interface ThumbnailItemProps
@@ -18,9 +20,8 @@ interface ThumbnailItemProps
 export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
 {
   const [isWideFit,setWideFit]=useState<boolean>(false);
-  const [isDraggedOver,setDraggedOver]=useState<boolean>(false);
+  const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver();
 
-  const dragEnterCount=useRef<number>(0);
   const dragActive=useRef<boolean>(false);
 
   const imgElement=useRef<HTMLImageElement>(null);
@@ -69,6 +70,8 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
 
   function handleDrop():void
   {
+    useDraggedOverHandlers.handleDrop();
+
     // cancel if dropped on itself
     if (!dragActive.current)
     {
@@ -76,25 +79,12 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     }
 
     dragActive.current=false;
-
-    setDraggedOver(false);
-    dragEnterCount.current=0;
   }
 
   function handleDragEnter(e:React.DragEvent):void
   {
     e.preventDefault();
-    setDraggedOver(true);
-    dragEnterCount.current++;
-  }
-
-  function handleDragLeave(e:React.DragEvent):void
-  {
-    dragEnterCount.current--;
-    if (!dragEnterCount.current)
-    {
-      setDraggedOver(false);
-    }
+    useDraggedOverHandlers.handleDragEnter();
   }
 
   function handleDragOver(e:React.DragEvent):void
@@ -117,7 +107,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
 
   return <div className="thumbnail-item" onClick={handleClick} onDragStart={dragBegin}
     onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}
-    onDragLeave={handleDragLeave} onDragEnd={handleDragEnd}
+    onDragLeave={useDraggedOverHandlers.handleDragLeave} onDragEnd={handleDragEnd}
   >
     <div className={cx("image-space",imageSpaceClass)}>
       <img src={props.data.path} className={cx(imgElementClasses)}

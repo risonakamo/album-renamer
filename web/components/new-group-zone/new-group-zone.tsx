@@ -1,5 +1,7 @@
-import React,{useState,useRef} from "react";
+import React from "react";
 import cx from "classnames";
+
+import {useDraggedOver} from "hooks/useDraggedOver";
 
 import "./new-group-zone.less";
 
@@ -11,9 +13,7 @@ interface NewGroupZoneProps
 
 export default function NewGroupZone(props:NewGroupZoneProps):JSX.Element
 {
-  const [isDraggedOver,setDraggedOver]=useState<boolean>(false);
-
-  const dragEnterCount=useRef<number>(0);
+  const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver();
 
   /** just call on click */
   function handleClick():void
@@ -24,9 +24,8 @@ export default function NewGroupZone(props:NewGroupZoneProps):JSX.Element
   /**-- DRAG HANDLERS --*/
   function handleDrop(e:React.DragEvent):void
   {
+    useDraggedOverHandlers.handleDrop();
     props.onDrop?.();
-    setDraggedOver(false);
-    dragEnterCount.current=0;
   }
 
   function handleDOver(e:React.DragEvent):void
@@ -36,18 +35,8 @@ export default function NewGroupZone(props:NewGroupZoneProps):JSX.Element
 
   function handleDEnter(e:React.DragEvent):void
   {
+    useDraggedOverHandlers.handleDragEnter();
     e.preventDefault();
-    setDraggedOver(true);
-    dragEnterCount.current++;
-  }
-
-  function handleDLeave(e:React.DragEvent):void
-  {
-    dragEnterCount.current--;
-    if (!dragEnterCount.current)
-    {
-      setDraggedOver(false);
-    }
   }
 
   const groupZoneClasses={
@@ -55,7 +44,7 @@ export default function NewGroupZone(props:NewGroupZoneProps):JSX.Element
   };
 
   return <div className={cx("new-group-zone",groupZoneClasses)} onClick={handleClick} onDrop={handleDrop}
-    onDragOver={handleDOver} onDragEnter={handleDEnter} onDragLeave={handleDLeave}
+    onDragOver={handleDOver} onDragEnter={handleDEnter} onDragLeave={useDraggedOverHandlers.handleDragLeave}
   >
     <h1>+ new group</h1>
   </div>;

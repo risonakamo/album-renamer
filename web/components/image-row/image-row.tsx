@@ -5,6 +5,7 @@ import cx from "classnames";
 import ThumbnailItem from "components/thumbnail-item/thumbnail-item";
 
 import {sortGroupAlpha} from "lib/image-group-helpers";
+import {useDraggedOver} from "hooks/useDraggedOver";
 
 import "./image-row.less";
 
@@ -27,9 +28,7 @@ interface ImageRowProps
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
 {
-  const [isDraggedOver,setDraggedOver]=useState<boolean>(false);
-
-  const dragEnterCount=useRef<number>(0);
+  const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver();
 
   /** determine if an image data is selected. returns the selection number or -1 if not selected */
   function isSelected(data:ImageData2):number
@@ -42,26 +41,14 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   /**-- DRAG HANDLERS --*/
   function handleDEnter(e:React.DragEvent):void
   {
+    useDraggedOverHandlers.handleDragEnter();
     e.preventDefault();
-    setDraggedOver(true);
-    dragEnterCount.current++;
-  }
-
-  function handleDLeave():void
-  {
-    dragEnterCount.current--;
-    if (!dragEnterCount.current)
-    {
-      setDraggedOver(false);
-    }
   }
 
   function handleDrop():void
   {
+    useDraggedOverHandlers.handleDrop();
     props.onGroupDrop?.(props.imagegroup);
-
-    setDraggedOver(false);
-    dragEnterCount.current=0;
   }
 
   function handleDOver(e:React.DragEvent):void
@@ -94,7 +81,8 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   };
 
   return <div className="image-row">
-    <div className={cx("title-area",titleAreaClass)} onDragEnter={handleDEnter} onDragLeave={handleDLeave}
+    <div className={cx("title-area",titleAreaClass)} onDragEnter={handleDEnter}
+      onDragLeave={useDraggedOverHandlers.handleDragLeave}
       onDrop={handleDrop} onDragOver={handleDOver}
     >
       <h2 contentEditable={true} suppressContentEditableWarning={true}>asdasd</h2>
