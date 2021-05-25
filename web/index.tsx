@@ -1,11 +1,13 @@
 import React,{useState,useRef,useEffect} from "react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
+import {Provider,useSelector} from "react-redux";
 
 import ImageRow from "components/image-row/image-row";
 import NewGroupZone from "components/new-group-zone/new-group-zone";
 
 import {dropAtTarget,dropAtTargetGroup,replaceGroup,addGroup} from "lib/image-group-helpers";
+import thestore from "store/store";
 
 import "./index.less";
 
@@ -37,6 +39,9 @@ function IndexMain():JSX.Element
 {
   const [theSelectedImages,setSelectedImages]=useState<ImageData2[]>([]);
   const [theImageGroups,setImageGroups]=useState<ImageGroup[]>(sampleData3);
+
+  const theImageGroups2=useSelector<TheStore,ImageGroup[]>(s=>s.imageGroups);
+  const theSelectedImages2=useSelector<TheStore,ImageData2[]>(s=>s.selectedImages);
 
   /** the current item being dragged */
   const currentDragItem=useRef<ImageData2|null>(null);
@@ -180,7 +185,7 @@ function IndexMain():JSX.Element
 
 function main()
 {
-  ReactDOM.render(<IndexMain/>,document.querySelector(".main"));
+  ReactDOM.render(<Provider store={thestore}><IndexMain/></Provider>,document.querySelector(".main"));
 }
 
 window.onload=main;

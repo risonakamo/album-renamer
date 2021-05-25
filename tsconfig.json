@@ -9,7 +9,8 @@
         "moduleResolution":"node",
         "paths":{
             "components/*":["web/components/*"],
-            "hooks/*":["web/hooks/*"]
+            "hooks/*":["web/hooks/*"],
+            "store/*":["web/store/*"]
         }
     },
     "include":[
