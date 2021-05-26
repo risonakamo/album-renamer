@@ -46,7 +46,7 @@ export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],gr
     // if failed to insert into a group, add a new group
     if (!insertedIntoGroup)
     {
-        var {newgroup,groups}=addGroup("newgroup",moveItems,groups);
+        var {newgroup,groups}=addGroup(moveItems,groups);
     }
 
     return groups;
@@ -93,8 +93,9 @@ export function replaceGroup(group:ImageGroup,groups:ImageGroup[]):ImageGroup[]
     return groups;
 }
 
-/** add a new group to the array of groups */
-export function addGroup(name:string,items:ImageData2[],groups:ImageGroup[]):AddGroupResult
+/** add a new group to the array of groups. auto generates a name based on the max key encountered
+ *  currently */
+export function addGroup(items:ImageData2[],groups:ImageGroup[]):AddGroupResult
 {
     var maxgroup:ImageGroup|undefined=_.maxBy(groups,(x:ImageGroup):number=>{
         return x.key;
@@ -107,7 +108,7 @@ export function addGroup(name:string,items:ImageData2[],groups:ImageGroup[]):Add
     }
 
     var newgroup:ImageGroup={
-        name,
+        name:`group${maxkey}`,
         items,
         key:maxkey
     };

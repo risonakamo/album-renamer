@@ -33,13 +33,13 @@ const imageGroupsReducer=createReducer<ImageGroup[]>([],(b)=>{
     });
 
     b.addCase(AddEmptyGroup,(state,act)=>{
-        return addGroup("newgroup",[],state).groups;
+        return addGroup([],state).groups;
     });
 
     b.addCase(AddGroupWithItems,(state,act)=>{
         var newgroup:ImageGroup;
         var groups:ImageGroup[];
-        var {newgroup,groups}=addGroup("newgroup",act.payload,state);
+        var {newgroup,groups}=addGroup(act.payload,state);
 
         return dropAtTargetGroup(newgroup,act.payload,groups);
     });

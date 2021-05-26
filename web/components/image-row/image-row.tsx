@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import _ from "lodash";
 import cx from "classnames";
 
@@ -29,6 +29,12 @@ interface ImageRowProps
 export default function ImageRow(props:ImageRowProps):JSX.Element
 {
   const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver();
+  const [initGroupName,setInitGroupName]=useState<string>("");
+
+  // initialise group name
+  useEffect(()=>{
+    setInitGroupName(props.imagegroup.name);
+  },[props.imagegroup.name]);
 
   /** determine if an image data is selected. returns the selection number or -1 if not selected */
   function isSelected(data:ImageData2):number
@@ -85,7 +91,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       onDragLeave={useDraggedOverHandlers.handleDragLeave}
       onDrop={handleDrop} onDragOver={handleDOver}
     >
-      <h2 contentEditable={true} suppressContentEditableWarning={true}>asdasd</h2>
+      <h2 contentEditable={true} suppressContentEditableWarning={true}>{initGroupName}</h2>
       <div className="title-button" onClick={azSortHandler}>
         <img src="assets/temp_az-sort.png"/>
       </div>

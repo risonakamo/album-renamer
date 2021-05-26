@@ -129,7 +129,6 @@ function IndexMain():JSX.Element
   function addEmptyGroup():void
   {
     setImageGroups(addGroup(
-      "newgroup",
       [],
       theImageGroups
     ).groups);
@@ -141,7 +140,6 @@ function IndexMain():JSX.Element
     var newgroup:ImageGroup;
     var newgroups:ImageGroup[];
     var {newgroup,groups:newgroups}=addGroup(
-      "newgroup",
       theSelectedImages,
       theImageGroups
     );
