@@ -6,7 +6,8 @@ import {Provider,useSelector} from "react-redux";
 import ImageRow from "components/image-row/image-row";
 import NewGroupZone from "components/new-group-zone/new-group-zone";
 
-import {dropAtTarget,dropAtTargetGroup,replaceGroup,addGroup} from "lib/image-group-helpers";
+import {dropAtTarget,dropAtTargetGroup,replaceGroup,
+  addGroup,getImageCount} from "lib/image-group-helpers";
 import thestore from "store/store";
 
 import "./index.less";
@@ -166,6 +167,22 @@ function IndexMain():JSX.Element
     });
   }
 
+  function renderFootText():JSX.Element
+  {
+    const groupCount:number=theImageGroups.length;
+    const selectedCount:number=theSelectedImages.length;
+    const imageCount:number=getImageCount(theImageGroups);
+
+    var selectedCountText:string="";
+    if (selectedCount>0)
+    {
+      selectedCountText=`, ${selectedCount} selected`;
+    }
+
+    return <p>{`${imageCount} images, ${groupCount} groups${selectedCountText}`}</p>
+  }
+
+
   return <>
     <section className="header-zone top-section">
       <NewGroupZone onClick={addEmptyGroup} onDrop={addGroupWithSelectItems}/>
@@ -176,7 +193,7 @@ function IndexMain():JSX.Element
     </section>
 
     <footer className="footer-zone top-section">
-
+      {renderFootText()}
     </footer>
   </>;
 }

@@ -122,6 +122,14 @@ export function addGroup(items:ImageData2[],groups:ImageGroup[]):AddGroupResult
     };
 }
 
+/** get number of images within groups */
+export function getImageCount(groups:ImageGroup[]):number
+{
+    return _.sumBy(groups,(x:ImageGroup):number=>{
+        return x.items.length;
+    });
+}
+
 /** given a set of items's paths, removes them from the target group. returns the group with them removed */
 function removeFromGroup(removeItemsPaths:Set<string>,group:ImageGroup):ImageGroup
 {
