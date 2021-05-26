@@ -79,6 +79,12 @@ function IndexMain():JSX.Element
   /** perform move operation to the given target, modifying the image groups */
   function moveItemsToDropTarget(dropitem:ImageData2):void
   {
+    if (!currentDragItem.current)
+    {
+      console.log("invalid drag item");
+      return;
+    }
+
     // if the item being dragged is selected
     if (currentDragItemSelected.current)
     {
@@ -98,6 +104,12 @@ function IndexMain():JSX.Element
   /** move operation into a target group */
   function moveItemsToDropGroup(group:ImageGroup):void
   {
+    if (!currentDragItem.current)
+    {
+      console.log("invalid drag item");
+      return;
+    }
+
     if (currentDragItemSelected.current)
     {
       setImageGroups(dropAtTargetGroup(group,theSelectedImages,theImageGroups));
