@@ -28,7 +28,7 @@ so deciding to go with implementation case 2 for now:
 - drag into the general area of an image group to append to the end of the image group
 - drag into the new group area to create a new group
 
-# todos
+# ~~todos~~ (moved to todos)
 - border around image group when dragging over files
     - normal drag borders should not appear
 - drag items into new group zone to create new group with items
