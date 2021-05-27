@@ -1,11 +1,13 @@
 import React,{useEffect,useState} from "react";
 import _ from "lodash";
 import cx from "classnames";
+import {Event} from "electron";
 
 import ThumbnailItem from "components/thumbnail-item/thumbnail-item";
 
 import {sortGroupAlpha} from "lib/image-group-helpers";
 import {useDraggedOver} from "hooks/useDraggedOver";
+import {imageDataFromFileList} from "lib/file-handlers";
 
 import "./image-row.less";
 
@@ -24,6 +26,8 @@ interface ImageRowProps
 
   /** group was sorted. returns group that is sorted. */
   onGroupSorted?(group:ImageGroup):void
+
+  onDropNewImages?(data:ImageData2[],group:ImageGroup):void
 }
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
@@ -51,10 +55,13 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     e.preventDefault();
   }
 
-  function handleDrop():void
+  function handleDrop(e:React.DragEvent):void
   {
     useDraggedOverHandlers.handleDrop();
-    props.onGroupDrop?.(props.imagegroup);
+    if (!e.dataTransfer.files.length)
+    {
+      props.onGroupDrop?.(props.imagegroup);
+    }
   }
 
   function handleDOver(e:React.DragEvent):void
@@ -62,6 +69,26 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     e.preventDefault();
   }
   /**-- end DRAG HANDLERS --*/
+
+  /**-- drag handlers 2 --*/
+  function handleTopDrop(e:React.DragEvent):void
+  {
+    if (e.dataTransfer.files.length)
+    {
+      props.onDropNewImages?.(imageDataFromFileList(e.dataTransfer.files),props.imagegroup);
+    }
+  }
+
+  function handleTopDOver(e:React.DragEvent):void
+  {
+    e.preventDefault();
+  }
+
+  function handleTopDEnter(e:React.DragEvent):void
+  {
+    e.preventDefault();
+  }
+  /**-- end drag handlers 2 --*/
 
   /** handle az sort button */
   function azSortHandler():void
@@ -86,7 +113,9 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     "drop-target":isDraggedOver
   };
 
-  return <div className="image-row">
+  return <div className="image-row" onDrop={handleTopDrop} onDragEnter={handleTopDEnter}
+    onDragOver={handleTopDOver}
+  >
     <div className={cx("title-area",titleAreaClass)} onDragEnter={handleDEnter}
       onDragLeave={useDraggedOverHandlers.handleDragLeave}
       onDrop={handleDrop} onDragOver={handleDOver}

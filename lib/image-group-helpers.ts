@@ -28,7 +28,8 @@ export function dropAtTarget(droppoint:ImageData2,moveItems:ImageData2[],groups:
 
 /** drop items into a group which may or may not exist. items to be dropped appear at the front
  *  of the group */
-export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],groups:ImageGroup[]):ImageGroup[]
+export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],
+    groups:ImageGroup[],back:boolean=false):ImageGroup[]
 {
     var {groups}=removeTargets(null,moveItems,groups);
 
@@ -40,7 +41,7 @@ export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],gr
         }
 
         insertedIntoGroup=true;
-        return insertIntoGroupFront(moveItems,x);
+        return insertIntoGroupFront(moveItems,x,back);
     });
 
     // if failed to insert into a group, add a new group
@@ -202,14 +203,28 @@ function removeTargets(droppoint:ImageData2|null,moveItems:ImageData2[],groups:I
     };
 }
 
-/** insert items into front of group */
-function insertIntoGroupFront(items:ImageData2[],group:ImageGroup):ImageGroup
+/** insert items into front of group (or not) */
+function insertIntoGroupFront(items:ImageData2[],group:ImageGroup,back:boolean=false):ImageGroup
 {
-    return {
-        ...group,
-        items:[
-            ...items,
-            ...group.items
-        ]
-    };
+    if (!back)
+    {
+        return {
+            ...group,
+            items:[
+                ...items,
+                ...group.items
+            ]
+        };
+    }
+
+    else
+    {
+        return {
+            ...group,
+            items:[
+                ...group.items,
+                ...items
+            ]
+        };
+    }
 }

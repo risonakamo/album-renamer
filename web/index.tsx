@@ -125,6 +125,12 @@ function IndexMain():JSX.Element
     currentDragItemSelected.current=false;
   }
 
+  /** move target items into a group */
+  function moveNewItemsToDropGroup(images:ImageData2[],group:ImageGroup):void
+  {
+    setImageGroups(dropAtTargetGroup(group,images,theImageGroups,true));
+  }
+
   /** update groups with a replacement group */
   function doReplaceGroup(group:ImageGroup):void
   {
@@ -175,7 +181,8 @@ function IndexMain():JSX.Element
       return <ImageRow imagegroup={x} onThumbnailSelected={addSelectedImage}
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
         key={i} onThumbnailDrop={moveItemsToDropTarget} onThumbnailDragStart={thumbnailDragBegin}
-        onGroupDrop={moveItemsToDropGroup} onGroupSorted={doReplaceGroup}/>;
+        onGroupDrop={moveItemsToDropGroup} onGroupSorted={doReplaceGroup}
+        onDropNewImages={moveNewItemsToDropGroup}/>;
     });
   }
 
