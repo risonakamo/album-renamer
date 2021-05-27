@@ -20,3 +20,10 @@ so i think, the use case that should happen the most, is a whole blob or selecti
 
 # decision 2
 lets first start by seeing how easy it is to accomplish getting image data from dragged in items. then we can see how hard it is to get case 3 working, since it is the smallest break from the usual workflow. and, the requirement to drag in quickly and without aim is actually not a requirement.
+
+# decision 3
+from use case research, it turns out dragging in items quickly is in fact a use case. in this case, the desired functionality is that the dragged in items all appear sequentially in the order they were dragged in. this puts case 3 out (requires too much aiming), and case 1 out (each drag creates a new group). it is still useful to create a new group, but also definitely want it possible to drag into the same group. case 2 is seeming like a very interesting approach now...
+
+so deciding to go with implementation case 2 for now:
+- drag into the general area of an image group to append to the end of the image group
+- drag into the new group area to create a new group
