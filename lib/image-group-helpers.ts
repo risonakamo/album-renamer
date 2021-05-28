@@ -1,5 +1,6 @@
 // functions for manipulating ImageGroups
 import _ from "lodash";
+import naturalCompare from "natural-compare";
 
 interface RemoveTargetsResult
 {
@@ -58,9 +59,7 @@ export function sortGroupAlpha(group:ImageGroup,reverse:boolean=false):ImageGrou
 {
     group={
         ...group,
-        items:_.sortBy(group.items,(x:ImageData2):string=>{
-            return x.name;
-        })
+        items:group.items.sort(compareImageGroup)
     };
 
     if (reverse)
@@ -227,4 +226,10 @@ function insertIntoGroupFront(items:ImageData2[],group:ImageGroup,back:boolean=f
             ]
         };
     }
+}
+
+/** compare function for image data */
+function compareImageGroup(a:ImageData2,b:ImageData2):number
+{
+    return naturalCompare(a.name,b.name);
 }
