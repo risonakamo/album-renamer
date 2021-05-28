@@ -22,6 +22,7 @@
 - drop arrow when dragging over group title
 - az sort should toggle between reverse and not reverse until a movement has been made, where it should do non reverse first
     - different icons for az sort state
+- selected proxy box X icon could be better
 
 ## 4
 - plan preview system from double click
@@ -31,7 +32,7 @@
 # image loading
 - how to handle video files as thumbnails
 
-# next steps
+# next steps (issue tracked)
 - border around image group when dragging over files
     - normal drag borders should not appear
 - drag items into new group zone to create new group with items
