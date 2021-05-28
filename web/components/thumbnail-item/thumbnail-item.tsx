@@ -84,7 +84,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   function handleDragEnter(e:React.DragEvent):void
   {
     e.preventDefault();
-    useDraggedOverHandlers.handleDragEnter();
+    useDraggedOverHandlers.handleDragEnter(e);
   }
 
   function handleDragOver(e:React.DragEvent):void

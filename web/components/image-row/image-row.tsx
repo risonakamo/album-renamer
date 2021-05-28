@@ -33,6 +33,10 @@ interface ImageRowProps
 export default function ImageRow(props:ImageRowProps):JSX.Element
 {
   const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver();
+  const {
+    isDraggedOver:isDraggedOverWithFiles,
+    useDraggedOverHandlers:draggedOverWithFilesHandlers
+  }=useDraggedOver(true);
   const [initGroupName,setInitGroupName]=useState<string>("");
 
   // initialise group name
@@ -51,7 +55,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   /**-- DRAG HANDLERS --*/
   function handleDEnter(e:React.DragEvent):void
   {
-    useDraggedOverHandlers.handleDragEnter();
+    useDraggedOverHandlers.handleDragEnter(e);
     e.preventDefault();
   }
 
@@ -73,6 +77,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   /**-- drag handlers 2 --*/
   function handleTopDrop(e:React.DragEvent):void
   {
+    draggedOverWithFilesHandlers.handleDrop();
     if (e.dataTransfer.files.length)
     {
       props.onDropNewImages?.(imageDataFromFileList(e.dataTransfer.files),props.imagegroup);
@@ -86,6 +91,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
 
   function handleTopDEnter(e:React.DragEvent):void
   {
+    draggedOverWithFilesHandlers.handleDragEnter(e);
     e.preventDefault();
   }
   /**-- end drag handlers 2 --*/
@@ -113,8 +119,13 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     "drop-target":isDraggedOver
   };
 
-  return <div className="image-row" onDrop={handleTopDrop} onDragEnter={handleTopDEnter}
-    onDragOver={handleTopDOver}
+  const topElementClass={
+    "drop-target":isDraggedOverWithFiles
+  };
+
+  return <div className={cx("image-row",topElementClass)} onDrop={handleTopDrop}
+    onDragEnter={handleTopDEnter} onDragOver={handleTopDOver}
+    onDragLeave={draggedOverWithFilesHandlers.handleDragLeave}
   >
     <div className={cx("title-area",titleAreaClass)} onDragEnter={handleDEnter}
       onDragLeave={useDraggedOverHandlers.handleDragLeave}

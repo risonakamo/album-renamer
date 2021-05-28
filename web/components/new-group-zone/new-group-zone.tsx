@@ -35,7 +35,7 @@ export default function NewGroupZone(props:NewGroupZoneProps):JSX.Element
 
   function handleDEnter(e:React.DragEvent):void
   {
-    useDraggedOverHandlers.handleDragEnter();
+    useDraggedOverHandlers.handleDragEnter(e);
     e.preventDefault();
   }
 
