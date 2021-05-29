@@ -156,16 +156,22 @@ function IndexMain():JSX.Element
   /** add a new group and move the currently selected items into that group */
   function addGroupWithSelectItems():void
   {
+    addGroupWithItems(theSelectedImages);
+    setSelectedImages([]);
+  }
+
+  /** add new group to state with the selected items */
+  function addGroupWithItems(items:ImageData2[]):void
+  {
     var newgroup:ImageGroup;
     var newgroups:ImageGroup[];
     var {newgroup,groups:newgroups}=addGroup(
-      theSelectedImages,
+      items,
       theImageGroups
     );
 
     setImageGroups(newgroups);
-
-    moveItemsToDropGroup(newgroup);
+    moveNewItemsToDropGroup(items,newgroup);
   }
 
   /** clear selected images */
@@ -204,7 +210,8 @@ function IndexMain():JSX.Element
 
   return <>
     <section className="header-zone top-section">
-      <NewGroupZone onClick={addEmptyGroup} onDrop={addGroupWithSelectItems}/>
+      <NewGroupZone onClick={addEmptyGroup} onDrop={addGroupWithSelectItems}
+        onDropFiles={addGroupWithItems}/>
     </section>
 
     <section className="image-zone top-section">

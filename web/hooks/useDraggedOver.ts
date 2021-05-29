@@ -12,8 +12,9 @@ interface UseDraggedOverHook
 
 /** hook that provides state indicating if an element is being dragged over.
  *  must attach all provided handlers to the element to track drag over state.
- *  provide withFiles to only trigger if the drag event contains files */
-export function useDraggedOver(withFiles:boolean=false):UseDraggedOverHook
+ *  provide withFiles to only trigger if the drag event contains files. give withBoth to
+ *  trigger in both cases (with and without files) */
+export function useDraggedOver(withFiles:boolean=false,withBoth:boolean=false):UseDraggedOverHook
 {
     const [isDraggedOver,setDraggedOver]=useState<boolean>(false);
 
@@ -27,7 +28,7 @@ export function useDraggedOver(withFiles:boolean=false):UseDraggedOverHook
 
     function handleDragEnter(e:React.DragEvent):void
     {
-        if (!withFilesHasFilesCheck(withFiles,e))
+        if (!withBoth && !withFilesHasFilesCheck(withFiles,e))
         {
             return;
         }

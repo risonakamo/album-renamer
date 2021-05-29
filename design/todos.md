@@ -31,6 +31,9 @@
 
 # image loading
 - how to handle video files as thumbnails
+- initial dragging onto empty page
+    - whole page should be drop target, items dragged in should immediately create a new group
+- dragged in images have no faded out drag preview for some reason
 
 # next steps (issue tracked)
 - border around image group when dragging over files
