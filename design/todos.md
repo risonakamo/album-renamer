@@ -29,6 +29,7 @@
     - maybe open default preview program
     - or custom preview program with fast ability to close
 - shift selection system
+- fix dragging with the image name not registering as a valid image move
 
 # image loading
 - how to handle video files as thumbnails

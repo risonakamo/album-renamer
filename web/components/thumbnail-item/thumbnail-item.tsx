@@ -108,6 +108,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   return <div className="thumbnail-item" onClick={handleClick} onDragStart={dragBegin}
     onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}
     onDragLeave={useDraggedOverHandlers.handleDragLeave} onDragEnd={handleDragEnd}
+    draggable={true}
   >
     <div className={cx("image-space",imageSpaceClass)}>
       <img src={props.data.path} className={cx(imgElementClasses)}

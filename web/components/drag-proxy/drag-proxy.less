@@ -1,0 +1,45 @@
+// tempcolour
+@active-background: #2778e5;
+@drag-box-border: white;
+
+.drag-proxy
+{
+    user-select: none;
+    opacity: .65;
+
+    .text
+    {
+        font-size: 8px;
+        font-weight: 300;
+        margin-bottom: 2px;
+    }
+
+    .drag-box
+    {
+        width: 100px;
+        height: 40px;
+        outline: 1px dotted fade(@drag-box-border,60%);
+        outline-offset: -1px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 17px;
+        font-weight: 300;
+    }
+
+    &.active
+    {
+        opacity: .8;
+
+        .drag-box
+        {
+            background-color: fade(@active-background,10%);
+            cursor: pointer;
+        }
+
+        &:hover
+        {
+            opacity: 1;
+        }
+    }
+}

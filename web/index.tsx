@@ -5,6 +5,7 @@ import {Provider,useSelector} from "react-redux";
 
 import ImageRow from "components/image-row/image-row";
 import NewGroupZone from "components/new-group-zone/new-group-zone";
+import DragProxy from "components/drag-proxy/drag-proxy";
 
 import {dropAtTarget,dropAtTargetGroup,replaceGroup,
   addGroup,getImageCount} from "lib/image-group-helpers";
@@ -227,6 +228,9 @@ function IndexMain():JSX.Element
     <section className="header-zone top-section">
       <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
         onDropFiles={handleNewGroupDropFiles}/>
+      <div className="drag-proxy-zone">
+        <DragProxy/>
+      </div>
     </section>
 
     <section className="image-zone top-section">
