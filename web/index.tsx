@@ -196,6 +196,14 @@ function IndexMain():JSX.Element
     imageGroupControl.addGroupWithItems(newImages);
   }
 
+  /** dragging the drag proxy. treat it as a selected item drag, since the proxy can only be dragged if
+   *  there are selected items. set the current selected image to the first of the selected images */
+  function handleDragProxyStart():void
+  {
+    currentDragItemSelected.current=true;
+    currentDragItem.current=theSelectedImages[0];
+  }
+
   /** render image rows */
   function renderImageRows():JSX.Element[]
   {
@@ -229,7 +237,7 @@ function IndexMain():JSX.Element
       <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
         onDropFiles={handleNewGroupDropFiles}/>
       <div className="drag-proxy-zone">
-        <DragProxy/>
+        <DragProxy count={theSelectedImages.length} onDragStart={handleDragProxyStart}/>
       </div>
     </section>
 
