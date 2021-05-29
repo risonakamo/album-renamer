@@ -16,7 +16,7 @@
 
 ## 3
 - remove button for group
-- do some animations/transitions for css
+- animations/transitions for css
 - some sort of response for hovering over thumbnails
     - maybe fade them out a little and make it bluish?
 - drop arrow when dragging over group title
@@ -29,13 +29,16 @@
     - maybe open default preview program
     - or custom preview program with fast ability to close
 - shift selection system
-- fix dragging with the image name not registering as a valid image move
 
 # image loading
 - how to handle video files as thumbnails
 - dragged in images have no faded out drag preview for some reason
 
-# next steps 4
+# next steps 4 (CURRENT ISSUES)
 - initial dragging onto empty page
     - whole page should be drop target, items dragged in should immediately create a new group
 - drag proxy
+
+# next steps 5 (CURRENT ISSUES)
+- fix dragging with the image name not registering as a valid image move
+- fix drag proxy drag over not registering as valid drag move
