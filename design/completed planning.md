@@ -21,3 +21,11 @@
 - things break when dragging incorrect things and dropping them
 - make status area
     - have status area show number selected
+
+# ~~next steps 3~~ (issue tracked)
+- border around image group when dragging over files
+    - normal drag borders should not appear
+- drag items into new group zone to create new group with items
+- use natural sort for group az sort
+- right click to insert here, for when scrolling far away to insert?
+    - or perhaps something at the bottom to represent the selected items, and can just drag that?

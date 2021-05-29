@@ -32,14 +32,9 @@
 
 # image loading
 - how to handle video files as thumbnails
-- initial dragging onto empty page
-    - whole page should be drop target, items dragged in should immediately create a new group
 - dragged in images have no faded out drag preview for some reason
 
-# next steps (issue tracked)
-- border around image group when dragging over files
-    - normal drag borders should not appear
-- drag items into new group zone to create new group with items
-- use natural sort for group az sort
-- right click to insert here, for when scrolling far away to insert?
-    - or perhaps something at the bottom to represent the selected items, and can just drag that?
+# next steps 4
+- initial dragging onto empty page
+    - whole page should be drop target, items dragged in should immediately create a new group
+- drag proxy
