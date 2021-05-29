@@ -28,6 +28,7 @@
 - plan preview system from double click
     - maybe open default preview program
     - or custom preview program with fast ability to close
+- shift selection system
 
 # image loading
 - how to handle video files as thumbnails

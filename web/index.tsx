@@ -9,6 +9,7 @@ import NewGroupZone from "components/new-group-zone/new-group-zone";
 import {dropAtTarget,dropAtTargetGroup,replaceGroup,
   addGroup,getImageCount} from "lib/image-group-helpers";
 import thestore from "store/store";
+import {useImageGroups} from "hooks/useImageGroups";
 
 import "./index.less";
 
@@ -39,7 +40,7 @@ const sampleData3:ImageGroup[]=[
 function IndexMain():JSX.Element
 {
   const [theSelectedImages,setSelectedImages]=useState<ImageData2[]>([]);
-  const [theImageGroups,setImageGroups]=useState<ImageGroup[]>(sampleData3);
+  const {theImageGroups,imageGroupControl}=useImageGroups(sampleData3);
 
   const theImageGroups2=useSelector<TheStore,ImageGroup[]>(s=>s.imageGroups);
   const theSelectedImages2=useSelector<TheStore,ImageData2[]>(s=>s.selectedImages);
@@ -76,102 +77,11 @@ function IndexMain():JSX.Element
     }));
   }
 
-  /** perform move operation to the given target, modifying the image groups */
-  function moveItemsToDropTarget(dropitem:ImageData2):void
-  {
-    if (!currentDragItem.current)
-    {
-      console.log("invalid drag item");
-      return;
-    }
-
-    // if the item being dragged is selected
-    if (currentDragItemSelected.current)
-    {
-      setImageGroups(dropAtTarget(dropitem,theSelectedImages,theImageGroups));
-      setSelectedImages([]);
-    }
-
-    else
-    {
-      setImageGroups(dropAtTarget(dropitem,[currentDragItem.current!],theImageGroups))
-    }
-
-    currentDragItem.current=null;
-    currentDragItemSelected.current=false;
-  }
-
-  /** move operation into a target group */
-  function moveItemsToDropGroup(group:ImageGroup):void
-  {
-    if (!currentDragItem.current)
-    {
-      console.log("invalid drag item");
-      return;
-    }
-
-    if (currentDragItemSelected.current)
-    {
-      setImageGroups(dropAtTargetGroup(group,theSelectedImages,theImageGroups));
-      setSelectedImages([]);
-    }
-
-    else
-    {
-      setImageGroups(dropAtTargetGroup(group,[currentDragItem.current!],theImageGroups));
-    }
-
-    currentDragItem.current=null;
-    currentDragItemSelected.current=false;
-  }
-
-  /** move target items into a group */
-  function moveNewItemsToDropGroup(images:ImageData2[],group:ImageGroup):void
-  {
-    setImageGroups(dropAtTargetGroup(group,images,theImageGroups,true));
-  }
-
-  /** update groups with a replacement group */
-  function doReplaceGroup(group:ImageGroup):void
-  {
-    setImageGroups(replaceGroup(group,theImageGroups));
-  }
-
   /** thumbnail drag began. save the item that is being dragged right now */
   function thumbnailDragBegin(item:ImageData2,selected:boolean):void
   {
     currentDragItem.current=item;
     currentDragItemSelected.current=selected;
-  }
-
-  /** add a new group to the state */
-  function addEmptyGroup():void
-  {
-    setImageGroups(addGroup(
-      [],
-      theImageGroups
-    ).groups);
-  }
-
-  /** add a new group and move the currently selected items into that group */
-  function addGroupWithSelectItems():void
-  {
-    addGroupWithItems(theSelectedImages);
-    setSelectedImages([]);
-  }
-
-  /** add new group to state with the selected items */
-  function addGroupWithItems(items:ImageData2[]):void
-  {
-    var newgroup:ImageGroup;
-    var newgroups:ImageGroup[];
-    var {newgroup,groups:newgroups}=addGroup(
-      items,
-      theImageGroups
-    );
-
-    setImageGroups(newgroups);
-    moveNewItemsToDropGroup(items,newgroup);
   }
 
   /** clear selected images */
@@ -180,15 +90,120 @@ function IndexMain():JSX.Element
     setSelectedImages([]);
   }
 
+  /** cancel the current dragged item, because it has now been dropped */
+  function cancelCurrentDraggedItem():void
+  {
+    currentDragItem.current=null;
+    currentDragItemSelected.current=false;
+  }
+
+  /** item was dropped on a thumbnail. does various things depending on conditions */
+  function handleDropOnThumbnail(dropitem:ImageData2):void
+  {
+    // if there is no currently dragged item, cancel. probably a file drop case, which thumbnail drop
+    // does not handle
+    if (!currentDragItem.current)
+    {
+      console.log("invalid drag item");
+      return;
+    }
+
+    // if the item being dragged is selected, move all selected items behind the target drop thumbnail
+    if (currentDragItemSelected.current)
+    {
+      imageGroupControl.moveItemsBehindItem(theSelectedImages,dropitem);
+      setSelectedImages([]);
+    }
+
+    // otherwise, move the item being dragged behind the target drop thumbnail
+    else
+    {
+      imageGroupControl.moveItemsBehindItem([currentDragItem.current!],dropitem);
+    }
+
+    cancelCurrentDraggedItem();
+  }
+
+  /** items were dropped on an image row title */
+  function handleDropOnGroupTitle(group:ImageGroup):void
+  {
+    // cancel if nothing is currently being dragged, so files were probably dropped. something else handles
+    // that.
+    if (!currentDragItem.current)
+    {
+      console.log("invalid drag item");
+      return;
+    }
+
+    // if the item being dragged was selected, move all the selected items into the front of the group
+    // that was dropped upon. deselect the items.
+    if (currentDragItemSelected.current)
+    {
+      imageGroupControl.moveItemsToGroup(theSelectedImages,group);
+      setSelectedImages([]);
+    }
+
+    // otherwise, move the currently being dragged item into the target group
+    else
+    {
+      imageGroupControl.moveItemsToGroup([currentDragItem.current!],group);
+    }
+
+    cancelCurrentDraggedItem();
+  }
+
+  /** handle new images have been dropped into an image group. images are moved into the end of the group
+   *  as if they weren't actually new images */
+  function handleDroppedNewItems(newdata:ImageData2[],group:ImageGroup):void
+  {
+    imageGroupControl.moveItemsToGroup(newdata,group,true);
+  }
+
+  /** handle group has been sorted. function provides the sorted group, just have to update it */
+  function handleGroupSorted(sortedGroup:ImageGroup):void
+  {
+    imageGroupControl.doReplaceGroup(sortedGroup);
+  }
+
+  /** new group zone clicked. create a new group */
+  function handleNewGroupClick():void
+  {
+    imageGroupControl.addEmptyGroup();
+  }
+
+  /** items dropped in new group zone. create new group from the currently selected items, or the single
+   *  item if the currently selected item is not selected */
+  function handleNewGroupDrop():void
+  {
+    if (currentDragItemSelected.current)
+    {
+      imageGroupControl.addGroupWithItems(theSelectedImages);
+      setSelectedImages([]);
+    }
+
+    else
+    {
+      imageGroupControl.addGroupWithItems([currentDragItem.current!]);
+    }
+
+    cancelCurrentDraggedItem();
+  }
+
+  /** handle new images dropped into new group zone. add a group with the items */
+  function handleNewGroupDropFiles(newImages:ImageData2[]):void
+  {
+    imageGroupControl.addGroupWithItems(newImages);
+  }
+
   /** render image rows */
   function renderImageRows():JSX.Element[]
   {
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
       return <ImageRow imagegroup={x} onThumbnailSelected={addSelectedImage}
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
-        key={i} onThumbnailDrop={moveItemsToDropTarget} onThumbnailDragStart={thumbnailDragBegin}
-        onGroupDrop={moveItemsToDropGroup} onGroupSorted={doReplaceGroup}
-        onDropNewImages={moveNewItemsToDropGroup}/>;
+        key={i} onThumbnailDrop={handleDropOnThumbnail} onThumbnailDragStart={thumbnailDragBegin}
+        onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
+        onDropNewImages={handleDroppedNewItems}/>;
     });
   }
 
@@ -210,8 +225,8 @@ function IndexMain():JSX.Element
 
   return <>
     <section className="header-zone top-section">
-      <NewGroupZone onClick={addEmptyGroup} onDrop={addGroupWithSelectItems}
-        onDropFiles={addGroupWithItems}/>
+      <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
+        onDropFiles={handleNewGroupDropFiles}/>
     </section>
 
     <section className="image-zone top-section">
