@@ -204,7 +204,6 @@ function IndexMain():JSX.Element
     currentDragItem.current=theSelectedImages[0];
   }
 
-  /** render image rows */
   function renderImageRows():JSX.Element[]
   {
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
@@ -230,7 +229,6 @@ function IndexMain():JSX.Element
 
     return <p>{`${imageCount} images, ${groupCount} groups${selectedCountText}`}</p>
   }
-
 
   return <>
     <section className="header-zone top-section">
