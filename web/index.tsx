@@ -6,42 +6,18 @@ import {Provider,useSelector} from "react-redux";
 import ImageRow from "components/image-row/image-row";
 import NewGroupZone from "components/new-group-zone/new-group-zone";
 import DragProxy from "components/drag-proxy/drag-proxy";
+import InitialDropZone from "components/initial-drop-zone/initial-drop-zone";
 
-import {dropAtTarget,dropAtTargetGroup,replaceGroup,
-  addGroup,getImageCount} from "lib/image-group-helpers";
+import {getImageCount} from "lib/image-group-helpers";
 import thestore from "store/store";
 import {useImageGroups} from "hooks/useImageGroups";
 
 import "./index.less";
 
-const sampleData3:ImageGroup[]=[
-  {
-    name:"group1",
-    items:[
-      {path:"../sampleimages/2.png",name:"2.png"},
-      {path:"../sampleimages/1.png",name:"1.png"},
-      {path:"../sampleimages/4.jpg",name:"4.png"},
-      {path:"../sampleimages/6.png",name:"6.png"},
-    ],
-    key:1
-  },
-  {
-    name:"group22",
-    items:[
-      {path:"../sampleimages/8.png",name:"8.png"},
-      {path:"../sampleimages/3.png",name:"3.png"},
-      {path:"../sampleimages/7.png",name:"7.png"},
-      {path:"../sampleimages/5.jpg",name:"5.png"},
-      {path:"../sampleimages/9.jpg",name:"9.png"},
-    ],
-    key:2
-  }
-];
-
 function IndexMain():JSX.Element
 {
   const [theSelectedImages,setSelectedImages]=useState<ImageData2[]>([]);
-  const {theImageGroups,imageGroupControl}=useImageGroups(sampleData3);
+  const {theImageGroups,imageGroupControl}=useImageGroups([]);
 
   const theImageGroups2=useSelector<TheStore,ImageGroup[]>(s=>s.imageGroups);
   const theSelectedImages2=useSelector<TheStore,ImageData2[]>(s=>s.selectedImages);
@@ -234,6 +210,16 @@ function IndexMain():JSX.Element
     return <p>{`${imageCount} images, ${groupCount} groups${selectedCountText}`}</p>
   }
 
+  function renderInitialDropZone():JSX.Element|null
+  {
+    if (theImageGroups.length)
+    {
+      return null;
+    }
+
+    return <InitialDropZone/>
+  }
+
   return <>
     <section className="header-zone top-section">
       <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
@@ -244,6 +230,7 @@ function IndexMain():JSX.Element
     </section>
 
     <section className="image-zone top-section">
+      {renderInitialDropZone()}
       {renderImageRows()}
     </section>
 
