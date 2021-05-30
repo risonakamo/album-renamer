@@ -38,6 +38,7 @@
     - not too dark, need to be able to see the image being dragged over
     - just the green arrow seems too non-visble, at least right now with the thin green arrow
 - dont show green arrow when dragging over self, since dropping on self does nothing
+- have new group zone text slightly (very slightly) faded out until hover over
 
 # image loading
 - how to handle video files as thumbnails
