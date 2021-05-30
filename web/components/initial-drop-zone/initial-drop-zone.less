@@ -1,3 +1,5 @@
+@import (reference) "~css/drop-target";
+
 .initial-drop-zone
 {
     width: 100%;
@@ -9,5 +11,10 @@
     h1
     {
         font-size: 15px;
+    }
+
+    &.active
+    {
+        .drop-target-border();
     }
 }

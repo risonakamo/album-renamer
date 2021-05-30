@@ -170,7 +170,8 @@ function IndexMain():JSX.Element
     cancelCurrentDraggedItem();
   }
 
-  /** handle new images dropped into new group zone. add a group with the items */
+  /** handle new images dropped into new group zone. add a group with the items. also shared with
+   *  initial drop zone. */
   function handleNewGroupDropFiles(newImages:ImageData2[]):void
   {
     imageGroupControl.addGroupWithItems(newImages);
@@ -217,7 +218,7 @@ function IndexMain():JSX.Element
       return null;
     }
 
-    return <InitialDropZone/>
+    return <InitialDropZone onDropFiles={handleNewGroupDropFiles}/>
   }
 
   return <>
