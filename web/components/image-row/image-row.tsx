@@ -32,11 +32,15 @@ interface ImageRowProps
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
 {
+  // dragged over for title area
   const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver();
+
+  // dragged over for top level
   const {
-    isDraggedOver:isDraggedOverWithFiles,
-    useDraggedOverHandlers:draggedOverWithFilesHandlers
-  }=useDraggedOver(true);
+    isDraggedOver:isDraggedOver2,
+    useDraggedOverHandlers:draggedOverHandlers2
+  }=useDraggedOver();
+
   const [initGroupName,setInitGroupName]=useState<string>("");
 
   // initialise group name
@@ -77,7 +81,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   /**-- drag handlers 2 --*/
   function handleTopDrop(e:React.DragEvent):void
   {
-    draggedOverWithFilesHandlers.handleDrop();
+    draggedOverHandlers2.handleDrop();
     if (e.dataTransfer.files.length)
     {
       props.onDropNewImages?.(imageDataFromFileList(e.dataTransfer.files),props.imagegroup);
@@ -91,7 +95,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
 
   function handleTopDEnter(e:React.DragEvent):void
   {
-    draggedOverWithFilesHandlers.handleDragEnter(e);
+    draggedOverHandlers2.handleDragEnter(e);
     e.preventDefault();
   }
   /**-- end drag handlers 2 --*/
@@ -116,16 +120,16 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
   }
 
   const titleAreaClass={
-    "drop-target":isDraggedOver
+    "drop-target":isDraggedOver.draggedOver && !isDraggedOver.hasFiles
   };
 
   const topElementClass={
-    "drop-target":isDraggedOverWithFiles
+    "drop-target":isDraggedOver2.draggedOver && isDraggedOver2.hasFiles
   };
 
   return <div className={cx("image-row",topElementClass)} onDrop={handleTopDrop}
     onDragEnter={handleTopDEnter} onDragOver={handleTopDOver}
-    onDragLeave={draggedOverWithFilesHandlers.handleDragLeave}
+    onDragLeave={draggedOverHandlers2.handleDragLeave}
   >
     <div className={cx("title-area",titleAreaClass)} onDragEnter={handleDEnter}
       onDragLeave={useDraggedOverHandlers.handleDragLeave}

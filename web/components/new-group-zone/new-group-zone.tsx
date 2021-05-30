@@ -17,7 +17,7 @@ interface NewGroupZoneProps
 
 export default function NewGroupZone(props:NewGroupZoneProps):JSX.Element
 {
-  const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver(true,true);
+  const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver();
 
   /** just call on click */
   function handleClick():void
@@ -58,7 +58,7 @@ export default function NewGroupZone(props:NewGroupZoneProps):JSX.Element
   }
 
   const groupZoneClasses={
-    "drop-target":isDraggedOver
+    "drop-target":isDraggedOver.draggedOver
   };
 
   return <div className={cx("new-group-zone",groupZoneClasses)} onClick={handleClick} onDrop={handleDrop}
