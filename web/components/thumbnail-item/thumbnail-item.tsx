@@ -11,6 +11,8 @@ interface ThumbnailItemProps
   selected?:boolean
   selectionNumber?:number
 
+  dragValidOverride?:boolean
+
   onSelected?(data:ImageData2):void
   onDeselect?(data:ImageData2):void
   onDragStart?(data:ImageData2,selected:boolean):void
@@ -100,7 +102,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
 
   const imageSpaceClass={
     selected:props.selected,
-    "drop-target":isDraggedOver.draggedOver && !isDraggedOver.hasFiles
+    "drop-target":isDraggedOver.draggedOver && (!isDraggedOver.hasFiles || props.dragValidOverride)
   };
 
   const selectionNumber:number=props.selectionNumber || 0;

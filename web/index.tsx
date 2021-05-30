@@ -47,7 +47,7 @@ function IndexMain():JSX.Element
   const theSelectedImages2=useSelector<TheStore,ImageData2[]>(s=>s.selectedImages);
 
   /** the current item being dragged */
-  const currentDragItem=useRef<ImageData2|null>(null);
+  const [currentDragItem,setCurrentDragItem]=useState<ImageData2|null>(null);
   /** if the current item being dragged is also selected */
   const currentDragItemSelected=useRef<boolean>(false);
 
@@ -58,6 +58,10 @@ function IndexMain():JSX.Element
       {
         deselectAll();
       }
+    });
+
+    window.addEventListener("dragend",()=>{
+      setCurrentDragItem(null);
     });
   },[]);
 
@@ -81,7 +85,7 @@ function IndexMain():JSX.Element
   /** thumbnail drag began. save the item that is being dragged right now */
   function thumbnailDragBegin(item:ImageData2,selected:boolean):void
   {
-    currentDragItem.current=item;
+    setCurrentDragItem(item);
     currentDragItemSelected.current=selected;
   }
 
@@ -94,7 +98,7 @@ function IndexMain():JSX.Element
   /** cancel the current dragged item, because it has now been dropped */
   function cancelCurrentDraggedItem():void
   {
-    currentDragItem.current=null;
+    setCurrentDragItem(null);
     currentDragItemSelected.current=false;
   }
 
@@ -103,7 +107,7 @@ function IndexMain():JSX.Element
   {
     // if there is no currently dragged item, cancel. probably a file drop case, which thumbnail drop
     // does not handle
-    if (!currentDragItem.current)
+    if (!currentDragItem)
     {
       console.log("invalid drag item");
       return;
@@ -119,7 +123,7 @@ function IndexMain():JSX.Element
     // otherwise, move the item being dragged behind the target drop thumbnail
     else
     {
-      imageGroupControl.moveItemsBehindItem([currentDragItem.current!],dropitem);
+      imageGroupControl.moveItemsBehindItem([currentDragItem!],dropitem);
     }
 
     cancelCurrentDraggedItem();
@@ -130,7 +134,7 @@ function IndexMain():JSX.Element
   {
     // cancel if nothing is currently being dragged, so files were probably dropped. something else handles
     // that.
-    if (!currentDragItem.current)
+    if (!currentDragItem)
     {
       console.log("invalid drag item");
       return;
@@ -147,7 +151,7 @@ function IndexMain():JSX.Element
     // otherwise, move the currently being dragged item into the target group
     else
     {
-      imageGroupControl.moveItemsToGroup([currentDragItem.current!],group);
+      imageGroupControl.moveItemsToGroup([currentDragItem],group);
     }
 
     cancelCurrentDraggedItem();
@@ -184,7 +188,7 @@ function IndexMain():JSX.Element
 
     else
     {
-      imageGroupControl.addGroupWithItems([currentDragItem.current!]);
+      imageGroupControl.addGroupWithItems([currentDragItem!]);
     }
 
     cancelCurrentDraggedItem();
@@ -201,7 +205,7 @@ function IndexMain():JSX.Element
   function handleDragProxyStart():void
   {
     currentDragItemSelected.current=true;
-    currentDragItem.current=theSelectedImages[0];
+    setCurrentDragItem(theSelectedImages[0]);
   }
 
   function renderImageRows():JSX.Element[]
@@ -211,7 +215,7 @@ function IndexMain():JSX.Element
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
         key={i} onThumbnailDrop={handleDropOnThumbnail} onThumbnailDragStart={thumbnailDragBegin}
         onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
-        onDropNewImages={handleDroppedNewItems}/>;
+        onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}/>;
     });
   }
 

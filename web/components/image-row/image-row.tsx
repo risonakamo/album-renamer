@@ -16,6 +16,8 @@ interface ImageRowProps
   imagegroup:ImageGroup
   selectedImages:ImageData2[]
 
+  dragValidOverride?:boolean
+
   onThumbnailSelected?(data:ImageData2):void
   onThumbnailDeselected?(data:ImageData2):void
 
@@ -115,16 +117,20 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       return <ThumbnailItem data={x} key={i} onSelected={props.onThumbnailSelected}
         selected={!!selectionIndex} onDeselect={props.onThumbnailDeselected}
         onDropped={props.onThumbnailDrop} onDragStart={props.onThumbnailDragStart}
-        selectionNumber={selectionIndex}/>;
+        selectionNumber={selectionIndex} dragValidOverride={props.dragValidOverride}/>;
     });
   }
 
   const titleAreaClass={
-    "drop-target":isDraggedOver.draggedOver && !isDraggedOver.hasFiles
+    // title area gains drop target style when it is dragged over, and there are no files, or the
+    // drag override is set
+    "drop-target":isDraggedOver.draggedOver && (!isDraggedOver.hasFiles || props.dragValidOverride)
   };
 
   const topElementClass={
-    "drop-target":isDraggedOver2.draggedOver && isDraggedOver2.hasFiles
+    // top element gains drop target style when dragged over, and has files, and drag valid override is
+    // NOT set (should never happen for valid files)
+    "drop-target":isDraggedOver2.draggedOver && isDraggedOver2.hasFiles && !props.dragValidOverride
   };
 
   return <div className={cx("image-row",topElementClass)} onDrop={handleTopDrop}
