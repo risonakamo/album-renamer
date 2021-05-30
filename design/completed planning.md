@@ -29,3 +29,12 @@
 - use natural sort for group az sort
 - right click to insert here, for when scrolling far away to insert?
     - or perhaps something at the bottom to represent the selected items, and can just drag that?
+
+# ~~next steps 4~~ (CURRENT ISSUES)
+- initial dragging onto empty page
+    - whole page should be drop target, items dragged in should immediately create a new group
+- drag proxy
+
+# ~~next steps 5~~ (CURRENT ISSUES)
+- fix dragging with the image name not registering as a valid image move
+- fix drag proxy drag over not registering as valid drag move

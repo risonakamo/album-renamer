@@ -30,15 +30,15 @@
     - or custom preview program with fast ability to close
 - shift selection system
 
+## 5
+- redesign "drag in items" text to be something instead of just a line of text
+- group reordering
+- faded white background to show the image being dragged when dragging single image
+- slight blue or green background when dragging over another image (together with the green arrow)
+    - not too dark, need to be able to see the image being dragged over
+    - just the green arrow seems too non-visble, at least right now with the thin green arrow
+- dont show green arrow when dragging over self, since dropping on self does nothing
+
 # image loading
 - how to handle video files as thumbnails
 - dragged in images have no faded out drag preview for some reason
-
-# next steps 4 (CURRENT ISSUES)
-- initial dragging onto empty page
-    - whole page should be drop target, items dragged in should immediately create a new group
-- drag proxy
-
-# next steps 5 (CURRENT ISSUES)
-- fix dragging with the image name not registering as a valid image move
-- fix drag proxy drag over not registering as valid drag move
