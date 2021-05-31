@@ -7,6 +7,7 @@ import ImageRow from "components/image-row/image-row";
 import NewGroupZone from "components/new-group-zone/new-group-zone";
 import DragProxy from "components/drag-proxy/drag-proxy";
 import InitialDropZone from "components/initial-drop-zone/initial-drop-zone";
+import Button84 from "components/button-84/button-84";
 
 import {getImageCount} from "lib/image-group-helpers";
 import thestore from "store/store";
@@ -225,8 +226,11 @@ function IndexMain():JSX.Element
     <section className="header-zone top-section">
       <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
         onDropFiles={handleNewGroupDropFiles}/>
-      <div className="drag-proxy-zone">
+      <div className="drag-proxy-zone header-zone-container">
         <DragProxy count={theSelectedImages.length} onDragStart={handleDragProxyStart}/>
+      </div>
+      <div className="next-button-zone header-zone-container">
+        <Button84/>
       </div>
     </section>
 
