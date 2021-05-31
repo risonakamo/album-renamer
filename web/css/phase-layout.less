@@ -1,0 +1,41 @@
+// css to enable layout of Reorder and Rename phase
+
+// tempcolour
+@footer-background: #334f70;
+
+.phase-layout
+{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    .top-section
+    {
+        width: 100%;
+    }
+
+    .header-zone
+    {
+        height: 60px;
+        display: flex;
+    }
+
+    .body-zone
+    {
+        flex: 1;
+        overflow: auto;
+    }
+
+    .footer-zone
+    {
+        height: 22px;
+        background-color: @footer-background;
+        padding: 5px 7px;
+        box-sizing: border-box;
+
+        p
+        {
+            font-size: 12px;
+        }
+    }
+}

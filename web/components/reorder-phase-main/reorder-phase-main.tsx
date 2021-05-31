@@ -10,6 +10,7 @@ import Button84 from "components/button-84/button-84";
 import {getImageCount} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
 
+import "css/phase-layout.less";
 import "./reorder-phase-main.less";
 
 interface ReorderPhaseMainProps
@@ -231,7 +232,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
 
   const submitButtonDisabled:boolean=!imageCount;
 
-  return <div className="reorder-phase-section">
+  return <div className="reorder-phase-section phase-layout">
     <section className="header-zone top-section">
       <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
         onDropFiles={handleNewGroupDropFiles}/>
@@ -243,7 +244,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       </div>
     </section>
 
-    <section className="image-zone top-section">
+    <section className="top-section body-zone">
       {renderInitialDropZone()}
       {renderImageRows()}
     </section>
