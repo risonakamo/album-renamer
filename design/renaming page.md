@@ -33,3 +33,15 @@ primary use case to handle is this. we have a lot of groups, and now we need to 
 - error output under the rename button when something fails
     - might not ahve it initially, just fail in the console
 - button to go back to rename phase
+
+# more ideas
+- show a mark on items that have been auto renamed
+    - maybe in the checkbox column
+    - maybe coloured border around the check box?
+    - maybe change colour of check box?
+        - might stand out too much
+    - maybe make name of group slightly greyer colour
+    - when edited should change back to normal
+- show shadowy "#" sign at the end of the auto rename box to represent that it is a prefix
+- fade out apply button when nothing is selected, but still allow typing
+    - or perhaps just allow clikcing it? it will do nothing but will clear out the box. perhaps this is a purposeful action
