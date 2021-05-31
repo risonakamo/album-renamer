@@ -4,6 +4,7 @@ import _ from "lodash";
 import {Provider,useSelector} from "react-redux";
 
 import ReorderPhaseMain from "components/reorder-phase-main/reorder-phase-main";
+import RenamePhaseMain from "components/rename-phase-main/rename-phase-main";
 
 import thestore from "store/store";
 
@@ -36,8 +37,19 @@ function IndexMain():JSX.Element
     return <ReorderPhaseMain onGroupsSubmit={handleReorderSubmit}/>;
   }
 
+  function renderRenamePhase():JSX.Element|null
+  {
+    if (theCurrentPhase!="rename")
+    {
+      return null;
+    }
+
+    return <RenamePhaseMain/>;
+  }
+
   return <>
     {renderReorderPhase()}
+    {renderRenamePhase()}
   </>;
 }
 
