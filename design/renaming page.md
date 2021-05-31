@@ -28,3 +28,8 @@ primary use case to handle is this. we have a lot of groups, and now we need to 
     - this will definitely be important at some point because it will be annoying if made a mistake...possibly. so might not be too important to implement yet until a case appears
 - perform rename button
 - somewhere for errors to appear. possibly under the rename button when it is clicked
+
+# for later
+- error output under the rename button when something fails
+    - might not ahve it initially, just fail in the console
+- button to go back to rename phase

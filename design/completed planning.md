@@ -38,3 +38,12 @@
 # ~~next steps 5~~ (CURRENT ISSUES)
 - fix dragging with the image name not registering as a valid image move
 - fix drag proxy drag over not registering as valid drag move
+
+# ~~to add to design~~ (tracking with issues)
+- button to do auto rename
+    - small text box with a button to the side or under it or around it?
+- browse button to select base path
+- editing group title design
+    - group title this time will defitely be an input that spans the whole row instead of being a variable size
+    - make background slightly dark?
+- above the group title, have text showing number of images in that group
