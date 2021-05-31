@@ -45,3 +45,6 @@ primary use case to handle is this. we have a lot of groups, and now we need to 
 - show shadowy "#" sign at the end of the auto rename box to represent that it is a prefix
 - fade out apply button when nothing is selected, but still allow typing
     - or perhaps just allow clikcing it? it will do nothing but will clear out the box. perhaps this is a purposeful action
+- hovering over group should have faded background to help with determining the row and for row responsiveness
+- clicking the entire area around the check box should select the box
+- dragging down the check box list should set selection, but NOT unselect
