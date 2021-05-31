@@ -28,4 +28,15 @@
     {
         background-color: @hover-background;
     }
+
+    &.disabled
+    {
+        opacity: .2;
+        cursor: default;
+
+        &:hover
+        {
+            background-color: @button-background;
+        }
+    }
 }

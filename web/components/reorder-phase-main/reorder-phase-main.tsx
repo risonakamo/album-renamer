@@ -191,6 +191,9 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     props.onGroupsSubmit?.(theImageGroups);
   }
 
+  /*----        RENDER        ----*/
+  const imageCount:number=getImageCount(theImageGroups);
+
   function renderImageRows():JSX.Element[]
   {
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
@@ -206,7 +209,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   {
     const groupCount:number=theImageGroups.length;
     const selectedCount:number=theSelectedImages.length;
-    const imageCount:number=getImageCount(theImageGroups);
 
     var selectedCountText:string="";
     if (selectedCount>0)
@@ -227,6 +229,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     return <InitialDropZone onDropFiles={handleNewGroupDropFiles}/>
   }
 
+  const submitButtonDisabled:boolean=!imageCount;
+
   return <div className="reorder-phase-section">
     <section className="header-zone top-section">
       <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
@@ -235,7 +239,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         <DragProxy count={theSelectedImages.length} onDragStart={handleDragProxyStart}/>
       </div>
       <div className="next-button-zone header-zone-container">
-        <Button84 onClick={handleRenameButtonClick}/>
+        <Button84 onClick={handleRenameButtonClick} disabled={submitButtonDisabled}/>
       </div>
     </section>
 
