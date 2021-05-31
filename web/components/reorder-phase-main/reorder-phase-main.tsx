@@ -14,7 +14,7 @@ import "./reorder-phase-main.less";
 
 interface ReorderPhaseMainProps
 {
-
+  onGroupsSubmit?(groups:ImageGroup[]):void
 }
 
 export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Element
@@ -185,6 +185,12 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     setCurrentDragItem(theSelectedImages[0]);
   }
 
+  /** submit the image groups */
+  function handleRenameButtonClick():void
+  {
+    props.onGroupsSubmit?.(theImageGroups);
+  }
+
   function renderImageRows():JSX.Element[]
   {
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
@@ -229,7 +235,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         <DragProxy count={theSelectedImages.length} onDragStart={handleDragProxyStart}/>
       </div>
       <div className="next-button-zone header-zone-container">
-        <Button84/>
+        <Button84 onClick={handleRenameButtonClick}/>
       </div>
     </section>
 
