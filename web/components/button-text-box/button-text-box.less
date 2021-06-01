@@ -1,3 +1,9 @@
+// tempcolour
+@input-background: #141217;
+@input-text: white;
+@button-background: #49577d;
+@button-hover-background: #4e649e;
+
 .button-text-box
 {
     .label
@@ -12,7 +18,7 @@
     {
         height: 35px;
         width: 540px;
-        background-color: #141217;
+        background-color: @input-background;
         border-radius: 4px;
         display: flex;
         padding-left: 10px;
@@ -21,7 +27,7 @@
         input
         {
             height: 100%;
-            color: white;
+            color: @input-text;
             background: transparent;
             outline: none;
             border: none;
@@ -43,14 +49,14 @@
                 font-family: "roboto";
                 font-size: 11px;
                 padding: 3px 8px 2px 8px;
-                background-color: #49577d;
+                background-color: @button-background;
                 border-radius: 4px;
                 cursor: pointer;
                 user-select: none;
 
                 &:hover
                 {
-                    background-color: #4e649e;
+                    background-color: @button-hover-background;
                 }
 
                 &:active
