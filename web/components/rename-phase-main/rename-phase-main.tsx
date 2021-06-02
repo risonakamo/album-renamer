@@ -16,8 +16,9 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   return <div className="rename-phase-section phase-layout">
     <section className="top-section header-zone">
       <div className="header-zone-container inputs-zone">
-        <ButtonTextBox label="BASEPATH" buttonLabel="BROWSE"/>
+        <ButtonTextBox label="BASEPATH" buttonLabel="BROWSE" className="base-path"/>
         <ButtonTextBox label="AUTO-RENAME" buttonLabel="APPLY" className="auto-rename"/>
+        <div className="empty"></div>
       </div>
       <div className="rename-button-zone header-zone-container">
         <Button84 icon="assets/temp_do-rename.png"/>

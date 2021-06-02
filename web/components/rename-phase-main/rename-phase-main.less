@@ -12,13 +12,23 @@
         {
             flex: 1;
 
+            .base-path
+            {
+                flex: 2;
+            }
+
             .auto-rename
             {
-                --input-width: 310px;
                 --input-font-size: 11px;
                 --button-background: @auto-rename-button;
                 --button-background-hover: @auto-rename-hover;
                 margin-left: 10px;
+                flex: 1;
+            }
+
+            .empty
+            {
+                flex: 1;
             }
         }
 
@@ -26,6 +36,7 @@
         {
             flex: initial;
             justify-content: flex-end;
+            margin-left: 10px;
         }
     }
 }

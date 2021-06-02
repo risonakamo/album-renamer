@@ -4,9 +4,9 @@
 @button-background: #49577d;
 @button-hover-background: #4e649e;
 
+// will generally need to provide width or use flex
 .button-text-box
 {
-    --input-width: 540px;
     --input-font-size: 14px;
     --button-background: @button-background;
     --button-background-hover: @button-hover-background;
@@ -22,7 +22,7 @@
     .input-rect
     {
         height: 35px;
-        width: var(--input-width);
+        width: 100%;
         background-color: @input-background;
         border-radius: 4px;
         display: flex;
@@ -41,6 +41,7 @@
             font-weight: 300;
             font-size: var(--input-font-size);
             flex: 1;
+            min-width: 0;
         }
 
         .button-zone
