@@ -240,7 +240,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         <DragProxy count={theSelectedImages.length} onDragStart={handleDragProxyStart}/>
       </div>
       <div className="next-button-zone header-zone-container">
-        <Button84 onClick={handleRenameButtonClick} disabled={submitButtonDisabled}/>
+        <Button84 onClick={handleRenameButtonClick} disabled={submitButtonDisabled}
+          icon="assets/temp_go-rename-group.png"/>
       </div>
     </section>
 

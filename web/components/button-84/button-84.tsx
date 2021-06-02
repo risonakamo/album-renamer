@@ -7,6 +7,7 @@ interface Button84Props
 {
   onClick?():void
   disabled?:boolean
+  icon:string
 }
 
 export default function Button84(props:Button84Props):JSX.Element
@@ -26,7 +27,7 @@ export default function Button84(props:Button84Props):JSX.Element
   };
 
   return <div className={cx("button-84",topclass)} title="Go to Rename Phase" onClick={handleClick}>
-    <img src="assets/temp_go-rename-group.png"/>
+    <img src={props.icon}/>
     rename
   </div>;
 }

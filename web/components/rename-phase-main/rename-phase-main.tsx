@@ -20,7 +20,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
         <ButtonTextBox label="AUTO-RENAME" buttonLabel="APPLY" className="auto-rename"/>
       </div>
       <div className="rename-button-zone header-zone-container">
-        <Button84/>
+        <Button84 icon="assets/temp_do-rename.png"/>
       </div>
     </section>
 
