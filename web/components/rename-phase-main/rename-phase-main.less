@@ -1,8 +1,20 @@
+@auto-rename-button: #2c5990;
+@auto-rename-hover: #3f70ac;
+
 .rename-phase-section
 {
     .header-zone
     {
         padding: 0 18px;
         align-items: center;
+
+        .auto-rename
+        {
+            --input-width: 310px;
+            --input-font-size: 11px;
+            --button-background: @auto-rename-button;
+            --button-background-hover: @auto-rename-hover;
+            margin-left: 10px;
+        }
     }
 }

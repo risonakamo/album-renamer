@@ -6,6 +6,11 @@
 
 .button-text-box
 {
+    --input-width: 540px;
+    --input-font-size: 14px;
+    --button-background: @button-background;
+    --button-background-hover: @button-hover-background;
+
     .label
     {
         font-size: 8px;
@@ -17,7 +22,7 @@
     .input-rect
     {
         height: 35px;
-        width: 540px;
+        width: var(--input-width);
         background-color: @input-background;
         border-radius: 4px;
         display: flex;
@@ -34,7 +39,7 @@
             padding: 0;
             font-family: "roboto";
             font-weight: 300;
-            font-size: 14px;
+            font-size: var(--input-font-size);
             flex: 1;
         }
 
@@ -49,14 +54,14 @@
                 font-family: "roboto";
                 font-size: 11px;
                 padding: 3px 8px 2px 8px;
-                background-color: @button-background;
+                background-color: var(--button-background);
                 border-radius: 4px;
                 cursor: pointer;
                 user-select: none;
 
                 &:hover
                 {
-                    background-color: @button-hover-background;
+                    background-color: var(--button-background-hover);
                 }
 
                 &:active

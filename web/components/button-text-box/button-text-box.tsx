@@ -1,23 +1,26 @@
 import React from "react";
+import cx from "classnames";
 
 import "./button-text-box.less";
 
 interface ButtonTextBoxProps
 {
-
+  label:string
+  buttonLabel:string
+  className?:string
 }
 
 export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
 {
-  return <div className="button-text-box">
+  return <div className={cx("button-text-box",props.className)}>
     <div className="label">
-      BASEPATH
+      {props.label}
     </div>
     <div className="input-rect">
       <input type="text"/>
       <div className="button-zone">
         <div className="mini-button">
-          BROWSE
+          {props.buttonLabel}
         </div>
       </div>
     </div>
