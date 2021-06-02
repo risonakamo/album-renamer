@@ -8,18 +8,23 @@
         padding: 0 18px;
         align-items: center;
 
-        .auto-rename
+        .inputs-zone
         {
-            --input-width: 310px;
-            --input-font-size: 11px;
-            --button-background: @auto-rename-button;
-            --button-background-hover: @auto-rename-hover;
-            margin-left: 10px;
+            flex: 1;
+
+            .auto-rename
+            {
+                --input-width: 310px;
+                --input-font-size: 11px;
+                --button-background: @auto-rename-button;
+                --button-background-hover: @auto-rename-hover;
+                margin-left: 10px;
+            }
         }
 
         .rename-button-zone
         {
-            flex: 1;
+            flex: initial;
             justify-content: flex-end;
         }
     }
