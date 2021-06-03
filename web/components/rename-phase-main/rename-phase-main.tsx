@@ -2,6 +2,7 @@ import React from "react";
 
 import ButtonTextBox from "components/button-text-box/button-text-box";
 import Button84 from "components/button-84/button-84";
+import RenameGroup from "components/rename-group/rename-group";
 
 import "css/phase-layout.less";
 import "./rename-phase-main.less";
@@ -26,7 +27,9 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     </section>
 
     <section className="top-section body-zone">
-
+      <div className="rename-groups">
+        <RenameGroup/>
+      </div>
     </section>
 
     <footer className="top-section footer-zone">
