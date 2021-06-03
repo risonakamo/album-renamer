@@ -11,7 +11,33 @@
     .entry-zone
     {
         flex: 2;
-        min-width: 280px;
+        min-width: 320px;
+
+        .group-name-input
+        {
+            background: transparent;
+            border: none;
+            font-size: 19px;
+            font-weight: 500;
+            font-family: "roboto";
+            color: #175dbb;
+            outline: none;
+            width: 100%;
+            padding: 3px 18px;
+            display: block;
+            border-radius: 2px;
+            box-sizing: border-box;
+
+            &:focus
+            {
+                background-color: #17151a;
+            }
+
+            &:hover:not(:focus)
+            {
+                background-color: fade(#17151a,50%);
+            }
+        }
     }
 
     .thumbnail-zone
