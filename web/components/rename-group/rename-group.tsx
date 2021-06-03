@@ -11,7 +11,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
 {
   return <div className="rename-group">
     <div className="checkbox-zone zone">
-
+      <div className="checkbox"></div>
     </div>
     <div className="entry-zone zone">
       <input className="group-name-input"/>
