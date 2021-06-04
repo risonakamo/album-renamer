@@ -45,4 +45,23 @@
 - dragged in images have no faded out drag preview for some reason
 
 # rename page
+## 1
+- error output under the rename button when something fails
+    - might not ahve it initially, just fail in the console
+- button to go back to rename phase
+
+## 2
+- show a mark on items that have been auto renamed
+    - maybe in the checkbox column
+    - maybe coloured border around the check box?
+    - maybe change colour of check box?
+        - might stand out too much
+    - maybe make name of group slightly greyer colour
+    - when edited should change back to normal
+- show shadowy "#" sign at the end of the auto rename box to represent that it is a prefix
+- fade out apply button when nothing is selected, but still allow typing
+    - or perhaps just allow clikcing it? it will do nothing but will clear out the box. perhaps this is a purposeful action
+- hovering over group should have faded background to help with determining the row and for row responsiveness
+- clicking the entire area around the check box should select the box
+- dragging down the check box list should set selection, but NOT unselect
 - small icon next to invalid text boxes in addition to them becoming yellow
