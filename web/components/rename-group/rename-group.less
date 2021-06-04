@@ -1,3 +1,9 @@
+// tempcolour
+@checkbox-main: #f2f2f2;
+@input-highlight: #175dbb;
+@input-invalid: #efbf39;
+@input-background: #17151a;
+
 .rename-group
 {
     height: 80px;
@@ -15,7 +21,7 @@
             width: 10px;
             height: 10px;
             border-radius: 2px;
-            border: 2px solid #f2f2f2;
+            border: 2px solid @checkbox-main;
             opacity: .7;
             cursor: pointer;
 
@@ -38,7 +44,7 @@
             font-size: 19px;
             font-weight: 500;
             font-family: "roboto";
-            color: #175dbb;
+            color: @input-highlight;
             outline: none;
             width: 100%;
             padding: 3px 18px;
@@ -46,14 +52,29 @@
             border-radius: 2px;
             box-sizing: border-box;
 
+            &.empty
+            {
+                background-color: fade(@input-invalid,10%);
+
+                &:focus
+                {
+                    background-color: fade(@input-invalid,30%);
+                }
+
+                &:hover:not(:focus)
+                {
+                    background-color: fade(@input-invalid,20%);
+                }
+            }
+
             &:focus
             {
-                background-color: #17151a;
+                background-color: @input-background;
             }
 
             &:hover:not(:focus)
             {
-                background-color: fade(#17151a,50%);
+                background-color: fade(@input-background,50%);
             }
         }
     }

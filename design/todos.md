@@ -43,3 +43,6 @@
 # image loading
 - how to handle video files as thumbnails
 - dragged in images have no faded out drag preview for some reason
+
+# rename page
+- small icon next to invalid text boxes in addition to them becoming yellow
