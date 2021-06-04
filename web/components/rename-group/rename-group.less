@@ -25,6 +25,20 @@
             opacity: .7;
             cursor: pointer;
 
+            img
+            {
+                width: 100%;
+                vertical-align: top;
+                height: 100%;
+                user-select: none;
+                -webkit-user-drag: none;
+            }
+
+            &.checked
+            {
+                background-color: @checkbox-main;
+            }
+
             &:hover
             {
                 opacity: .9;

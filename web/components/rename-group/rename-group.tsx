@@ -22,10 +22,15 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     empty:!theGroupNameValue.length
   };
 
+  const checkboxClass={
+    checked:false
+  };
 
   return <div className="rename-group">
     <div className="checkbox-zone zone">
-      <div className="checkbox"></div>
+      <div className={cx("checkbox",checkboxClass)}>
+        <img src="assets/temp_checked.png"/>
+      </div>
     </div>
     <div className="entry-zone zone">
       <input className={cx("group-name-input",groupNameInputClass)} value={theGroupNameValue}
