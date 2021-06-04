@@ -35,6 +35,9 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     <div className="entry-zone zone">
       <input className={cx("group-name-input",groupNameInputClass)} value={theGroupNameValue}
         onChange={handleGroupNameChange}/>
+      <div className="statuses">
+        <div className="image-count">3 images</div>
+      </div>
     </div>
     <div className="thumbnail-zone zone">
 
