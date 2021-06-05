@@ -1,6 +1,8 @@
 import React,{useState} from "react";
 import cx from "classnames";
 
+import MiniSquareThumbnail from "components/mini-square-thumbnail/mini-square-thumbnail";
+
 import "./rename-group.less";
 
 interface RenameGroupProps
@@ -40,7 +42,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
       </div>
     </div>
     <div className="thumbnail-zone zone">
-
+      <MiniSquareThumbnail/>
     </div>
   </div>;
 }
