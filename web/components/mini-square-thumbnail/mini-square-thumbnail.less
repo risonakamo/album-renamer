@@ -5,6 +5,7 @@
     overflow: hidden;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
 
     img
     {
@@ -12,5 +13,14 @@
         width: 100%;
         -webkit-user-drag: none;
         user-select: none;
+    }
+
+    &.wide
+    {
+        img
+        {
+            height: 100%;
+            width: auto;
+        }
     }
 }
