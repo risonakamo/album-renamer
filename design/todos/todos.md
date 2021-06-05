@@ -65,3 +65,4 @@
 - clicking the entire area around the check box should select the box
 - dragging down the check box list should set selection, but NOT unselect
 - small icon next to invalid text boxes in addition to them becoming yellow
+- make invalid group name yellow colour more faded
