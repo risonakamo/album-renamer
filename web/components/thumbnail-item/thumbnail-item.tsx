@@ -2,6 +2,7 @@ import React,{useRef,useState} from "react";
 import cx from "classnames";
 
 import {useDraggedOver} from "hooks/useDraggedOver";
+import {useIsWideFit} from "hooks/useIsWideFit";
 
 import "./thumbnail-item.less";
 
@@ -21,27 +22,13 @@ interface ThumbnailItemProps
 
 export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
 {
-  const [isWideFit,setWideFit]=useState<boolean>(false);
   const {isDraggedOver,useDraggedOverHandlers}=useDraggedOver();
 
   const dragActive=useRef<boolean>(false);
 
   const imgElement=useRef<HTMLImageElement>(null);
 
-  /*-- MEMBER FUNCTIONS --*/
-  /** auto fit image on image load */
-  function imageLoaded():void
-  {
-    if (imgElement.current!.naturalWidth>imgElement.current!.naturalHeight)
-    {
-      setWideFit(true);
-    }
-
-    else
-    {
-      setWideFit(false);
-    }
-  }
+  const {isWideFit,handleImageLoad}=useIsWideFit(imgElement);
 
   /*-- HANDLERS --*/
   /** handle item clicked */
@@ -114,7 +101,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   >
     <div className={cx("image-space",imageSpaceClass)}>
       <img src={props.data.path} className={cx(imgElementClasses)}
-        ref={imgElement} onLoad={imageLoaded}/>
+        ref={imgElement} onLoad={handleImageLoad}/>
       <div className="selected-overlay">
         <p>{selectionNumber}</p>
       </div>
