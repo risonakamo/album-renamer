@@ -7,7 +7,7 @@ import "./mini-square-thumbnail.less";
 
 interface MiniSquareThumbnailProps
 {
-
+  image:string
 }
 
 export default function MiniSquareThumbnail(props:MiniSquareThumbnailProps):JSX.Element
@@ -20,6 +20,6 @@ export default function MiniSquareThumbnail(props:MiniSquareThumbnailProps):JSX.
   };
 
   return <div className={cx("mini-square-thumbnail",topClass)}>
-    <img src="../sampleimages/1.png" ref={imgElement} onLoad={handleImageLoad}/>
+    <img src={props.image} ref={imgElement} onLoad={handleImageLoad}/>
   </div>;
 }

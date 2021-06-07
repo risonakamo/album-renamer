@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 
 import ButtonTextBox from "components/button-text-box/button-text-box";
 import Button84 from "components/button-84/button-84";
@@ -14,6 +15,13 @@ interface RenamePhaseMainProps
 
 export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
 {
+  function renderGroups():JSX.Element[]
+  {
+    return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
+      return <RenameGroup group={x} key={i}/>;
+    });
+  }
+
   return <div className="rename-phase-section phase-layout">
     <section className="top-section header-zone">
       <div className="header-zone-container inputs-zone">
@@ -28,7 +36,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
 
     <section className="top-section body-zone">
       <div className="rename-groups">
-        <RenameGroup/>
+        {renderGroups()}
       </div>
     </section>
 
