@@ -9,7 +9,7 @@ import "./rename-phase-main.less";
 
 interface RenamePhaseMainProps
 {
-
+  groups:ImageGroup[]
 }
 
 export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element

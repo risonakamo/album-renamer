@@ -17,8 +17,7 @@ function IndexMain():JSX.Element
   const theImageGroups2=useSelector<TheStore,ImageGroup[]>(s=>s.imageGroups);
   const theSelectedImages2=useSelector<TheStore,ImageData2[]>(s=>s.selectedImages);
 
-  // TODO: change back to reorder as default
-  const [theCurrentPhase,setCurrentPhase]=useState<RenamePhase>("rename");
+  const [theCurrentPhase,setCurrentPhase]=useState<RenamePhase>("reorder");
   const [theImageGroups,setImageGroups]=useState<ImageGroup[]>([]);
 
   /** reorder phase submitted groups. switch to rename phase and load the groups. */
@@ -45,7 +44,7 @@ function IndexMain():JSX.Element
       return null;
     }
 
-    return <RenamePhaseMain/>;
+    return <RenamePhaseMain groups={theImageGroups}/>;
   }
 
   return <>
