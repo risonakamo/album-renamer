@@ -3,6 +3,7 @@
 @input-highlight: #175dbb;
 @input-invalid: #efbf39;
 @input-background: #17151a;
+@rename-rule-colour: #5234d4;
 
 .rename-group
 {
@@ -100,6 +101,8 @@
         .statuses
         {
             margin-top: 3px;
+            display: flex;
+            align-items: center;
 
             .image-count
             {
@@ -113,14 +116,38 @@
 
             input.image-rename-rule-input
             {
-                background: #141217;
-                color: #5234d4;
+                background: transparent;
+                color: @rename-rule-colour;
                 font-size: 10px;
                 outline: none;
                 border: none;
                 padding: 2px 3px;
                 vertical-align: top;
                 border-radius: 2px;
+                flex: 1;
+
+                &:hover
+                {
+                    background: fade(@input-background,50%);
+                }
+
+                &:focus
+                {
+                    background: @input-background;
+                }
+
+                &::placeholder
+                {
+                    color: @rename-rule-colour;
+                    opacity: .7;
+                }
+            }
+
+            .mid-arrow
+            {
+                font-size: 11px;
+                padding: 0 4px;
+                color: @input-highlight;
             }
         }
     }

@@ -40,7 +40,8 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
           onChange={handleGroupNameChange}/>
         <div className="statuses">
           <div className="image-count">3 images</div>
-          <input className="image-rename-rule-input"/>
+          <div className="mid-arrow">➜</div>
+          <input className="image-rename-rule-input" placeholder="#"/>
         </div>
       </div>
     </div>
