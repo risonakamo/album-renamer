@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import _ from "lodash";
 
 import ButtonTextBox from "components/button-text-box/button-text-box";
@@ -15,10 +15,31 @@ interface RenamePhaseMainProps
 
 export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
 {
+  // set of keys of the currently selected ImageGroups
+  const [theSelectedGroups,setSelectedGroups]=useState<Set<number>>(new Set());
+
+  /** group selection was toggled */
+  function handleToggleSelection(selected:boolean,group:ImageGroup):void
+  {
+    var selectedGroups2:Set<number>=new Set(theSelectedGroups);
+    if (!selected)
+    {
+      selectedGroups2.delete(group.key);
+    }
+
+    else
+    {
+      selectedGroups2.add(group.key);
+    }
+
+    setSelectedGroups(selectedGroups2);
+  }
+
   function renderGroups():JSX.Element[]
   {
     return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
-      return <RenameGroup group={x} key={i}/>;
+      var selected:boolean=theSelectedGroups.has(x.key);
+      return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}/>;
     });
   }
 

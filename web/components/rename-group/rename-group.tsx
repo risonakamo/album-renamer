@@ -9,6 +9,9 @@ import "./rename-group.less";
 interface RenameGroupProps
 {
   group:ImageGroup
+  selected?:boolean
+
+  onToggleSelect?(selected:boolean,group:ImageGroup):void
 }
 
 export default function RenameGroup(props:RenameGroupProps):JSX.Element
@@ -28,6 +31,18 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     setGroupNameValue(e.currentTarget.value);
   }
 
+  /** trigger selection toggle. returns opposite of the current selection state. */
+  function handleCheckboxClick():void
+  {
+    props.onToggleSelect?.(!props.selected,props.group);
+  }
+
+  function handleCheckboxDrag(e:React.DragEvent):void
+  {
+    e.preventDefault();
+    props.onToggleSelect?.(true,props.group);
+  }
+
   function renderMiniThumbnails():JSX.Element[]
   {
     return _.map(props.group.items,(x:ImageData2,i:number):JSX.Element=>{
@@ -40,13 +55,13 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   };
 
   const checkboxClass={
-    checked:false
+    checked:props.selected
   };
 
   const imageCount:number=props.group.items.length;
 
   return <div className="rename-group">
-    <div className="checkbox-zone zone">
+    <div className="checkbox-zone zone" onClick={handleCheckboxClick}>
       <div className={cx("checkbox",checkboxClass)}>
         <img src="assets/temp_checked.png"/>
       </div>

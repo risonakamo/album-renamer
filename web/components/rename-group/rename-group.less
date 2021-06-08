@@ -18,6 +18,7 @@
         align-items: center;
         box-sizing: border-box;
         border-right: 1px solid fade(@checkbox-main,25%);
+        cursor: pointer;
 
         .checkbox
         {
@@ -46,6 +47,11 @@
             {
                 opacity: .9;
             }
+        }
+
+        &:hover
+        {
+            border-right: 1px solid fade(@checkbox-main,50%);
         }
     }
 
