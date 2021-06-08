@@ -35,6 +35,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     </section>
 
     <section className="top-section body-zone">
+      <div className="checkbox-border"></div>
       <div className="rename-groups">
         {renderGroups()}
       </div>
