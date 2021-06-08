@@ -16,6 +16,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        box-sizing: border-box;
+        border-right: 1px solid fade(@checkbox-main,25%);
 
         .checkbox
         {
@@ -155,5 +157,7 @@
     .thumbnail-zone
     {
         flex: 8;
+        overflow: overlay;
+        white-space: nowrap;
     }
 }
