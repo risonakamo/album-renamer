@@ -68,3 +68,5 @@
 - make invalid group name yellow colour more faded
 - tab and shift tab, maybe even up and down, should mvoe between groups instead of between group and the rename rule
 - make the checkbox border slightly shorter at the bottom
+- system to specify starting number for image rename rule
+    - any maybe even for groups also? could share the same syntax?
