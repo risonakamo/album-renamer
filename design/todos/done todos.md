@@ -47,3 +47,7 @@
     - group title this time will defitely be an input that spans the whole row instead of being a variable size
     - make background slightly dark?
 - above the group title, have text showing number of images in that group
+
+# ~~rename page~~
+- dragging down the check box list should set selection, but NOT unselect
+- clicking the entire area around the check box should select the box

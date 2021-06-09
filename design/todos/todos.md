@@ -49,8 +49,6 @@
 - error output under the rename button when something fails
     - might not ahve it initially, just fail in the console
 - button to go back to rename phase
-
-## 2
 - show a mark on items that have been auto renamed
     - maybe in the checkbox column
     - maybe coloured border around the check box?
@@ -61,15 +59,16 @@
 - show shadowy "#" sign at the end of the auto rename box to represent that it is a prefix
 - fade out apply button when nothing is selected, but still allow typing
     - or perhaps just allow clikcing it? it will do nothing but will clear out the box. perhaps this is a purposeful action
-- hovering over group should have faded background to help with determining the row and for row responsiveness
-- clicking the entire area around the check box should select the box
-- dragging down the check box list should set selection, but NOT unselect
 - small icon next to invalid text boxes in addition to them becoming yellow
-- make invalid group name yellow colour more faded
-- tab and shift tab, maybe even up and down, should mvoe between groups instead of between group and the rename rule
 - make the checkbox border slightly shorter at the bottom
-- system to specify starting number for image rename rule
-    - any maybe even for groups also? could share the same syntax?
 - animation effect when selection changes for group box
 - adjust drag select to not toggle, but force the state of the first thing that started the drag
+    - maybe try out the toggle for a bit, maybe it comes in handy
 - experiment with padding between rows and images
+
+## 2
+- make invalid group name yellow colour more faded
+- hovering over group should have faded background to help with determining the row and for row responsiveness
+- tab and shift tab, maybe even up and down, should mvoe between groups instead of between group and the rename rule
+- system to specify starting number for image rename rule
+    - any maybe even for groups also? could share the same syntax?
