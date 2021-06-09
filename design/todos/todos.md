@@ -77,3 +77,6 @@
 - shift selection of rename items
 - maybe make up/down when inside a group name edit move to the next or previous group input edit
     - right now tab/shift+tab will do that, and up and down will intuatively go to the front and back of a text field, so maybe not good to do this? but maybe try it to see how it feels
+- scroll to empty rename field when trying to click rename button when there is an empty name field
+- show yellow warning icon next to rename button when error
+    - maybe same icon as next to the group name when it is empty
