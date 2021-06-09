@@ -37,10 +37,13 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     props.onToggleSelect?.(!props.selected,props.group);
   }
 
-  function handleCheckboxDrag(e:React.DragEvent):void
+  /** handle mouse entered the checkbox zone while mouse1 is pressed */
+  function handleCheckboxMouseIn(e:React.MouseEvent):void
   {
-    e.preventDefault();
-    props.onToggleSelect?.(true,props.group);
+    if (e.buttons==1)
+    {
+      props.onToggleSelect?.(!props.selected,props.group);
+    }
   }
 
   function renderMiniThumbnails():JSX.Element[]
@@ -61,7 +64,9 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   const imageCount:number=props.group.items.length;
 
   return <div className="rename-group">
-    <div className="checkbox-zone zone" onClick={handleCheckboxClick}>
+    <div className="checkbox-zone zone" onMouseDown={handleCheckboxClick}
+      onMouseEnter={handleCheckboxMouseIn}
+    >
       <div className={cx("checkbox",checkboxClass)}>
         <img src="assets/temp_checked.png"/>
       </div>

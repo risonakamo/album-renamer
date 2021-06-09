@@ -70,3 +70,6 @@
 - make the checkbox border slightly shorter at the bottom
 - system to specify starting number for image rename rule
     - any maybe even for groups also? could share the same syntax?
+- animation effect when selection changes for group box
+- adjust drag select to not toggle, but force the state of the first thing that started the drag
+- experiment with padding between rows and images
