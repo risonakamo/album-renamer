@@ -74,10 +74,4 @@
 - more interesting design for mini thumbnail scrollbar
 - drag pannable thumbnail zone
 - double click thumbnail to open preview pane (once preview pane is made)
-
-## 2
-- make invalid group name yellow colour more faded
-- hovering over group should have faded background to help with determining the row and for row responsiveness
-- tab and shift tab, maybe even up and down, should mvoe between groups instead of between group and the rename rule
-- system to specify starting number for image rename rule
-    - any maybe even for groups also? could share the same syntax?
+- shift selection of rename items

@@ -51,3 +51,10 @@
 # ~~rename page~~
 - dragging down the check box list should set selection, but NOT unselect
 - clicking the entire area around the check box should select the box
+
+# ~~rename page 2~~
+- make invalid group name yellow colour more faded
+- hovering over group should have faded background to help with determining the row and for row responsiveness
+- tab and shift tab, maybe even up and down, should mvoe between groups instead of between group and the rename rule
+- system to specify starting number for image rename rule
+    - any maybe even for groups also? could share the same syntax?
