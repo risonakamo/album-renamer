@@ -80,7 +80,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
         <div className="statuses">
           <div className="image-count">{`${imageCount} images`}</div>
           <div className="mid-arrow">➜</div>
-          <input className="image-rename-rule-input" placeholder="#"/>
+          <input className="image-rename-rule-input" placeholder="#" tabIndex={-1}/>
         </div>
       </div>
     </div>

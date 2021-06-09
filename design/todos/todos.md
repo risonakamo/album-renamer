@@ -75,3 +75,5 @@
 - drag pannable thumbnail zone
 - double click thumbnail to open preview pane (once preview pane is made)
 - shift selection of rename items
+- maybe make up/down when inside a group name edit move to the next or previous group input edit
+    - right now tab/shift+tab will do that, and up and down will intuatively go to the front and back of a text field, so maybe not good to do this? but maybe try it to see how it feels
