@@ -4,6 +4,7 @@
 @input-invalid: #efbf39;
 @input-background: #17151a;
 @rename-rule-colour: #5234d4;
+@hover-background: #47689a;
 
 .rename-group
 {
@@ -167,5 +168,10 @@
         flex: 8;
         overflow: overlay;
         white-space: nowrap;
+    }
+
+    &:hover
+    {
+        background-color: fade(@hover-background,5%);
     }
 }
