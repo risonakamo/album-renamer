@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,useRef} from "react";
 import _ from "lodash";
 import cx from "classnames";
 import {Event} from "electron";
@@ -30,6 +30,8 @@ interface ImageRowProps
   onGroupSorted?(group:ImageGroup):void
 
   onDropNewImages?(data:ImageData2[],group:ImageGroup):void
+
+  onGroupRenamed?(group:ImageGroup):void
 }
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
@@ -45,6 +47,8 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
 
   const [initGroupName,setInitGroupName]=useState<string>("");
 
+  const groupNameInput=useRef<HTMLHeadingElement>(null);
+
   // initialise group name
   useEffect(()=>{
     setInitGroupName(props.imagegroup.name);
@@ -57,6 +61,14 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       return x.path==data.path;
     })+1;
   }
+
+  // submit the group with a new group name taken from the input field after a debounce
+  const submitDebounced=_.debounce(()=>{
+    props.onGroupRenamed?.({
+      ...props.imagegroup,
+      name:groupNameInput.current?.innerText || "error_name"
+    });
+  },500);
 
   /**-- DRAG HANDLERS --*/
   function handleDEnter(e:React.DragEvent):void
@@ -108,6 +120,12 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     props.onGroupSorted?.(sortGroupAlpha(props.imagegroup));
   }
 
+  /** handle group name field being edited. submits the name with a debounce */
+  function handleEditGroupName(e:React.KeyboardEvent):void
+  {
+    submitDebounced();
+  }
+
   /** render thumbnail items */
   function renderThumbnailItems(images:ImageGroup):JSX.Element[]
   {
@@ -141,7 +159,11 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       onDragLeave={useDraggedOverHandlers.handleDragLeave}
       onDrop={handleDrop} onDragOver={handleDOver}
     >
-      <h2 contentEditable={true} suppressContentEditableWarning={true}>{initGroupName}</h2>
+      <h2 contentEditable={true} suppressContentEditableWarning={true}
+        onKeyDown={handleEditGroupName} ref={groupNameInput}
+      >
+        {initGroupName}
+      </h2>
       <div className="title-button" onClick={azSortHandler}>
         <img src="assets/temp_az-sort.png"/>
       </div>

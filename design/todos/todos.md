@@ -40,6 +40,11 @@
     - just the green arrow seems too non-visble, at least right now with the thin green arrow
 - dont show green arrow when dragging over self, since dropping on self does nothing
 - have new group zone text slightly (very slightly) faded out until hover over
+- what to do with groups that have no name? should they be allowed to have no name?
+    - i think yes, in the next mode they will be invalid and will be highlighted
+    - so instead, make it easier to edit no name groups
+- limit max size of renaming group on reorder page
+    - spilling voer right now causes the image row buttons to spill over weirdly
 
 # image loading
 - how to handle video files as thumbnails

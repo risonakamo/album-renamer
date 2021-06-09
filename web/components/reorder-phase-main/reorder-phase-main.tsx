@@ -192,6 +192,12 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     props.onGroupsSubmit?.(theImageGroups);
   }
 
+  /** image row signaled group name updated. replace it */
+  function handleGroupRenamed(group:ImageGroup):void
+  {
+    imageGroupControl.doReplaceGroup(group);
+  }
+
   /*----        RENDER        ----*/
   const imageCount:number=getImageCount(theImageGroups);
 
@@ -202,7 +208,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
         key={i} onThumbnailDrop={handleDropOnThumbnail} onThumbnailDragStart={thumbnailDragBegin}
         onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
-        onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}/>;
+        onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
+        onGroupRenamed={handleGroupRenamed}/>;
     });
   }
 
