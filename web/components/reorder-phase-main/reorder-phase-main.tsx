@@ -186,10 +186,12 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     setCurrentDragItem(theSelectedImages[0]);
   }
 
-  /** submit the image groups */
+  /** submit the image groups, excluding ones with no items */
   function handleRenameButtonClick():void
   {
-    props.onGroupsSubmit?.(theImageGroups);
+    props.onGroupsSubmit?.(_.filter(theImageGroups,(x:ImageGroup):boolean=>{
+      return !!x.items.length;
+    }));
   }
 
   /** image row signaled group name updated. replace it */
