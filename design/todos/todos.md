@@ -9,6 +9,7 @@
 - have recently moved items be some colour for a while before fading away
 - see if can adjust the drag sensitivity, but maybe not, since with explorer it is still pretty sensitive
 - when making the real drop arrow, make it pretty visible since the dragged ghost image kind of obscures it
+- more designed scrollbars
 
 ## 2
 - fix some slight flashing when reordering
@@ -65,6 +66,9 @@
 - adjust drag select to not toggle, but force the state of the first thing that started the drag
     - maybe try out the toggle for a bit, maybe it comes in handy
 - experiment with padding between rows and images
+- more interesting design for mini thumbnail scrollbar
+- drag pannable thumbnail zone
+- double click thumbnail to open preview pane (once preview pane is made)
 
 ## 2
 - make invalid group name yellow colour more faded

@@ -1,10 +1,12 @@
 import React,{useState,useRef,useEffect} from "react";
 import cx from "classnames";
 import _ from "lodash";
+import SimpleBar from "simplebar-react";
 
 import MiniSquareThumbnail from "components/mini-square-thumbnail/mini-square-thumbnail";
 
 import "./rename-group.less";
+import "simplebar/dist/simplebar.css";
 
 interface RenameGroupProps
 {
@@ -82,8 +84,8 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
         </div>
       </div>
     </div>
-    <div className="thumbnail-zone zone">
+    <SimpleBar className="thumbnail-zone zone">
       {renderMiniThumbnails()}
-    </div>
+    </SimpleBar>
   </div>;
 }
