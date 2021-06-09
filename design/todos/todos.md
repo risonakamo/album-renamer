@@ -45,6 +45,7 @@
     - so instead, make it easier to edit no name groups
 - limit max size of renaming group on reorder page
     - spilling voer right now causes the image row buttons to spill over weirdly
+- consider darkening or using a different colour for the header menu area background
 
 # image loading
 - how to handle video files as thumbnails

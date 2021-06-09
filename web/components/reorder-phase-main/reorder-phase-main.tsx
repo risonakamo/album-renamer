@@ -6,6 +6,7 @@ import NewGroupZone from "components/new-group-zone/new-group-zone";
 import DragProxy from "components/drag-proxy/drag-proxy";
 import InitialDropZone from "components/initial-drop-zone/initial-drop-zone";
 import Button84 from "components/button-84/button-84";
+import FooterText from "components/footer-text/footer-text";
 
 import {getImageCount} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
@@ -215,20 +216,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     });
   }
 
-  function renderFootText():JSX.Element
-  {
-    const groupCount:number=theImageGroups.length;
-    const selectedCount:number=theSelectedImages.length;
-
-    var selectedCountText:string="";
-    if (selectedCount>0)
-    {
-      selectedCountText=`, ${selectedCount} selected`;
-    }
-
-    return <p>{`${imageCount} images, ${groupCount} groups${selectedCountText}`}</p>
-  }
-
   function renderInitialDropZone():JSX.Element|null
   {
     if (theImageGroups.length)
@@ -260,7 +247,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     </section>
 
     <footer className="footer-zone top-section">
-      {renderFootText()}
+      <FooterText selected={theSelectedImages.length} groupCount={theImageGroups.length}
+        imageCount={imageCount}/>
     </footer>
   </div>;
 }

@@ -4,6 +4,9 @@ import _ from "lodash";
 import ButtonTextBox from "components/button-text-box/button-text-box";
 import Button84 from "components/button-84/button-84";
 import RenameGroup from "components/rename-group/rename-group";
+import FooterText from "components/footer-text/footer-text";
+
+import {getImageCount} from "lib/image-group-helpers";
 
 import "css/phase-layout.less";
 import "./rename-phase-main.less";
@@ -43,6 +46,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     });
   }
 
+  const imageCount:number=getImageCount(props.groups);
+
   return <div className="rename-phase-section phase-layout">
     <section className="top-section header-zone">
       <div className="header-zone-container inputs-zone">
@@ -62,7 +67,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     </section>
 
     <footer className="top-section footer-zone">
-
+      <FooterText selected={theSelectedGroups.size} groupCount={props.groups.length}
+        imageCount={imageCount}/>
     </footer>
   </div>;
 }
