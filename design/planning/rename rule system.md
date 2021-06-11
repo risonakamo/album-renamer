@@ -8,6 +8,7 @@ the rename string will have the following special characters
 - `#<single digit number>` becomes the increment field, starting at the specified single digit number
 - `#(multi digit number)` becomes the increment field, starting at the specified multi digit number
 - `\#` becomes a regular #
+- if no rules were activated, except fot the escape rule `\#`, automatically appends the increment to the end
 
 a rename string without a # at all will automatically append a #1 at the end, meaning it will begin incrementing from 1
 

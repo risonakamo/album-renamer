@@ -2,6 +2,7 @@
  *  with the given increment */
 function generateRename(rule:string,increment:number):string
 {
+    rule=applyParenHashRule(rule,increment);
     rule=applySingleHashRule(rule,increment);
 
     return rule;
@@ -31,10 +32,38 @@ function applySingleHashRule(rule:string,increment:number):string
     }
 }
 
+/** apply paren hash rule, replace all #(<number), where number can be multidigit, with the number
+ *  plus the increment. */
+function applyParenHashRule(rule:string,increment:number):string
+{
+    // match #(2), #(10), ect.
+    // [1]: the number that was matched
+    var reg:RegExp=/(?<!\\)#\((\d)\)/;
+
+    while (true)
+    {
+        var match:RegExpMatchArray|null=rule.match(reg);
+
+        if (!match)
+        {
+            return rule;
+        }
+
+        rule=rule.replace(
+            reg,
+            (parseInt(match[1])+increment).toString()
+        );
+    }
+}
+
 export function test1():void
 {
     console.log(generateRename("amber2",0));
     console.log(generateRename("amber#0",1));
     console.log(generateRename("amber##2",0));
     console.log(generateRename("amber\\##5",10));
+    console.log(generateRename("amber\\##5#(20)",10));
+    console.log(generateRename("amber\\##5#(20a",10));
+    console.log(generateRename("amber\\##5#(20a)",10));
+    console.log(generateRename("amber\\##5#(#20a)",10));
 }
