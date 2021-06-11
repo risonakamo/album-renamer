@@ -29,12 +29,21 @@ export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
     }
   }
 
+  /** input box key handler. do same as click on enter button */
+  function handleInputEnter(e:React.KeyboardEvent):void
+  {
+    if (e.key=="Enter")
+    {
+      handleButtonClick();
+    }
+  }
+
   return <div className={cx("button-text-box",props.className)}>
     <div className="label">
       {props.label}
     </div>
     <div className="input-rect">
-      <input type="text" ref={inputBox}/>
+      <input type="text" ref={inputBox} onKeyPress={handleInputEnter}/>
       <div className="button-zone">
         <div className="mini-button" onClick={handleButtonClick}>
           {props.buttonLabel}
