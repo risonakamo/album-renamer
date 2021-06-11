@@ -48,6 +48,16 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     }
   }
 
+  /** keyboard handlers for input. unfocuses on enter button. shared with rename rule input */
+  function handleGroupNameEnter(e:React.KeyboardEvent):void
+  {
+    if (e.key=="Enter")
+    {
+      e.preventDefault();
+      (e.currentTarget as HTMLElement).blur();
+    }
+  }
+
   function renderMiniThumbnails():JSX.Element[]
   {
     return _.map(props.group.items,(x:ImageData2,i:number):JSX.Element=>{
@@ -76,11 +86,12 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     <div className="entry-zone zone">
       <div>
         <input className={cx("group-name-input",groupNameInputClass)} value={theGroupNameValue}
-          onChange={handleGroupNameChange} ref={mainNameInput}/>
+          onChange={handleGroupNameChange} ref={mainNameInput} onKeyDown={handleGroupNameEnter}/>
         <div className="statuses">
           <div className="image-count">{`${imageCount} images`}</div>
           <div className="mid-arrow">➜</div>
-          <input className="image-rename-rule-input" placeholder="#" tabIndex={-1}/>
+          <input className="image-rename-rule-input" placeholder="#" tabIndex={-1}
+            onKeyDown={handleGroupNameEnter}/>
         </div>
       </div>
     </div>
