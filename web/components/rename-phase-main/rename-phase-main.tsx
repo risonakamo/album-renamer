@@ -14,6 +14,9 @@ import "./rename-phase-main.less";
 interface RenamePhaseMainProps
 {
   groups:ImageGroup[]
+
+  // groups were renamed. provides the modified groups array
+  ongroupsRenamed?(groups:ImageGroup[]):void
 }
 
 export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
@@ -38,11 +41,11 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     setSelectedGroups(selectedGroups2);
   }
 
-  /** perform auto rename */
+  /** perform auto rename. deselects all */
   function handleAutoRenameButton(value:string):void
   {
-    // TESTING
-    console.log(autorenameGroups(props.groups,theSelectedGroups,value));
+    props.ongroupsRenamed?.(autorenameGroups(props.groups,theSelectedGroups,value));
+    setSelectedGroups(new Set());
   }
 
   function renderGroups():JSX.Element[]

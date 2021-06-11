@@ -11,7 +11,7 @@ export function generateRename(rule:string,increment:number):string
 
     if (!appliedARule)
     {
-        result+=increment;
+        result+=increment+1;
     }
 
     return result;

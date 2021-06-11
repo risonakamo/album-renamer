@@ -27,6 +27,12 @@ function IndexMain():JSX.Element
     setImageGroups(groups);
   }
 
+  /** groups were renamed. override the groups */
+  function handleGroupsRenamed(groups:ImageGroup[]):void
+  {
+    setImageGroups(groups);
+  }
+
   function renderReorderPhase():JSX.Element|null
   {
     if (theCurrentPhase!="reorder")
@@ -44,7 +50,7 @@ function IndexMain():JSX.Element
       return null;
     }
 
-    return <RenamePhaseMain groups={theImageGroups}/>;
+    return <RenamePhaseMain groups={theImageGroups} ongroupsRenamed={handleGroupsRenamed}/>;
   }
 
   return <>
