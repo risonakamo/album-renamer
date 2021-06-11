@@ -14,7 +14,7 @@ export function generateRename(rule:string,increment:number):string
         result+=increment+1;
     }
 
-    return result;
+    return applyEscapeHashRule(result);
 }
 
 /** use single hash rule. replaces all #<number> with that number plus the increment, except for
@@ -73,6 +73,12 @@ function applyParenHashRule(rule:string,increment:number):RenameRuleApplyResult
             (parseInt(match[1])+increment).toString()
         );
     }
+}
+
+/** escape hashes */
+function applyEscapeHashRule(rule:string):string
+{
+    return rule.replace(/\\#/g,"#");
 }
 
 export function test1():void
