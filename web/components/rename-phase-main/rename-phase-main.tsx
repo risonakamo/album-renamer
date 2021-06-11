@@ -6,7 +6,7 @@ import Button84 from "components/button-84/button-84";
 import RenameGroup from "components/rename-group/rename-group";
 import FooterText from "components/footer-text/footer-text";
 
-import {getImageCount} from "lib/image-group-helpers";
+import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
 
 import "css/phase-layout.less";
 import "./rename-phase-main.less";
@@ -38,6 +38,13 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     setSelectedGroups(selectedGroups2);
   }
 
+  /** perform auto rename */
+  function handleAutoRenameButton(value:string):void
+  {
+    // TESTING
+    console.log(autorenameGroups(props.groups,theSelectedGroups,value));
+  }
+
   function renderGroups():JSX.Element[]
   {
     return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
@@ -52,7 +59,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     <section className="top-section header-zone">
       <div className="header-zone-container inputs-zone">
         <ButtonTextBox label="BASEPATH" buttonLabel="BROWSE" className="base-path"/>
-        <ButtonTextBox label="AUTO-RENAME" buttonLabel="APPLY" className="auto-rename"/>
+        <ButtonTextBox label="AUTO-RENAME" buttonLabel="APPLY" className="auto-rename"
+          onSubmit={handleAutoRenameButton} autoClear={true}/>
         <div className="empty"></div>
       </div>
       <div className="rename-button-zone header-zone-container">

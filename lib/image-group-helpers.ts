@@ -2,6 +2,8 @@
 import _ from "lodash";
 import naturalCompare from "natural-compare";
 
+import {generateRename} from "lib/rename-rule";
+
 interface RemoveTargetsResult
 {
     groups:ImageGroup[]
@@ -129,6 +131,25 @@ export function getImageCount(groups:ImageGroup[]):number
         return x.items.length;
     });
 }
+
+/** given image groups, and the target ids of groups to be auto renamed, apply the rename rule and
+ *  rename all the target groups. returns the new array of image groups */
+ export function autorenameGroups(groups:ImageGroup[],targetGroups:Set<number>,
+    renameRule:string):ImageGroup[]
+ {
+     var inc:number=0;
+     return _.map(groups,(x:ImageGroup):ImageGroup=>{
+         if (!targetGroups.has(x.key))
+         {
+             return x;
+         }
+
+         return {
+             ...x,
+             name:generateRename(renameRule,inc++)
+         };
+     });
+ }
 
 /** given a set of items's paths, removes them from the target group. returns the group with them removed */
 function removeFromGroup(removeItemsPaths:Set<string>,group:ImageGroup):ImageGroup
