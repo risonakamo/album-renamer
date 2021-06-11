@@ -7,6 +7,7 @@ import ReorderPhaseMain from "components/reorder-phase-main/reorder-phase-main";
 import RenamePhaseMain from "components/rename-phase-main/rename-phase-main";
 
 import thestore from "store/store";
+import {test1} from "lib/rename-rule";
 
 import "./index.less";
 
@@ -55,6 +56,7 @@ function IndexMain():JSX.Element
 
 function main()
 {
+  test1();
   ReactDOM.render(<Provider store={thestore}><IndexMain/></Provider>,document.querySelector(".main"));
 }
 
