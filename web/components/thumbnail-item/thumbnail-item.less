@@ -100,4 +100,22 @@
             padding: 0px 17px;
         }
     }
+
+    &:hover
+    {
+        .image-space
+        {
+            outline: 3px dashed fade(@selected-border-colour,10%);
+
+            &.selected
+            {
+                outline: none;
+
+                .selected-overlay
+                {
+                    opacity: .6;
+                }
+            }
+        }
+    }
 }
