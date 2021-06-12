@@ -62,14 +62,6 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     })+1;
   }
 
-  // submit the group with a new group name taken from the input field after a debounce
-  const submitDebounced=_.debounce(()=>{
-    props.onGroupRenamed?.({
-      ...props.imagegroup,
-      name:groupNameInput.current?.innerText || "error_name"
-    });
-  },500);
-
   /**-- DRAG HANDLERS --*/
   function handleDEnter(e:React.DragEvent):void
   {
@@ -120,10 +112,23 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
     props.onGroupSorted?.(sortGroupAlpha(props.imagegroup));
   }
 
-  /** handle group name field being edited. submits the name with a debounce */
-  function handleEditGroupName(e:React.KeyboardEvent):void
+  /** on press enter in edit group name field, submit */
+  function handleEditGroupNameKey(e:React.KeyboardEvent):void
   {
-    submitDebounced();
+    if (e.key=="Enter")
+    {
+      e.preventDefault();
+      groupNameInput.current?.blur();
+    }
+  }
+
+  /** on group edit name blur, submit rename */
+  function handleEditGroupNameBlur():void
+  {
+    props.onGroupRenamed?.({
+      ...props.imagegroup,
+      name:groupNameInput.current?.innerText || "error_name"
+    });
   }
 
   /** render thumbnail items */
@@ -159,8 +164,8 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       onDragLeave={useDraggedOverHandlers.handleDragLeave}
       onDrop={handleDrop} onDragOver={handleDOver}
     >
-      <h2 contentEditable={true} suppressContentEditableWarning={true}
-        onKeyDown={handleEditGroupName} ref={groupNameInput}
+      <h2 contentEditable={true} suppressContentEditableWarning={true} ref={groupNameInput}
+        onKeyDown={handleEditGroupNameKey} onBlur={handleEditGroupNameBlur}
       >
         {initGroupName}
       </h2>
