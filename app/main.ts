@@ -7,6 +7,8 @@ function main():void
     app.on("ready",()=>{
         mainWindow();
     });
+
+    initRenameServiceListeners();
 }
 
 function mainWindow():void
