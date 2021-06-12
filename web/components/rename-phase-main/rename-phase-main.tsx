@@ -48,6 +48,12 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     setSelectedGroups(new Set());
   }
 
+  // todo: testing
+  function handleRenameButtonPress():void
+  {
+
+  }
+
   function renderGroups():JSX.Element[]
   {
     return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
