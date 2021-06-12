@@ -5,11 +5,15 @@
         "target":"ESNext",
         "lib":["ESNext","DOM"],
         "module":"commonjs",
-        "esModuleInterop":true
+        "esModuleInterop":true,
+        "paths":{
+            "services/*":["app/services/*"]
+        }
     },
     "include":[
         "**/*.d.ts",
-        "app/*.ts"
+        "app/*.ts",
+        "lib/*.ts"
     ],
     "exclude":[
         "node_modules"

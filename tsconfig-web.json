@@ -10,14 +10,14 @@
         "paths":{
             "components/*":["web/components/*"],
             "hooks/*":["web/hooks/*"],
-            "store/*":["web/store/*"],
-            "services/*":["app/services/*"]
+            "store/*":["web/store/*"]
         }
     },
     "include":[
         "**/*.d.ts",
-        "**/*.tsx",
-        "**/*.ts"
+        "web/*.tsx",
+        "web/*.ts",
+        "lib/*.ts"
     ],
     "exclude":[
         "node_modules"
