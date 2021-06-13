@@ -3,6 +3,7 @@ import {join,extname} from "path";
 
 import {generateRename} from "lib/rename-rule";
 
+// todo: NOT DONE YET
 /** create rename actions for all items of an ImageGroup */
 export function renameGroupToRenameActions(group:ImageGroup,basepath:string,imageRule:string):RenameAction[]
 {
