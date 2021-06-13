@@ -1,7 +1,7 @@
 {
     "compilerOptions":{
         "strict":true,
-        "outDir":"build/app",
+        "outDir":"build",
         "target":"ESNext",
         "lib":["ESNext","DOM"],
         "module":"commonjs",
