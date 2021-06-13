@@ -7,7 +7,6 @@ import RenameGroup from "components/rename-group/rename-group";
 import FooterText from "components/footer-text/footer-text";
 
 import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
-import {requestRename} from "apis/rename-api";
 
 import "css/phase-layout.less";
 import "./rename-phase-main.less";
@@ -52,7 +51,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   // todo: testing
   function handleRenameButtonPress():void
   {
-    requestRename(props.groups);
+
   }
 
   function renderGroups():JSX.Element[]

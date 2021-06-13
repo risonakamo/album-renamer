@@ -68,8 +68,7 @@ module.exports={
             css:`${__dirname}/web/css`,
             lib:`${__dirname}/lib`,
             hooks:`${__dirname}/web/hooks`,
-            store:`${__dirname}/web/store`,
-            apis:`${__dirname}/web/apis`,
+            store:`${__dirname}/web/store`
         }
     },
 

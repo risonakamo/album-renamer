@@ -10,8 +10,7 @@
         "paths":{
             "components/*":["web/components/*"],
             "hooks/*":["web/hooks/*"],
-            "store/*":["web/store/*"],
-            "apis/*":["web/apis/*"]
+            "store/*":["web/store/*"]
         }
     },
     "include":[

@@ -1,14 +1,10 @@
 import {app,BrowserWindow} from "electron";
 
-import {initRenameServiceListeners} from "./services/rename-service";
-
 function main():void
 {
     app.on("ready",()=>{
         mainWindow();
     });
-
-    initRenameServiceListeners();
 }
 
 function mainWindow():void

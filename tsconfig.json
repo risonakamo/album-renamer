@@ -11,8 +11,7 @@
             "components/*":["web/components/*"],
             "hooks/*":["web/hooks/*"],
             "store/*":["web/store/*"],
-            "services/*":["app/services/*"],
-            "apis/*":["web/apis/*"]
+            "services/*":["app/services/*"]
         }
     },
     "include":[
