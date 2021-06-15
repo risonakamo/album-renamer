@@ -7,6 +7,7 @@ import RenameGroup from "components/rename-group/rename-group";
 import FooterText from "components/footer-text/footer-text";
 
 import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
+import {sendRenameRequest} from "api/electron-bridge-api";
 
 import "css/phase-layout.less";
 import "./rename-phase-main.less";
@@ -51,7 +52,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   // todo: testing
   function handleRenameButtonPress():void
   {
-
+    sendRenameRequest(props.groups,"C:\\Users\\ktkm\\Desktop");
   }
 
   function renderGroups():JSX.Element[]
@@ -73,7 +74,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
         <div className="empty"></div>
       </div>
       <div className="rename-button-zone header-zone-container">
-        <Button84 icon="assets/temp_do-rename.png"/>
+        <Button84 icon="assets/temp_do-rename.png" onClick={handleRenameButtonPress}/>
       </div>
     </section>
 

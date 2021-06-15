@@ -1,8 +1,11 @@
 import {contextBridge,ipcRenderer} from "electron";
 
-contextBridge.exposeInMainWorld("electron",{
-    // send request to electron renameservice to rename
-    doRename:(groups:ImageGroup[])=>{
-        ipcRenderer.send("do-rename",groups);
+contextBridge.exposeInMainWorld("electron_bridge",{
+    // send rename request to electron backend
+    sendRenameRequest:(groups:ImageGroup[],basepath:string):void=>{
+        ipcRenderer.send("request-rename",{
+            groups,
+            basepath
+        } as RenameRequest);
     }
-});
+} as ElectronBridge);

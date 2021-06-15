@@ -1,0 +1,1 @@
+export const {sendRenameRequest}=((window as any).electron_bridge as ElectronBridge);
