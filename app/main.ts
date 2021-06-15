@@ -1,10 +1,15 @@
 import {app,BrowserWindow} from "electron";
+import {join} from "path";
+
+import {attachRenameService} from "./rename-service";
 
 function main():void
 {
     app.on("ready",()=>{
         mainWindow();
     });
+
+    attachRenameService();
 }
 
 function mainWindow():void
@@ -15,7 +20,8 @@ function mainWindow():void
         minWidth:650,
         minHeight:500,
         webPreferences:{
-            spellcheck:false
+            spellcheck:false,
+            preload:join(__dirname,"preload.js")
         },
     }).loadFile("web/index.html");
 }
