@@ -4,8 +4,7 @@ import {join,extname} from "path";
 import {generateRename} from "./rename-rule";
 
 /** create rename actions for all items of an ImageGroup */
-export function renameGroupToRenameActions(group:ImageGroup,basepath:string,
-    imageRule:string):RenameAction[]
+export function renameGroupToRenameActions(group:ImageGroup,basepath:string):RenameAction[]
 {
     return _.map(group.items,(x:ImageData2,i:number):RenameAction=>{
         return {
@@ -14,7 +13,7 @@ export function renameGroupToRenameActions(group:ImageGroup,basepath:string,
                 x.path,
                 basepath,
                 group.name,
-                imageRule,
+                group.imagerule,
                 i
             )
         };
