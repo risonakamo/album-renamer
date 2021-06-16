@@ -65,7 +65,8 @@ export function useImageGroups(initialData:ImageGroup[])
             moveItemsToGroup,
             doReplaceGroup,
             addEmptyGroup,
-            addGroupWithItems
+            addGroupWithItems,
+            setImageGroups
         }
     }
 }

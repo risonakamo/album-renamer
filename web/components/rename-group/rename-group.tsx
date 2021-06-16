@@ -14,11 +14,13 @@ interface RenameGroupProps
   selected?:boolean
 
   onToggleSelect?(selected:boolean,group:ImageGroup):void
+  onBlur?(group:ImageGroup):void
 }
 
 export default function RenameGroup(props:RenameGroupProps):JSX.Element
 {
   const [theGroupNameValue,setGroupNameValue]=useState<string>("");
+  const [theImageRuleValue,setImageRuleValue]=useState<string>("");
 
   const mainNameInput=useRef<HTMLInputElement>(null);
 
@@ -58,6 +60,22 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     }
   }
 
+  /** submit group change */
+  function handleGroupNameBlur():void
+  {
+    props.onBlur?.({
+      ...props.group,
+      name:theGroupNameValue,
+      imagerule:theImageRuleValue
+    });
+  }
+
+  /** set image rule state value */
+  function handleImageRuleInputChange(e:React.ChangeEvent<HTMLInputElement>):void
+  {
+    setImageRuleValue(e.currentTarget.value);
+  }
+
   function renderMiniThumbnails():JSX.Element[]
   {
     return _.map(props.group.items,(x:ImageData2,i:number):JSX.Element=>{
@@ -86,12 +104,13 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     <div className="entry-zone zone">
       <div>
         <input className={cx("group-name-input",groupNameInputClass)} value={theGroupNameValue}
-          onChange={handleGroupNameChange} ref={mainNameInput} onKeyDown={handleGroupNameEnter}/>
+          onChange={handleGroupNameChange} ref={mainNameInput} onKeyDown={handleGroupNameEnter}
+          onBlur={handleGroupNameBlur}/>
         <div className="statuses">
           <div className="image-count">{`${imageCount} images`}</div>
           <div className="mid-arrow">➜</div>
           <input className="image-rename-rule-input" placeholder="#" tabIndex={-1}
-            onKeyDown={handleGroupNameEnter}/>
+            onKeyDown={handleGroupNameEnter} onChange={handleImageRuleInputChange}/>
         </div>
       </div>
     </div>

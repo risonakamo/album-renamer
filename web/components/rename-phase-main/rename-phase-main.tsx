@@ -18,6 +18,7 @@ interface RenamePhaseMainProps
 
   // groups were renamed. provides the modified groups array
   ongroupsRenamed?(groups:ImageGroup[]):void
+  groupUpdated?(group:ImageGroup):void
 }
 
 export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
@@ -55,11 +56,18 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     sendRenameRequest(props.groups,"C:\\Users\\ktkm\\Desktop");
   }
 
+  /** rename group input did update. update the group it is providing */
+  function handleRenameGroupRename(group:ImageGroup):void
+  {
+    props.groupUpdated?.(group);
+  }
+
   function renderGroups():JSX.Element[]
   {
     return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
       var selected:boolean=theSelectedGroups.has(x.key);
-      return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}/>;
+      return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}
+        onBlur={handleRenameGroupRename}/>;
     });
   }
 

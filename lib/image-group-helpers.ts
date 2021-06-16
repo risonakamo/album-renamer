@@ -112,7 +112,8 @@ export function addGroup(items:ImageData2[],groups:ImageGroup[]):AddGroupResult
     var newgroup:ImageGroup={
         name:`group${maxkey}`,
         items,
-        key:maxkey
+        key:maxkey,
+        imagerule:""
     };
 
     return {

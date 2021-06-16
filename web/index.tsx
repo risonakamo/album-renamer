@@ -8,6 +8,8 @@ import RenamePhaseMain from "components/rename-phase-main/rename-phase-main";
 
 import thestore from "store/store";
 
+import {useImageGroups} from "hooks/useImageGroups";
+
 import "./index.less";
 
 type RenamePhase="reorder"|"rename";
@@ -18,19 +20,25 @@ function IndexMain():JSX.Element
   const theSelectedImages2=useSelector<TheStore,ImageData2[]>(s=>s.selectedImages);
 
   const [theCurrentPhase,setCurrentPhase]=useState<RenamePhase>("reorder");
-  const [theImageGroups,setImageGroups]=useState<ImageGroup[]>([]);
+  const {theImageGroups,imageGroupControl}=useImageGroups([]);
 
   /** reorder phase submitted groups. switch to rename phase and load the groups. */
   function handleReorderSubmit(groups:ImageGroup[]):void
   {
     setCurrentPhase("rename");
-    setImageGroups(groups);
+    imageGroupControl.setImageGroups(groups);
   }
 
   /** groups were renamed. override the groups */
   function handleGroupsRenamed(groups:ImageGroup[]):void
   {
-    setImageGroups(groups);
+    imageGroupControl.setImageGroups(groups);
+  }
+
+  /** image group updated. call replace group */
+  function handleGroupUpdate(group:ImageGroup):void
+  {
+    imageGroupControl.doReplaceGroup(group);
   }
 
   function renderReorderPhase():JSX.Element|null
@@ -50,7 +58,8 @@ function IndexMain():JSX.Element
       return null;
     }
 
-    return <RenamePhaseMain groups={theImageGroups} ongroupsRenamed={handleGroupsRenamed}/>;
+    return <RenamePhaseMain groups={theImageGroups} ongroupsRenamed={handleGroupsRenamed}
+      groupUpdated={handleGroupUpdate}/>;
   }
 
   return <>
