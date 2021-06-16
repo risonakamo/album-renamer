@@ -95,7 +95,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     <section className="top-section header-zone">
       <div className="header-zone-container inputs-zone">
         <ButtonTextBox label="BASEPATH" buttonLabel="BROWSE" className="base-path"
-          onBlur={handleBasePathInputBlur}/>
+          onBlur={handleBasePathInputBlur} errorOnEmpty={true}
+          errorLabel="value cannot be empty"/>
         <ButtonTextBox label="AUTO-RENAME" buttonLabel="APPLY" className="auto-rename"
           onSubmit={handleAutoRenameButton} autoClear={true}/>
         <div className="empty"></div>

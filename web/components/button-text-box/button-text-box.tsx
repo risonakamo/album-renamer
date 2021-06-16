@@ -1,4 +1,4 @@
-import React,{useRef} from "react";
+import React,{useRef,useState} from "react";
 import cx from "classnames";
 
 import "./button-text-box.less";
@@ -7,9 +7,13 @@ interface ButtonTextBoxProps
 {
   label:string
   buttonLabel:string
+
   className?:string
 
   autoClear?:boolean
+
+  errorOnEmpty?:boolean
+  errorLabel?:string
 
   onSubmit?(value:string):void
   onBlur?(value:string):void
@@ -17,6 +21,7 @@ interface ButtonTextBoxProps
 
 export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
 {
+  const [inputValue,setInputValue]=useState<string>("");
   const inputBox=useRef<HTMLInputElement>(null);
 
   /** button clicked. submit the value */
@@ -26,7 +31,7 @@ export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
 
     if (props.autoClear)
     {
-      inputBox.current!.value="";
+      setInputValue("");
     }
   }
 
@@ -42,15 +47,34 @@ export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
   /** input blurred. forward input value to props onBlur */
   function handleInputBlur(e:React.FocusEvent<HTMLInputElement>):void
   {
-    props.onBlur?.(e.currentTarget.value);
+    props.onBlur?.(inputValue);
   }
 
-  return <div className={cx("button-text-box",props.className)}>
+  /** update input value */
+  function handleInputChange(e:React.ChangeEvent<HTMLInputElement>):void
+  {
+    setInputValue(e.currentTarget.value);
+  }
+
+  const erroring:boolean=!inputValue.length && !!props.errorOnEmpty;
+
+  var hoverText:string|undefined;
+  if (erroring && props.errorLabel)
+  {
+    hoverText=props.errorLabel;
+  }
+
+  const topClass={
+    error:erroring
+  };
+
+  return <div className={cx("button-text-box",props.className,topClass)} title={hoverText}>
     <div className="label">
       {props.label}
     </div>
     <div className="input-rect">
-      <input type="text" ref={inputBox} onKeyPress={handleInputEnter} onBlur={handleInputBlur}/>
+      <input type="text" ref={inputBox} onKeyPress={handleInputEnter} onBlur={handleInputBlur}
+        onChange={handleInputChange} value={inputValue}/>
       <div className="button-zone">
         <div className="mini-button" onClick={handleButtonClick}>
           {props.buttonLabel}

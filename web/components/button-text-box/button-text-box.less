@@ -3,6 +3,8 @@
 @input-text: white;
 @button-background: #49577d;
 @button-hover-background: #4e649e;
+@error-text: #ce2727;
+@error-background: #310808;
 
 // will generally need to provide width or use flex
 .button-text-box
@@ -70,6 +72,19 @@
                     opacity: .8;
                 }
             }
+        }
+    }
+
+    &.error
+    {
+        .label
+        {
+            color: @error-text;
+        }
+
+        .input-rect
+        {
+            background-color: @error-background;
         }
     }
 }
