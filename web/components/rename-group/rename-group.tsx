@@ -12,6 +12,7 @@ interface RenameGroupProps
 {
   group:ImageGroup
   selected?:boolean
+  selectionDragInProgress?:boolean
 
   onToggleSelect?(selected:boolean,group:ImageGroup):void
   onBlur?(group:ImageGroup):void
@@ -41,10 +42,11 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     props.onToggleSelect?.(!props.selected,props.group);
   }
 
-  /** handle mouse entered the checkbox zone while mouse1 is pressed */
+  /** handle mouse entered the checkbox zone while mouse1 is pressed and a selection drag is in
+   *  progress. */
   function handleCheckboxMouseIn(e:React.MouseEvent):void
   {
-    if (e.buttons==1)
+    if (props.selectionDragInProgress && e.buttons==1)
     {
       props.onToggleSelect?.(!props.selected,props.group);
     }

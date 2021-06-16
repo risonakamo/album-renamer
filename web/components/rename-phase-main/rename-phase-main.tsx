@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import _ from "lodash";
 
 import ButtonTextBox from "components/button-text-box/button-text-box";
@@ -26,10 +26,21 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   // set of keys of the currently selected ImageGroups
   const [theSelectedGroups,setSelectedGroups]=useState<Set<number>>(new Set());
   const [theBasePath,setBasePath]=useState<string>("");
+  const [selectionDragInProgress,setSelectionDragInProgress]=useState<boolean>(false);
 
-  /** group selection was toggled */
+  useEffect(()=>{
+    // mouse up at anytime clears selection drag.
+    document.addEventListener("mouseup",()=>{
+      setSelectionDragInProgress(false);
+    });
+  },[]);
+
+  /** group selection was toggled. also set the selection drag state to be true. unsets on mouseup
+   *  at any time. */
   function handleToggleSelection(selected:boolean,group:ImageGroup):void
   {
+    setSelectionDragInProgress(true);
+
     var selectedGroups2:Set<number>=new Set(theSelectedGroups);
     if (!selected)
     {
@@ -74,7 +85,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
       var selected:boolean=theSelectedGroups.has(x.key);
       return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}
-        onBlur={handleRenameGroupRename}/>;
+        onBlur={handleRenameGroupRename} selectionDragInProgress={selectionDragInProgress}/>;
     });
   }
 
