@@ -25,6 +25,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
 {
   // set of keys of the currently selected ImageGroups
   const [theSelectedGroups,setSelectedGroups]=useState<Set<number>>(new Set());
+  const [theBasePath,setBasePath]=useState<string>("");
 
   /** group selection was toggled */
   function handleToggleSelection(selected:boolean,group:ImageGroup):void
@@ -53,13 +54,19 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   // todo: testing
   function handleRenameButtonPress():void
   {
-    sendRenameRequest(props.groups,"C:\\Users\\ktkm\\Desktop");
+    sendRenameRequest(props.groups,theBasePath);
   }
 
   /** rename group input did update. update the group it is providing */
   function handleRenameGroupRename(group:ImageGroup):void
   {
     props.groupUpdated?.(group);
+  }
+
+  /** base path input blurred. save the value */
+  function handleBasePathInputBlur(value:string):void
+  {
+    setBasePath(value);
   }
 
   function renderGroups():JSX.Element[]
@@ -76,7 +83,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   return <div className="rename-phase-section phase-layout">
     <section className="top-section header-zone">
       <div className="header-zone-container inputs-zone">
-        <ButtonTextBox label="BASEPATH" buttonLabel="BROWSE" className="base-path"/>
+        <ButtonTextBox label="BASEPATH" buttonLabel="BROWSE" className="base-path"
+          onBlur={handleBasePathInputBlur}/>
         <ButtonTextBox label="AUTO-RENAME" buttonLabel="APPLY" className="auto-rename"
           onSubmit={handleAutoRenameButton} autoClear={true}/>
         <div className="empty"></div>

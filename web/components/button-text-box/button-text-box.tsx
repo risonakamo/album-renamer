@@ -12,6 +12,7 @@ interface ButtonTextBoxProps
   autoClear?:boolean
 
   onSubmit?(value:string):void
+  onBlur?(value:string):void
 }
 
 export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
@@ -38,12 +39,18 @@ export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
     }
   }
 
+  /** input blurred. forward input value to props onBlur */
+  function handleInputBlur(e:React.FocusEvent<HTMLInputElement>):void
+  {
+    props.onBlur?.(e.currentTarget.value);
+  }
+
   return <div className={cx("button-text-box",props.className)}>
     <div className="label">
       {props.label}
     </div>
     <div className="input-rect">
-      <input type="text" ref={inputBox} onKeyPress={handleInputEnter}/>
+      <input type="text" ref={inputBox} onKeyPress={handleInputEnter} onBlur={handleInputBlur}/>
       <div className="button-zone">
         <div className="mini-button" onClick={handleButtonClick}>
           {props.buttonLabel}

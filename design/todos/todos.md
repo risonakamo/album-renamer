@@ -82,3 +82,4 @@
 - show yellow warning icon next to rename button when error
     - maybe same icon as next to the group name when it is empty
 - help bubble somewhere to describe the rename rule system
+- default basepath to the previously used basepath
