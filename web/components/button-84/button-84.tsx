@@ -7,6 +7,7 @@ interface Button84Props
 {
   onClick?():void
   disabled?:boolean
+  hoverText?:string
   icon:string
 }
 
@@ -26,7 +27,7 @@ export default function Button84(props:Button84Props):JSX.Element
     disabled:props.disabled
   };
 
-  return <div className={cx("button-84",topclass)} title="Go to Rename Phase" onClick={handleClick}>
+  return <div className={cx("button-84",topclass)} title={props.hoverText} onClick={handleClick}>
     <img src={props.icon}/>
     rename
   </div>;

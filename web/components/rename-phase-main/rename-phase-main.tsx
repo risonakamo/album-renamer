@@ -88,12 +88,21 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
       var selected:boolean=theSelectedGroups.has(x.key);
       return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}
-        onBlur={handleRenameGroupRename} selectionDragInProgress={selectionDragInProgress}/>;
+        onBlur={handleRenameGroupRename} selectionDragInProgress={selectionDragInProgress}
+        errorInput={duplicatesGroups.has(x.name)}/>;
     });
   }
 
-  const basePathError:boolean=!!theBasePath.length;
+  const basePathError:boolean=!theBasePath.length;
   const imageCount:number=getImageCount(props.groups);
+
+  const renameDisabled:boolean=basePathError || !!duplicatesGroups.size;
+
+  var buttonHoverText:string|undefined;
+  if (renameDisabled)
+  {
+    buttonHoverText="must resolve errors before renaming";
+  }
 
   return <div className="rename-phase-section phase-layout">
     <section className="top-section header-zone">
@@ -106,7 +115,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
         <div className="empty"></div>
       </div>
       <div className="rename-button-zone header-zone-container">
-        <Button84 icon="assets/temp_do-rename.png" onClick={handleRenameButtonPress}/>
+        <Button84 icon="assets/temp_do-rename.png" onClick={handleRenameButtonPress}
+          disabled={renameDisabled} hoverText={buttonHoverText}/>
       </div>
     </section>
 

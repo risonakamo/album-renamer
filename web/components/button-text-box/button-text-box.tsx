@@ -36,11 +36,12 @@ export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
   }
 
   /** input box key handler. do same as click on enter button */
-  function handleInputEnter(e:React.KeyboardEvent):void
+  function handleInputEnter(e:React.KeyboardEvent<HTMLInputElement>):void
   {
     if (e.key=="Enter")
     {
       handleButtonClick();
+      e.currentTarget.blur();
     }
   }
 

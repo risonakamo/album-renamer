@@ -13,6 +13,7 @@ interface RenameGroupProps
   group:ImageGroup
   selected?:boolean
   selectionDragInProgress?:boolean
+  errorInput?:boolean
 
   onToggleSelect?(selected:boolean,group:ImageGroup):void
   onBlur?(group:ImageGroup):void
@@ -86,7 +87,8 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   }
 
   const groupNameInputClass={
-    empty:!theGroupNameValue.length
+    empty:!theGroupNameValue.length,
+    error:props.errorInput
   };
 
   const checkboxClass={

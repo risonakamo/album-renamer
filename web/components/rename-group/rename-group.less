@@ -5,6 +5,7 @@
 @input-background: #17151a;
 @rename-rule-colour: #5234d4;
 @hover-background: #47689a;
+@error-input: #ce2727;
 
 .rename-group
 {
@@ -106,6 +107,11 @@
             &:hover:not(:focus)
             {
                 background-color: fade(@input-background,50%);
+            }
+
+            &.error
+            {
+                color: @error-input;
             }
         }
 

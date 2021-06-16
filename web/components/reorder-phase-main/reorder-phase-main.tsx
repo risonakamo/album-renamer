@@ -237,7 +237,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       </div>
       <div className="next-button-zone header-zone-container">
         <Button84 onClick={handleRenameButtonClick} disabled={submitButtonDisabled}
-          icon="assets/temp_go-rename-group.png"/>
+          icon="assets/temp_go-rename-group.png" hoverText="go to rename phase"/>
       </div>
     </section>
 
