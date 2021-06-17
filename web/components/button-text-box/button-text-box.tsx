@@ -1,4 +1,4 @@
-import React,{useRef,useState} from "react";
+import React,{useRef,useState,useEffect} from "react";
 import cx from "classnames";
 
 import "./button-text-box.less";
@@ -15,6 +15,8 @@ interface ButtonTextBoxProps
   errorOnEmpty?:boolean
   errorLabel?:string
 
+  value?:string
+
   onSubmit?(value:string):void
   onBlur?(value:string):void
 }
@@ -23,6 +25,14 @@ export default function ButtonTextBox(props:ButtonTextBoxProps):JSX.Element
 {
   const [inputValue,setInputValue]=useState<string>("");
   const inputBox=useRef<HTMLInputElement>(null);
+
+  // external value set
+  useEffect(()=>{
+    if (props.value)
+    {
+      setInputValue(props.value);
+    }
+  },[props.value]);
 
   /** button clicked. submit the value */
   function handleButtonClick():void
