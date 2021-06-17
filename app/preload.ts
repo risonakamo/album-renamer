@@ -12,5 +12,10 @@ contextBridge.exposeInMainWorld("electron_bridge",{
     // send request to select basepath. return the basepath from the api.
     selectBasepath:async ():Promise<string|undefined>=>{
         return await ipcRenderer.invoke("select-basepath");
+    },
+
+    // attempt to get default basepath from api. could fail and return undefined.
+    getDefaultBasepath:async ():Promise<string|undefined>=>{
+        return await ipcRenderer.invoke("get-default-basepath");
     }
 } as ElectronBridge);
