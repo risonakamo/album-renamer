@@ -7,7 +7,7 @@ import RenameGroup from "components/rename-group/rename-group";
 import FooterText from "components/footer-text/footer-text";
 
 import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
-import {sendRenameRequest,selectBasepath} from "api/electron-bridge-api";
+import {sendRenameRequest,selectBasepath,getDefaultBasepath} from "api/electron-bridge-api";
 import {determineDuplicates} from "lib/group-verify";
 
 import "css/phase-layout.less";
@@ -34,6 +34,15 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     document.addEventListener("mouseup",()=>{
       setSelectionDragInProgress(false);
     });
+
+    // initialise basepath field
+    (async ()=>{
+      var basepath:string|undefined=await getDefaultBasepath();
+      if (basepath)
+      {
+        setBasePath(basepath);
+      }
+    })();
   },[]);
 
   /** group selection was toggled. also set the selection drag state to be true. unsets on mouseup
@@ -63,7 +72,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     setSelectedGroups(new Set());
   }
 
-  // todo: testing
+  /** clicked the rename button. send the rename request */
   function handleRenameButtonPress():void
   {
     sendRenameRequest(props.groups,theBasePath);
