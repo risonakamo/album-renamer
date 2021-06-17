@@ -7,5 +7,10 @@ contextBridge.exposeInMainWorld("electron_bridge",{
             groups,
             basepath
         } as RenameRequest);
+    },
+
+    // send request to select basepath. return the basepath from the api.
+    selectBasepath:async ():Promise<string|undefined>=>{
+        return await ipcRenderer.invoke("select-basepath");
     }
 } as ElectronBridge);

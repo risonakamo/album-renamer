@@ -2,19 +2,21 @@ import {app,BrowserWindow} from "electron";
 import {join} from "path";
 
 import {attachRenameService} from "./rename-service";
+import {attachDialogService} from "./dialog-service";
 
 function main():void
 {
     app.on("ready",()=>{
-        mainWindow();
+        var mainwindow:BrowserWindow=mainWindow();
+        attachDialogService(mainwindow);
     });
 
     attachRenameService();
 }
 
-function mainWindow():void
+function mainWindow():BrowserWindow
 {
-    new BrowserWindow({
+    var mainwindow=new BrowserWindow({
         width:1520,
         height:890,
         minWidth:650,
@@ -23,7 +25,11 @@ function mainWindow():void
             spellcheck:false,
             preload:join(__dirname,"preload.js")
         },
-    }).loadFile("web/index.html");
+    });
+
+    mainwindow.loadFile("web/index.html");
+
+    return mainwindow;
 }
 
 main();

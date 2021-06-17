@@ -7,7 +7,7 @@ import RenameGroup from "components/rename-group/rename-group";
 import FooterText from "components/footer-text/footer-text";
 
 import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
-import {sendRenameRequest} from "api/electron-bridge-api";
+import {sendRenameRequest,selectBasepath} from "api/electron-bridge-api";
 import {determineDuplicates} from "lib/group-verify";
 
 import "css/phase-layout.less";
@@ -81,6 +81,17 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     setBasePath(value);
   }
 
+  /** handle basepath browse button clicked */
+  async function handleBasepathBrowse():Promise<void>
+  {
+    var basepath:string|undefined=await selectBasepath();
+
+    if (basepath)
+    {
+      setBasePath(basepath);
+    }
+  }
+
   const duplicatesGroups:Set<string>=determineDuplicates(props.groups);
 
   function renderGroups():JSX.Element[]
@@ -108,7 +119,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     <section className="top-section header-zone">
       <div className="header-zone-container inputs-zone">
         <ButtonTextBox label="BASEPATH" buttonLabel="BROWSE" className="base-path"
-          onBlur={handleBasePathInputBlur} errorOnEmpty={true}
+          onBlur={handleBasePathInputBlur} errorOnEmpty={true} onSubmit={handleBasepathBrowse}
           errorLabel="value cannot be empty"/>
         <ButtonTextBox label="AUTO-RENAME" buttonLabel="APPLY" className="auto-rename"
           onSubmit={handleAutoRenameButton} autoClear={true}/>
