@@ -23,7 +23,7 @@ function mainWindow():BrowserWindow
         minHeight:500,
         webPreferences:{
             spellcheck:false,
-            preload:join(__dirname,"preload.js")
+            preload:join(__dirname,"bridge.js")
         },
     });
 
