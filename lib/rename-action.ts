@@ -18,20 +18,19 @@ export async function doRename(renameActions:RenameAction[],copy:boolean):Promis
 }
 
 /** carry out a rename action, potentially copying if copy flag is set */
-function executeRename(actions:RenameAction[],copy:boolean):void
+function executeRename(actions:RenameAction[],copy:boolean):Promise<void[]>
 {
-    for (var x=0;x<actions.length;x++)
-    {
+    return Promise.all(_.map(actions,(x:RenameAction):Promise<void>=>{
         if (copy)
         {
-            copyFile(actions[x].src,actions[x].target);
+            return copyFile(x.src,x.target);
         }
 
         else
         {
-            rename(actions[x].src,actions[x].target);
+            return rename(x.src,x.target);
         }
-    }
+    }));
 }
 
 /** ensure the target folder paths of all rename targets exists */

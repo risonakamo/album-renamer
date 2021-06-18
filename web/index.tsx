@@ -41,6 +41,13 @@ function IndexMain():JSX.Element
     imageGroupControl.doReplaceGroup(group);
   }
 
+  /** rename performed. reset to initial */
+  function handleRenameCompleted():void
+  {
+    setCurrentPhase("reorder");
+    imageGroupControl.setImageGroups([]);
+  }
+
   function renderReorderPhase():JSX.Element|null
   {
     if (theCurrentPhase!="reorder")
@@ -59,7 +66,7 @@ function IndexMain():JSX.Element
     }
 
     return <RenamePhaseMain groups={theImageGroups} ongroupsRenamed={handleGroupsRenamed}
-      groupUpdated={handleGroupUpdate}/>;
+      groupUpdated={handleGroupUpdate} renameCompleted={handleRenameCompleted}/>;
   }
 
   return <>

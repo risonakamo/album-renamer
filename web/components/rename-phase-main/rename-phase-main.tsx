@@ -20,6 +20,9 @@ interface RenamePhaseMainProps
   // groups were renamed. provides the modified groups array
   ongroupsRenamed?(groups:ImageGroup[]):void
   groupUpdated?(group:ImageGroup):void
+
+  // later return details about the rename
+  renameCompleted?():void
 }
 
 export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
@@ -76,6 +79,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   function handleRenameButtonPress():void
   {
     sendRenameRequest(props.groups,theBasePath);
+    props.renameCompleted?.();
   }
 
   /** rename group input did update. update the group it is providing */
