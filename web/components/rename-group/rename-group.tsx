@@ -68,7 +68,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   {
     props.onBlur?.({
       ...props.group,
-      name:theGroupNameValue,
+      name:theGroupNameValue.trim(),
       imagerule:theImageRuleValue
     });
   }

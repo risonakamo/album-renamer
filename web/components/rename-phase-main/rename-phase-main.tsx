@@ -8,7 +8,7 @@ import FooterText from "components/footer-text/footer-text";
 
 import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
 import {sendRenameRequest,selectBasepath,getDefaultBasepath} from "api/electron-bridge-api";
-import {determineDuplicates} from "lib/group-verify";
+import {determineDuplicates,determineGroupHasNoEmptyNames} from "lib/group-verify";
 
 import "css/phase-layout.less";
 import "./rename-phase-main.less";
@@ -102,6 +102,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   }
 
   const duplicatesGroups:Set<string>=determineDuplicates(props.groups);
+  var groupHasNoEmptyName:boolean=determineGroupHasNoEmptyNames(props.groups);
 
   function renderGroups():JSX.Element[]
   {
@@ -116,7 +117,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   const basePathError:boolean=!theBasePath.length;
   const imageCount:number=getImageCount(props.groups);
 
-  const renameDisabled:boolean=basePathError || !!duplicatesGroups.size;
+  const renameDisabled:boolean=basePathError || !!duplicatesGroups.size || !groupHasNoEmptyName;
 
   var buttonHoverText:string|undefined;
   if (renameDisabled)

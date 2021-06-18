@@ -1,5 +1,7 @@
 // functions for verifying things about image groups
 
+import _ from "lodash";
+
 /** given an array of image groups, return a set of names of groups that are duplicates */
 export function determineDuplicates(groups:ImageGroup[]):Set<string>
 {
@@ -18,4 +20,12 @@ export function determineDuplicates(groups:ImageGroup[]):Set<string>
     }
 
     return dupeNames;
+}
+
+/** return if all groups have a non empty name */
+export function determineGroupHasNoEmptyNames(groups:ImageGroup[]):boolean
+{
+    return _.every(groups,(x:ImageGroup):boolean=>{
+        return !!x.name.length;
+    });
 }
