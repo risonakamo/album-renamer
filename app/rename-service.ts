@@ -3,6 +3,7 @@ import _ from "lodash";
 import {join} from "path";
 
 import {renameGroupToRenameActions} from "../lib/rename-convert";
+import {doRename} from "../lib/rename-action";
 
 export function attachRenameService():void
 {
@@ -12,8 +13,7 @@ export function attachRenameService():void
             return renameGroupToRenameActions(x,args.basepath);
         });
 
-        console.log(renameActions);
-        console.log();
+        doRename(renameActions);
     });
 
     // return default basepath rename path. currently the userprofile/Desktop
