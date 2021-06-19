@@ -147,7 +147,7 @@ export function getImageCount(groups:ImageGroup[]):number
     return _.map(targetGroupsGroups,(x:ImageGroup,i:number):ImageGroup=>{
         return {
             ...x,
-            name:generateRename(renameRule,i)
+            name:generateRename(renameRule,i,digits)
         };
     });
 }

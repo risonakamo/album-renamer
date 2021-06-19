@@ -8,18 +8,19 @@ var _parenHashRuleMatch:RegExp=/(?<!\\)#\((\d+)\)/;
 
 /** given a rename string that follows the design specified by rename rule system.md, return a name
  *  with the given increment */
-export function generateRename(rule:string,increment:number):string
+export function generateRename(rule:string,increment:number,pad:number):string
 {
     var appliedARule:boolean=false;
-    var {result,applied}=applyParenHashRule(rule,increment);
+    var {result,applied}=applyParenHashRule(rule,increment,pad);
     appliedARule=appliedARule||applied;
 
-    var {result,applied}=applySingleHashRule(result,increment);
+    var {result,applied}=applySingleHashRule(result,increment,pad);
     appliedARule=appliedARule||applied;
 
     if (!appliedARule)
     {
-        result+=increment+1;
+        var appendIncrement:string=(increment+1).toString().padStart(pad,"0");
+        result+=appendIncrement;
     }
 
     return applyEscapeHashRule(result);
@@ -50,7 +51,7 @@ export function determinePadDigits(rule:string,increment:number):number
 
 /** use single hash rule. replaces all #<number> with that number plus the increment, except for
  *  escaped hashes */
-function applySingleHashRule(rule:string,increment:number):RenameRuleApplyResult
+function applySingleHashRule(rule:string,increment:number,pad:number):RenameRuleApplyResult
 {
     var applied:boolean=false;
 
@@ -69,14 +70,14 @@ function applySingleHashRule(rule:string,increment:number):RenameRuleApplyResult
         applied=true;
         rule=rule.replace(
             _singleHashRuleMatch,
-            (parseInt(singleMatch[1])+increment).toString()
+            (parseInt(singleMatch[1])+increment).toString().padStart(pad,"0")
         );
     }
 }
 
 /** apply paren hash rule, replace all #(<number), where number can be multidigit, with the number
  *  plus the increment. */
-function applyParenHashRule(rule:string,increment:number):RenameRuleApplyResult
+function applyParenHashRule(rule:string,increment:number,pad:number):RenameRuleApplyResult
 {
     var applied:boolean=false;
 
@@ -95,7 +96,7 @@ function applyParenHashRule(rule:string,increment:number):RenameRuleApplyResult
         applied=true;
         rule=rule.replace(
             _parenHashRuleMatch,
-            (parseInt(match[1])+increment).toString()
+            (parseInt(match[1])+increment).toString().padStart(pad,"0")
         );
     }
 }
@@ -108,13 +109,13 @@ function applyEscapeHashRule(rule:string):string
 
 export function test1():void
 {
-    console.log(generateRename("amber2_",0));
-    console.log(generateRename("amber#0",1));
-    console.log(generateRename("amber##2",0));
-    console.log(generateRename("amber\\##5",10));
-    console.log(generateRename("amber\\##5#(20)",10));
-    console.log(generateRename("amber\\##5#(20a",10));
-    console.log(generateRename("amber\\##5#(20a)",10));
-    console.log(generateRename("amber\\##5#(#20a)",10));
-    console.log(generateRename("#(14).png",1));
+    console.log(generateRename("amber2_",0,1));
+    console.log(generateRename("amber#0",1,1));
+    console.log(generateRename("amber##2",0,1));
+    console.log(generateRename("amber\\##5",10,1));
+    console.log(generateRename("amber\\##5#(20)",10,1));
+    console.log(generateRename("amber\\##5#(20a",10,1));
+    console.log(generateRename("amber\\##5#(20a)",10,1));
+    console.log(generateRename("amber\\##5#(#20a)",10,1));
+    console.log(generateRename("#(14).png",1,1));
 }
