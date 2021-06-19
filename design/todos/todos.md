@@ -3,7 +3,7 @@
 - ellipsis in the middle of text instead of at the end
     - will need to do some manual logic. right now using the css's default text overflow
 - more styled scrollbar with larger width
-- thumbnail zooming
+- ~~thumbnail zooming~~
 - ability to make copies of items
 - "undoing selections" system, for accidentally deselecting or selecting something incorrectly
 - have recently moved items be some colour for a while before fading away
@@ -26,10 +26,10 @@
 - selected proxy box X icon could be better
 
 ## 4
-- plan preview system from double click
+- ~~plan preview system from double click~~
     - maybe open default preview program
     - or custom preview program with fast ability to close
-- shift selection system
+- ~~shift selection system~~
 
 ## 5
 - redesign "drag in items" text to be something instead of just a line of text
@@ -48,8 +48,8 @@
 - consider darkening or using a different colour for the header menu area background
 
 # image loading
-- how to handle video files as thumbnails
-- dragged in images have no faded out drag preview for some reason
+- ~~how to handle video files as thumbnails~~
+- ~~dragged in images have no faded out drag preview for some reason~~
 
 # rename page
 ## 1
