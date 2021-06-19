@@ -16,6 +16,8 @@ interface ImageRowProps
   imagegroup:ImageGroup
   selectedImages:ImageData2[]
 
+  imageSize:number
+
   dragValidOverride?:boolean
 
   onThumbnailSelected?(data:ImageData2):void
@@ -140,7 +142,8 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
       return <ThumbnailItem data={x} key={i} onSelected={props.onThumbnailSelected}
         selected={!!selectionIndex} onDeselect={props.onThumbnailDeselected}
         onDropped={props.onThumbnailDrop} onDragStart={props.onThumbnailDragStart}
-        selectionNumber={selectionIndex} dragValidOverride={props.dragValidOverride}/>;
+        selectionNumber={selectionIndex} dragValidOverride={props.dragValidOverride}
+        imageSize={props.imageSize}/>;
     });
   }
 

@@ -29,6 +29,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   /** if the current item being dragged is also selected */
   const currentDragItemSelected=useRef<boolean>(false);
 
+  const [theImageSize,setImageSize]=useState<number>(200);
+
   /** key handlers */
   useEffect(()=>{
     document.addEventListener("keydown",(e:KeyboardEvent):void=>{
@@ -212,7 +214,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         key={i} onThumbnailDrop={handleDropOnThumbnail} onThumbnailDragStart={thumbnailDragBegin}
         onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
         onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
-        onGroupRenamed={handleGroupRenamed}/>;
+        onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}/>;
     });
   }
 

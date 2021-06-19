@@ -9,6 +9,8 @@ import "./thumbnail-item.less";
 interface ThumbnailItemProps
 {
   data:ImageData2
+  imageSize:number
+
   selected?:boolean
   selectionNumber?:number
 
@@ -92,14 +94,24 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     "drop-target":isDraggedOver.draggedOver && (!isDraggedOver.hasFiles || props.dragValidOverride)
   };
 
+  const sizeString:string=`${props.imageSize}px`;
+  const topStyle={
+    width:sizeString
+  };
+
+  const imageStyle={
+    height:sizeString,
+    width:sizeString
+  };
+
   const selectionNumber:number=props.selectionNumber || 0;
 
   return <div className="thumbnail-item" onClick={handleClick} onDragStart={dragBegin}
     onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}
     onDragLeave={useDraggedOverHandlers.handleDragLeave} onDragEnd={handleDragEnd}
-    draggable={true}
+    draggable={true} style={topStyle}
   >
-    <div className={cx("image-space",imageSpaceClass)}>
+    <div className={cx("image-space",imageSpaceClass)} style={imageStyle}>
       <img src={props.data.path} className={cx(imgElementClasses)}
         ref={imgElement} onLoad={handleImageLoad}/>
       <div className="selected-overlay">
