@@ -10,17 +10,18 @@ export function useImageSize(initial:number,minsize:number,maxsize:number,inc:nu
     /** increment the size by the preset increment. will not exceed max size */
     function increment():void
     {
-        var newsize:number=_.clamp(theImageSize+inc,minsize,maxsize);
-
-        setImageSize(newsize);
+        // callback form for use in useeffect
+        setImageSize((prev:number)=>{
+            return _.clamp(prev+inc,minsize,maxsize);
+        });
     }
 
     /** decrement the size by the preset increment. will not exceed min size */
     function decrement():void
     {
-        var newsize:number=_.clamp(theImageSize-inc,minsize,maxsize);
-
-        setImageSize(newsize);
+        setImageSize((prev:number)=>{
+            return _.clamp(prev-inc,minsize,maxsize);
+        });
     }
 
     return {
