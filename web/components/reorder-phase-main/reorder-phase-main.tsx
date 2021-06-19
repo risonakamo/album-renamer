@@ -10,6 +10,7 @@ import FooterText from "components/footer-text/footer-text";
 
 import {getImageCount} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
+import {useImageSize} from "hooks/useImageSize";
 
 import "css/phase-layout.less";
 import "./reorder-phase-main.less";
@@ -29,14 +30,27 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   /** if the current item being dragged is also selected */
   const currentDragItemSelected=useRef<boolean>(false);
 
-  const [theImageSize,setImageSize]=useState<number>(200);
-
   /** key handlers */
   useEffect(()=>{
     document.addEventListener("keydown",(e:KeyboardEvent):void=>{
       if (e.key=="Escape")
       {
         deselectAll();
+      }
+    });
+
+    document.addEventListener("wheel",(e:WheelEvent):void=>{
+      if (e.ctrlKey && e.deltaY!=0)
+      {
+        if (e.deltaY>0)
+        {
+
+        }
+
+        else
+        {
+
+        }
       }
     });
 
@@ -214,7 +228,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         key={i} onThumbnailDrop={handleDropOnThumbnail} onThumbnailDragStart={thumbnailDragBegin}
         onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
         onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
-        onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}/>;
+        onGroupRenamed={handleGroupRenamed} imageSize={theImageSize2}/>;
     });
   }
 
