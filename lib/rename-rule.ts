@@ -1,3 +1,11 @@
+// match #1, #2, ect.
+// [1]: the digit that was matched
+const _singleHashRuleMatch:RegExp=/(?<!\\)#(\d)/;
+
+// match #(2), #(10), ect.
+// [1]: the number that was matched
+var _parenHashRuleMatch:RegExp=/(?<!\\)#\((\d+)\)/;
+
 /** given a rename string that follows the design specified by rename rule system.md, return a name
  *  with the given increment */
 export function generateRename(rule:string,increment:number):string
@@ -17,18 +25,38 @@ export function generateRename(rule:string,increment:number):string
     return applyEscapeHashRule(result);
 }
 
+/** for a given rename rule, determine the number of digits the numeric component of the
+ *  rename is going to be */
+export function determinePadDigits(rule:string,increment:number):number
+{
+    var maxDigits:number=increment.toString().length;
+
+    var singleMatch:RegExpMatchArray|null=rule.match(_singleHashRuleMatch);
+
+    if (singleMatch && singleMatch.length==2)
+    {
+        maxDigits=Math.max(maxDigits,(parseInt(singleMatch[1])+increment).toString().length);
+    }
+
+    var parenMatch:RegExpMatchArray|null=rule.match(_parenHashRuleMatch);
+
+    if (parenMatch && parenMatch.length==2)
+    {
+        maxDigits=Math.max(maxDigits,(parseInt(parenMatch[1])+increment).toString().length);
+    }
+
+    return maxDigits;
+}
+
 /** use single hash rule. replaces all #<number> with that number plus the increment, except for
  *  escaped hashes */
 function applySingleHashRule(rule:string,increment:number):RenameRuleApplyResult
 {
-    // match #1, #2, ect.
-    // [1]: the digit that was matched
-    var singleHashRuleMatch:RegExp=/(?<!\\)#(\d)/;
     var applied:boolean=false;
 
     while (true)
     {
-        var singleMatch:RegExpMatchArray|null=rule.match(singleHashRuleMatch);
+        var singleMatch:RegExpMatchArray|null=rule.match(_singleHashRuleMatch);
 
         if (!singleMatch)
         {
@@ -40,7 +68,7 @@ function applySingleHashRule(rule:string,increment:number):RenameRuleApplyResult
 
         applied=true;
         rule=rule.replace(
-            singleHashRuleMatch,
+            _singleHashRuleMatch,
             (parseInt(singleMatch[1])+increment).toString()
         );
     }
@@ -50,14 +78,11 @@ function applySingleHashRule(rule:string,increment:number):RenameRuleApplyResult
  *  plus the increment. */
 function applyParenHashRule(rule:string,increment:number):RenameRuleApplyResult
 {
-    // match #(2), #(10), ect.
-    // [1]: the number that was matched
-    var reg:RegExp=/(?<!\\)#\((\d+)\)/;
     var applied:boolean=false;
 
     while (true)
     {
-        var match:RegExpMatchArray|null=rule.match(reg);
+        var match:RegExpMatchArray|null=rule.match(_parenHashRuleMatch);
 
         if (!match)
         {
@@ -69,7 +94,7 @@ function applyParenHashRule(rule:string,increment:number):RenameRuleApplyResult
 
         applied=true;
         rule=rule.replace(
-            reg,
+            _parenHashRuleMatch,
             (parseInt(match[1])+increment).toString()
         );
     }

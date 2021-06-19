@@ -2,7 +2,7 @@
 import _ from "lodash";
 import naturalCompare from "natural-compare";
 
-import {generateRename} from "lib/rename-rule";
+import {generateRename,determinePadDigits} from "lib/rename-rule";
 
 interface RemoveTargetsResult
 {
@@ -137,20 +137,20 @@ export function getImageCount(groups:ImageGroup[]):number
  *  rename all the target groups. returns the new array of image groups */
  export function autorenameGroups(groups:ImageGroup[],targetGroups:Set<number>,
     renameRule:string):ImageGroup[]
- {
-     var inc:number=0;
-     return _.map(groups,(x:ImageGroup):ImageGroup=>{
-         if (!targetGroups.has(x.key))
-         {
-             return x;
-         }
+{
+    var targetGroupsGroups:ImageGroup[]=_.filter(groups,(x:ImageGroup):boolean=>{
+        return targetGroups.has(x.key);
+    });
 
-         return {
-             ...x,
-             name:generateRename(renameRule,inc++)
-         };
-     });
- }
+    var digits=determinePadDigits(renameRule,targetGroupsGroups.length-1);
+
+    return _.map(targetGroupsGroups,(x:ImageGroup,i:number):ImageGroup=>{
+        return {
+            ...x,
+            name:generateRename(renameRule,i)
+        };
+    });
+}
 
 /** given a set of items's paths, removes them from the target group. returns the group with them removed */
 function removeFromGroup(removeItemsPaths:Set<string>,group:ImageGroup):ImageGroup
