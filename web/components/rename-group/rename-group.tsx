@@ -63,7 +63,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     }
   }
 
-  /** submit group change */
+  /** submit group change. also shared with image rule field. */
   function handleGroupNameBlur():void
   {
     props.onBlur?.({
@@ -114,7 +114,8 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
           <div className="image-count">{`${imageCount} images`}</div>
           <div className="mid-arrow">➜</div>
           <input className="image-rename-rule-input" placeholder="#" tabIndex={-1}
-            onKeyDown={handleGroupNameEnter} onChange={handleImageRuleInputChange}/>
+            onKeyDown={handleGroupNameEnter} onChange={handleImageRuleInputChange}
+            onBlur={handleGroupNameBlur} value={theImageRuleValue}/>
         </div>
       </div>
     </div>
