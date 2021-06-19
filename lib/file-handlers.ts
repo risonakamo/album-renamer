@@ -24,6 +24,7 @@ function isValidFileType(file:File):boolean
     {
         case "image/jpeg":
         case "image/png":
+        case "image/gif":
         return true;
     }
 
