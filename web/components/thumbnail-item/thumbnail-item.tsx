@@ -48,10 +48,14 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   }
 
   /** DRAG HANDLERS */
-  function dragBegin():void
+  function dragBegin(e:React.DragEvent):void
   {
     props.onDragStart?.(props.data,!!props.selected);
     dragActive.current=true;
+
+    var widthOffset:number=imgElement.current!.width/2;
+    var heightOffset:number=imgElement.current!.height/2;
+    e.dataTransfer.setDragImage(imgElement.current!,widthOffset,heightOffset);
   }
 
   function handleDragEnd():void
