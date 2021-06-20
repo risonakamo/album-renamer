@@ -11,6 +11,7 @@ import FooterText from "components/footer-text/footer-text";
 import {getImageCount,getImagesBetween} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
 import {useImageSize} from "hooks/useImageSize";
+import {useSelectedImages} from "hooks/useSelectedImages";
 
 import "css/phase-layout.less";
 import "./reorder-phase-main.less";
@@ -28,8 +29,8 @@ interface LastSelected
 
 export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Element
 {
-  const [theSelectedImages,setSelectedImages]=useState<ImageData2[]>([]);
   const {theImageGroups,imageGroupControl}=useImageGroups([]);
+  const {theSelectedImages,theLastSelected,selectedImageControl}=useSelectedImages();
 
   /** the current item being dragged */
   const [currentDragItem,setCurrentDragItem]=useState<ImageData2|null>(null);
@@ -38,14 +39,12 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
 
   const {theImageSize,imageSizeControl}=useImageSize(250,150,500,30);
 
-  const [theLastSelected,setLastSelected]=useState<LastSelected|null>(null);
-
   /** key handlers */
   useEffect(()=>{
     document.addEventListener("keydown",(e:KeyboardEvent):void=>{
       if (e.key=="Escape")
       {
-        deselectAll();
+        selectedImageControl.deselectAll();
       }
     });
 
@@ -69,44 +68,11 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     });
   },[]);
 
-  /** add an image as another selected image */
-  function addSelectedImage(imagedata:ImageData2):void
-  {
-    setSelectedImages([
-      ...theSelectedImages,
-      imagedata
-    ]);
-
-    setLastSelected({
-      data:imagedata,
-      selected:true
-    });
-  }
-
-  /** remove a target image data from selected images */
-  function removeSelectedImage(imagedata:ImageData2):void
-  {
-    setSelectedImages(_.reject(theSelectedImages,(x:ImageData2):boolean=>{
-      return x.path==imagedata.path;
-    }));
-
-    setLastSelected({
-      data:imagedata,
-      selected:false
-    });
-  }
-
   /** thumbnail drag began. save the item that is being dragged right now */
   function thumbnailDragBegin(item:ImageData2,selected:boolean):void
   {
     setCurrentDragItem(item);
     currentDragItemSelected.current=selected;
-  }
-
-  /** clear selected images */
-  function deselectAll():void
-  {
-    setSelectedImages([]);
   }
 
   /** cancel the current dragged item, because it has now been dropped */
@@ -131,7 +97,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     if (currentDragItemSelected.current)
     {
       imageGroupControl.moveItemsBehindItem(theSelectedImages,dropitem);
-      setSelectedImages([]);
+      selectedImageControl.deselectAll();
     }
 
     // otherwise, move the item being dragged behind the target drop thumbnail
@@ -159,7 +125,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     if (currentDragItemSelected.current)
     {
       imageGroupControl.moveItemsToGroup(theSelectedImages,group);
-      setSelectedImages([]);
+      selectedImageControl.deselectAll();
     }
 
     // otherwise, move the currently being dragged item into the target group
@@ -197,7 +163,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     if (currentDragItemSelected.current)
     {
       imageGroupControl.addGroupWithItems(theSelectedImages);
-      setSelectedImages([]);
+      selectedImageControl.deselectAll();
     }
 
     else
@@ -256,8 +222,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   function renderImageRows():JSX.Element[]
   {
     return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
-      return <ImageRow imagegroup={x} onThumbnailSelected={addSelectedImage}
-        selectedImages={theSelectedImages} onThumbnailDeselected={removeSelectedImage}
+      return <ImageRow imagegroup={x} onThumbnailSelected={selectedImageControl.addSelectedImage}
+        selectedImages={theSelectedImages} onThumbnailDeselected={selectedImageControl.removeSelectedImage}
         key={i} onThumbnailDrop={handleDropOnThumbnail} onThumbnailDragStart={thumbnailDragBegin}
         onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
         onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
