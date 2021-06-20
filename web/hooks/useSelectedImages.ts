@@ -16,13 +16,29 @@ export function useSelectedImages()
     /** add an image as a selected image */
     function addSelectedImage(imagedata:ImageData2):void
     {
-        setSelectedImages([
+        addMultipleSelected([imagedata]);
+    }
+
+    /** add multiple images to the end of the selected images array. sets the last selected to the
+     *  1st item of the given list */
+    function addMultipleSelected(images:ImageData2[]):void
+    {
+        if (!images.length)
+        {
+            return;
+        }
+
+        var joinedSelection:ImageData2[]=[
             ...theSelectedImages,
-            imagedata
-        ]);
+            ...images
+        ];
+
+        setSelectedImages(_.uniqBy(joinedSelection,(x:ImageData2):string=>{
+            return x.path;
+        }));
 
         setLastSelected({
-            data:imagedata,
+            data:images[0],
             selected:true
         });
     }
@@ -51,6 +67,7 @@ export function useSelectedImages()
         theLastSelected,
         selectedImageControl:{
             addSelectedImage,
+            addMultipleSelected,
             removeSelectedImage,
             deselectAll
         }

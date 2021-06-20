@@ -206,13 +206,10 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   /** handle thumbnail item was shift clicked. */
   function handleShiftSelect(data:ImageData2):void
   {
-    console.log("prev click",theLastSelected);
-    console.log("shifted",data);
-
     if (theLastSelected)
     {
-      var res=getImagesBetween(theLastSelected.data,data,theImageGroups);
-      console.log("res",res);
+      var betweenImages:ImageData2[]=getImagesBetween(theLastSelected.data,data,theImageGroups);
+      selectedImageControl.addMultipleSelected(betweenImages);
     }
   }
 
