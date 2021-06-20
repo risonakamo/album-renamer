@@ -8,7 +8,7 @@ import InitialDropZone from "components/initial-drop-zone/initial-drop-zone";
 import Button84 from "components/button-84/button-84";
 import FooterText from "components/footer-text/footer-text";
 
-import {getImageCount} from "lib/image-group-helpers";
+import {getImageCount,getImagesBetween} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
 import {useImageSize} from "hooks/useImageSize";
 
@@ -18,6 +18,12 @@ import "./reorder-phase-main.less";
 interface ReorderPhaseMainProps
 {
   onGroupsSubmit?(groups:ImageGroup[]):void
+}
+
+interface LastSelected
+{
+  data:ImageData2
+  selected:boolean
 }
 
 export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Element
@@ -31,6 +37,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   const currentDragItemSelected=useRef<boolean>(false);
 
   const {theImageSize,imageSizeControl}=useImageSize(250,150,500,30);
+
+  const [theLastSelected,setLastSelected]=useState<LastSelected|null>(null);
 
   /** key handlers */
   useEffect(()=>{
@@ -68,6 +76,11 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       ...theSelectedImages,
       imagedata
     ]);
+
+    setLastSelected({
+      data:imagedata,
+      selected:true
+    });
   }
 
   /** remove a target image data from selected images */
@@ -76,6 +89,11 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     setSelectedImages(_.reject(theSelectedImages,(x:ImageData2):boolean=>{
       return x.path==imagedata.path;
     }));
+
+    setLastSelected({
+      data:imagedata,
+      selected:false
+    });
   }
 
   /** thumbnail drag began. save the item that is being dragged right now */
@@ -219,6 +237,19 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     imageGroupControl.doReplaceGroup(group);
   }
 
+  /** handle thumbnail item was shift clicked. */
+  function handleShiftSelect(data:ImageData2):void
+  {
+    console.log("prev click",theLastSelected);
+    console.log("shifted",data);
+
+    if (theLastSelected)
+    {
+      var res=getImagesBetween(theLastSelected.data,data,theImageGroups);
+      console.log("res",res);
+    }
+  }
+
   /*----        RENDER        ----*/
   const imageCount:number=getImageCount(theImageGroups);
 
@@ -230,7 +261,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         key={i} onThumbnailDrop={handleDropOnThumbnail} onThumbnailDragStart={thumbnailDragBegin}
         onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
         onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
-        onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}/>;
+        onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}
+        onThumbnailShiftSelect={handleShiftSelect}/>;
     });
   }
 

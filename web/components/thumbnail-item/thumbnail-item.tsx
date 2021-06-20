@@ -18,8 +18,11 @@ interface ThumbnailItemProps
 
   onSelected?(data:ImageData2):void
   onDeselect?(data:ImageData2):void
+
   onDragStart?(data:ImageData2,selected:boolean):void
   onDropped?(data:ImageData2):void
+
+  onShiftSelect?(data:ImageData2):void
 }
 
 export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
@@ -33,9 +36,16 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   const {isWideFit,handleImageLoad}=useIsWideFit(imgElement);
 
   /*-- HANDLERS --*/
-  /** handle item clicked */
-  function handleClick():void
+  /** handle item clicked. call select or deselect based on current selection state. calls shift select
+   *  handler if shift is pressed.*/
+  function handleClick(e:React.MouseEvent):void
   {
+    if (e.shiftKey)
+    {
+      props.onShiftSelect?.(props.data);
+      return;
+    }
+
     if (!props.selected)
     {
       props.onSelected?.(props.data);

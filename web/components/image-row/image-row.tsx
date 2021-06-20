@@ -22,6 +22,7 @@ interface ImageRowProps
 
   onThumbnailSelected?(data:ImageData2):void
   onThumbnailDeselected?(data:ImageData2):void
+  onThumbnailShiftSelect?(data:ImageData2):void
 
   onThumbnailDragStart?(data:ImageData2,selected:boolean):void
   onThumbnailDrop?(data:ImageData2):void
@@ -143,7 +144,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
         selected={!!selectionIndex} onDeselect={props.onThumbnailDeselected}
         onDropped={props.onThumbnailDrop} onDragStart={props.onThumbnailDragStart}
         selectionNumber={selectionIndex} dragValidOverride={props.dragValidOverride}
-        imageSize={props.imageSize}/>;
+        imageSize={props.imageSize} onShiftSelect={props.onThumbnailShiftSelect}/>;
     });
   }
 

@@ -135,7 +135,7 @@ export function getImageCount(groups:ImageGroup[]):number
 
 /** given image groups, and the target ids of groups to be auto renamed, apply the rename rule and
  *  rename all the target groups. returns the new array of image groups */
- export function autorenameGroups(groups:ImageGroup[],targetGroups:Set<number>,
+export function autorenameGroups(groups:ImageGroup[],targetGroups:Set<number>,
     renameRule:string):ImageGroup[]
 {
     var targetGroupsGroups:ImageGroup[]=_.filter(groups,(x:ImageGroup):boolean=>{
@@ -150,6 +150,50 @@ export function getImageCount(groups:ImageGroup[]):number
             name:generateRename(renameRule,i,digits)
         };
     });
+}
+
+/** given 2 imagedatas and the groups that they should exist in, attempt to retrieve all the imagedatas
+ *  that occur between the given 2 image datas, regardless of the order they were given in */
+export function getImagesBetween(item1:ImageData2,item2:ImageData2,groups:ImageGroup[]):ImageData2[]
+{
+    var flattenedIData:ImageData2[]=_.flatMap(groups,(x:ImageGroup):ImageData2[]=>{
+        return x.items;
+    });
+
+    var selection:ImageData2[]=[];
+
+    var firstFound:boolean=false;
+    for (var x=0;x<flattenedIData.length;x++)
+    {
+        var item:ImageData2=flattenedIData[x];
+
+        // if the current item matches one of the target items...
+        if (item==item1 || item==item2)
+        {
+            // and it hasnt yet seen one of the items yet, mark the first find
+            if (!firstFound)
+            {
+                firstFound=true;
+            }
+
+            // if it HAS seen something before, then sees the 2nd thing. quit.
+            else
+            {
+                selection.push(item);
+                return selection;
+            }
+        }
+
+        // while the first has been found, push everything onto the selection
+        if (firstFound)
+        {
+            selection.push(item);
+        }
+    }
+
+    // should never get here, should always find the 2nd item and return
+    console.error("somehow got to end of getImagesBetween");
+    return selection;
 }
 
 /** given a set of items's paths, removes them from the target group. returns the group with them removed */
