@@ -228,6 +228,15 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     });
   }
 
+  /** preview overlay signaled dismiss. hide it. */
+  function handlePreviewOverlayDismiss():void
+  {
+    setPreviewPanelState({
+      showing:false,
+      img:""
+    });
+  }
+
   /*----        RENDER        ----*/
   const imageCount:number=getImageCount(theImageGroups);
 
@@ -279,6 +288,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         imageCount={imageCount}/>
     </footer>
 
-    <PreviewOverlay showing={thePreviewPanelState.showing} img={thePreviewPanelState.img}/>
+    <PreviewOverlay showing={thePreviewPanelState.showing} img={thePreviewPanelState.img}
+      dismissed={handlePreviewOverlayDismiss}/>
   </div>;
 }
