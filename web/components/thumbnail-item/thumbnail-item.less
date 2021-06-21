@@ -1,5 +1,6 @@
 @import (reference) "~css/drop-target";
 @import (reference) "~css/dashed-overlay";
+@import (reference) "~css/fit-img";
 
 // tempcolour
 @selected-colour: #1980e8;
@@ -30,20 +31,7 @@
 
         img
         {
-            height: 100%;
-            width: 100%;
-
-            &.tall
-            {
-                height: 100%;
-                width: auto;
-            }
-
-            &.wide
-            {
-                height: auto;
-                width: 100%;
-            }
+            .scaling-img();
         }
 
         .selected-overlay

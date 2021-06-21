@@ -1,0 +1,21 @@
+// provides a target element, usually an image, with 2 classes, tall and wide.
+// when the element has one of these classes, performs fitting according to the name
+// of the class. also provides scaling in both directions when neither of the classes
+// is present.
+.scaling-img()
+{
+    height: 100%;
+    width: 100%;
+
+    &.tall
+    {
+        height: 100%;
+        width: auto;
+    }
+
+    &.wide
+    {
+        height: auto;
+        width: 100%;
+    }
+}

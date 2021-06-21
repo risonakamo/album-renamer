@@ -7,6 +7,7 @@ import DragProxy from "components/drag-proxy/drag-proxy";
 import InitialDropZone from "components/initial-drop-zone/initial-drop-zone";
 import Button84 from "components/button-84/button-84";
 import FooterText from "components/footer-text/footer-text";
+import PreviewOverlay from "components/preview-overlay/preview-overlay";
 
 import {getImageCount,getImagesBetween} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
@@ -263,5 +264,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       <FooterText selected={theSelectedImages.length} groupCount={theImageGroups.length}
         imageCount={imageCount}/>
     </footer>
+
+    <PreviewOverlay showing={false}/>
   </div>;
 }
