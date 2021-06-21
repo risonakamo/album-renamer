@@ -18,23 +18,24 @@ interface ImageRowProps
 
   imageSize:number
 
-  dragValidOverride?:boolean
+  dragValidOverride:boolean
 
-  onThumbnailSelected?(data:ImageData2):void
-  onThumbnailDeselected?(data:ImageData2):void
-  onThumbnailShiftSelect?(data:ImageData2):void
+  onThumbnailSelected(data:ImageData2):void
+  onThumbnailDeselected(data:ImageData2):void
+  onThumbnailShiftSelect(data:ImageData2):void
+  onThumbnailCtrlClick(data:ImageData2):void
 
-  onThumbnailDragStart?(data:ImageData2,selected:boolean):void
-  onThumbnailDrop?(data:ImageData2):void
+  onThumbnailDragStart(data:ImageData2,selected:boolean):void
+  onThumbnailDrop(data:ImageData2):void
 
-  onGroupDrop?(group:ImageGroup):void
+  onGroupDrop(group:ImageGroup):void
 
   /** group was sorted. returns group that is sorted. */
-  onGroupSorted?(group:ImageGroup):void
+  onGroupSorted(group:ImageGroup):void
 
-  onDropNewImages?(data:ImageData2[],group:ImageGroup):void
+  onDropNewImages(data:ImageData2[],group:ImageGroup):void
 
-  onGroupRenamed?(group:ImageGroup):void
+  onGroupRenamed(group:ImageGroup):void
 }
 
 export default function ImageRow(props:ImageRowProps):JSX.Element
@@ -144,7 +145,8 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
         selected={!!selectionIndex} onDeselect={props.onThumbnailDeselected}
         onDropped={props.onThumbnailDrop} onDragStart={props.onThumbnailDragStart}
         selectionNumber={selectionIndex} dragValidOverride={props.dragValidOverride}
-        imageSize={props.imageSize} onShiftSelect={props.onThumbnailShiftSelect}/>;
+        imageSize={props.imageSize} onShiftSelect={props.onThumbnailShiftSelect}
+        onCtrlClick={props.onThumbnailCtrlClick}/>;
     });
   }
 

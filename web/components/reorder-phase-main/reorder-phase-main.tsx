@@ -22,10 +22,10 @@ interface ReorderPhaseMainProps
   onGroupsSubmit?(groups:ImageGroup[]):void
 }
 
-interface LastSelected
+interface PreviewPanelState
 {
-  data:ImageData2
-  selected:boolean
+  showing:boolean
+  img:string
 }
 
 export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Element
@@ -39,6 +39,11 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   const currentDragItemSelected=useRef<boolean>(false);
 
   const {theImageSize,imageSizeControl}=useImageSize(250,150,500,30);
+
+  const [thePreviewPanelState,setPreviewPanelState]=useState<PreviewPanelState>({
+    showing:false,
+    img:""
+  });
 
   /** key handlers */
   useEffect(()=>{
@@ -214,6 +219,15 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     }
   }
 
+  /** thumbnail ctrl click loads and opens preview overlay */
+  function handleThumbnailCtrlSelect(data:ImageData2):void
+  {
+    setPreviewPanelState({
+      showing:true,
+      img:data.path
+    });
+  }
+
   /*----        RENDER        ----*/
   const imageCount:number=getImageCount(theImageGroups);
 
@@ -226,7 +240,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
         onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
         onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}
-        onThumbnailShiftSelect={handleShiftSelect}/>;
+        onThumbnailShiftSelect={handleShiftSelect} onThumbnailCtrlClick={handleThumbnailCtrlSelect}/>;
     });
   }
 
@@ -265,6 +279,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         imageCount={imageCount}/>
     </footer>
 
-    <PreviewOverlay showing={false}/>
+    <PreviewOverlay showing={thePreviewPanelState.showing} img={thePreviewPanelState.img}/>
   </div>;
 }

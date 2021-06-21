@@ -8,26 +8,18 @@ import "./preview-overlay.less";
 interface PreviewOverlayProps
 {
   showing:boolean
+  img:string
 }
 
 export default function PreviewOverlay(props:PreviewOverlayProps):JSX.Element|null
 {
-  const imgElement=useRef<HTMLImageElement>(null);
-  const {isWideFit,handleImageLoad}=useIsWideFit(imgElement);
-
   // --- render ---
   if (!props.showing)
   {
     return null;
   }
 
-  const imageClass={
-    wide:isWideFit,
-    tall:!isWideFit
-  };
-
   return <div className="preview-overlay">
-    <img src="../sampleimages/1.png" className={cx(imageClass)} ref={imgElement}
-      onLoad={handleImageLoad}/>
+    <img src={props.img} className="tall"/>
   </div>;
 }

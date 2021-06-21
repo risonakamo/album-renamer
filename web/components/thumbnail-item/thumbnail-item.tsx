@@ -11,18 +11,20 @@ interface ThumbnailItemProps
   data:ImageData2
   imageSize:number
 
-  selected?:boolean
-  selectionNumber?:number
+  selected:boolean
+  selectionNumber:number
 
-  dragValidOverride?:boolean
+  dragValidOverride:boolean
 
-  onSelected?(data:ImageData2):void
-  onDeselect?(data:ImageData2):void
+  onSelected(data:ImageData2):void
+  onDeselect(data:ImageData2):void
 
-  onDragStart?(data:ImageData2,selected:boolean):void
-  onDropped?(data:ImageData2):void
+  onDragStart(data:ImageData2,selected:boolean):void
+  onDropped(data:ImageData2):void
 
-  onShiftSelect?(data:ImageData2):void
+  onShiftSelect(data:ImageData2):void
+
+  onCtrlClick(data:ImageData2):void
 }
 
 export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
@@ -37,9 +39,16 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
 
   /*-- HANDLERS --*/
   /** handle item clicked. call select or deselect based on current selection state. calls shift select
-   *  handler if shift is pressed.*/
+   *  handler if shift is pressed, or ctrl click handler. button handlers do not trigger selection
+   *  action*/
   function handleClick(e:React.MouseEvent):void
   {
+    if (e.ctrlKey)
+    {
+      props.onCtrlClick?.(props.data);
+      return;
+    }
+
     if (e.shiftKey)
     {
       props.onShiftSelect?.(props.data);
