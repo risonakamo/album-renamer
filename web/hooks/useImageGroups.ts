@@ -2,7 +2,7 @@
 import {useState} from "react";
 
 import {dropAtTarget,dropAtTargetGroup,replaceGroup,
-    addGroup,getImageCount} from "lib/image-group-helpers";
+    addGroup,removeTargets} from "lib/image-group-helpers";
 
 export function useImageGroups(initialData:ImageGroup[])
 {
@@ -58,6 +58,12 @@ export function useImageGroups(initialData:ImageGroup[])
         moveItemsToGroup(items,newgroup);
     }
 
+    /** remove target items from all groups */
+    function removeItems(items:ImageData2[]):void
+    {
+        setImageGroups(removeTargets(null,items,theImageGroups).groups);
+    }
+
     return {
         theImageGroups,
         imageGroupControl:{
@@ -66,7 +72,8 @@ export function useImageGroups(initialData:ImageGroup[])
             doReplaceGroup,
             addEmptyGroup,
             addGroupWithItems,
-            setImageGroups
+            setImageGroups,
+            removeItems
         }
     }
 }

@@ -31,8 +31,12 @@ export function dropAtTarget(droppoint:ImageData2,moveItems:ImageData2[],groups:
 
 /** drop items into a group which may or may not exist. items to be dropped appear at the front
  *  of the group */
-export function dropAtTargetGroup(dropgroup:ImageGroup,moveItems:ImageData2[],
-    groups:ImageGroup[],back:boolean=false):ImageGroup[]
+export function dropAtTargetGroup(
+    dropgroup:ImageGroup,
+    moveItems:ImageData2[],
+    groups:ImageGroup[],
+    back:boolean=false
+):ImageGroup[]
 {
     var {groups}=removeTargets(null,moveItems,groups);
 
@@ -196,6 +200,41 @@ export function getImagesBetween(item1:ImageData2,item2:ImageData2,groups:ImageG
     return selection;
 }
 
+/** remove all move items from the given groups, except the droppoint, if it was one of the selected
+ *  items. returns the new groups and if the drop point was determined to have been one of the selected
+ *  items. give no drop point to ignore droppoint logic */
+export function removeTargets(
+    droppoint:ImageData2|null,
+    moveItems:ImageData2[],
+    groups:ImageGroup[]
+):RemoveTargetsResult
+{
+    // set of the paths of all the items to be moved
+    var movePaths:Set<string>=new Set(_.map(moveItems,(x:ImageData2):string=>{
+        return x.path;
+    }));
+
+    var dropPointIsSelected:boolean=false;
+    if (droppoint)
+    {
+        // if the droppoint is one of the selected items
+        dropPointIsSelected=movePaths.has(droppoint.path);
+
+        // remove droppoint from the movepaths so it is not deleted
+        movePaths.delete(droppoint.path);
+    }
+
+    // removing all the move items from the groups
+    groups=_.map(groups,(x:ImageGroup):ImageGroup=>{
+        return removeFromGroup(movePaths,x);
+    });
+
+    return {
+        groups,
+        droppointSelected:dropPointIsSelected
+    };
+}
+
 /** given a set of items's paths, removes them from the target group. returns the group with them removed */
 function removeFromGroup(removeItemsPaths:Set<string>,group:ImageGroup):ImageGroup
 {
@@ -234,37 +273,6 @@ function insertIntoGroup(droppoint:ImageData2,items:ImageData2[],
             ...items,
             ...group.items.slice(droppointIndex+1)
         ]
-    };
-}
-
-/** remove all move items from the given groups, except the droppoint, if it was one of the selected
- *  items. returns the new groups and if the drop point was determined to have been one of the selected
- *  items. give no drop point to ignore droppoint logic */
-function removeTargets(droppoint:ImageData2|null,moveItems:ImageData2[],groups:ImageGroup[]):RemoveTargetsResult
-{
-    // set of the paths of all the items to be moved
-    var movePaths:Set<string>=new Set(_.map(moveItems,(x:ImageData2):string=>{
-        return x.path;
-    }));
-
-    var dropPointIsSelected:boolean=false;
-    if (droppoint)
-    {
-        // if the droppoint is one of the selected items
-        dropPointIsSelected=movePaths.has(droppoint.path);
-
-        // remove droppoint from the movepaths so it is not deleted
-        movePaths.delete(droppoint.path);
-    }
-
-    // removing all the move items from the groups
-    groups=_.map(groups,(x:ImageGroup):ImageGroup=>{
-        return removeFromGroup(movePaths,x);
-    });
-
-    return {
-        groups,
-        droppointSelected:dropPointIsSelected
     };
 }
 
