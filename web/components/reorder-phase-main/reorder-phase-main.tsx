@@ -237,6 +237,23 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     });
   }
 
+  /** key handler. perform delete */
+  function handleKey(e:React.KeyboardEvent<HTMLDivElement>):void
+  {
+    // if not focused
+    if (!(document.activeElement==e.currentTarget) || thePreviewPanelState.showing)
+    {
+      return;
+    }
+
+    // remove all selected items with delete
+    if (e.key=="Delete")
+    {
+      imageGroupControl.removeItems(theSelectedImages);
+      selectedImageControl.deselectAll();
+    }
+  }
+
   /*----        RENDER        ----*/
   const imageCount:number=getImageCount(theImageGroups);
 
@@ -265,7 +282,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
 
   const submitButtonDisabled:boolean=!imageCount;
 
-  return <div className="reorder-phase-section phase-layout">
+  return <div className="reorder-phase-section phase-layout" tabIndex={-1} onKeyDown={handleKey}>
     <section className="header-zone top-section">
       <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
         onDropFiles={handleNewGroupDropFiles}/>
