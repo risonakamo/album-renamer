@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import _ from "lodash";
+import SimpleBar from "simplebar-react";
 
 import ButtonTextBox from "components/button-text-box/button-text-box";
 import Button84 from "components/button-84/button-84";
@@ -146,9 +147,9 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     </section>
 
     <section className="top-section body-zone">
-      <div className="rename-groups">
+      <SimpleBar className="rename-groups">
         {renderGroups()}
-      </div>
+      </SimpleBar>
     </section>
 
     <footer className="top-section footer-zone">

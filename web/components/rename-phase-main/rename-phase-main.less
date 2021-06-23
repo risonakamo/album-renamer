@@ -1,3 +1,5 @@
+@import (reference) "~css/wide-square-scroll";
+
 // tempcolour
 @auto-rename-button: #2c5990;
 @auto-rename-hover: #3f70ac;
@@ -45,10 +47,13 @@
     .body-zone
     {
         position: relative;
+        overflow: hidden;
 
         .rename-groups
         {
             width: 100%;
+            .wide-square-scroll();
+            .simple-bar-container();
         }
 
         .checkbox-border
