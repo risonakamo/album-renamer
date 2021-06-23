@@ -1,5 +1,4 @@
-// tempcolour
-@scrollbar-colour: #d8d8d8;
+@import (reference) "~css/wide-square-scroll";
 
 .reorder-phase-section
 {
@@ -24,38 +23,8 @@
 
         .image-rows-contain
         {
-            height: 100%;
-            overflow: auto;
-
-            .simplebar-track.simplebar-vertical
-            {
-                width: 30px;
-
-                .simplebar-scrollbar
-                {
-                    &::before
-                    {
-                        border-radius: 0;
-                        background: fade(@scrollbar-colour,20%);
-                    }
-
-                    &.simplebar-hover::before
-                    {
-                        background: fade(@scrollbar-colour,30%);
-                    }
-                }
-            }
-
-            &.simplebar-dragging
-            {
-                .simplebar-track.simplebar-vertical
-                {
-                    .simplebar-scrollbar::before
-                    {
-                        background: fade(@scrollbar-colour,20%);
-                    }
-                }
-            }
+            .wide-square-scroll();
+            .simple-bar-container();
         }
     }
 }

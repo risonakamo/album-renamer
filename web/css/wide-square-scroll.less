@@ -1,0 +1,43 @@
+// tempcolour
+@scrollbar-colour: #d8d8d8;
+
+// apply this to a SimpleBar container. themes the simple bar to be a wide square scroll bar.
+.wide-square-scroll()
+{
+    .simplebar-track.simplebar-vertical
+    {
+        width: 30px;
+
+        .simplebar-scrollbar
+        {
+            &::before
+            {
+                border-radius: 0;
+                background: fade(@scrollbar-colour,20%);
+            }
+
+            &.simplebar-hover::before
+            {
+                background: fade(@scrollbar-colour,30%);
+            }
+        }
+    }
+
+    &.simplebar-dragging
+    {
+        .simplebar-track.simplebar-vertical
+        {
+            .simplebar-scrollbar::before
+            {
+                background: fade(@scrollbar-colour,20%);
+            }
+        }
+    }
+}
+
+// common css to apply to the simplebar container
+.simple-bar-container()
+{
+    height: 100%;
+    overflow: auto;
+}
