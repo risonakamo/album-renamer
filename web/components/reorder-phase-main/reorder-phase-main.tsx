@@ -1,5 +1,6 @@
 import React,{useState,useRef,useEffect} from "react";
 import _ from "lodash";
+import SimpleBar from "simplebar-react";
 
 import ImageRow from "components/image-row/image-row";
 import NewGroupZone from "components/new-group-zone/new-group-zone";
@@ -257,9 +258,9 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   /*----        RENDER        ----*/
   const imageCount:number=getImageCount(theImageGroups);
 
-  function renderImageRows():JSX.Element[]
+  function renderImageRows():JSX.Element
   {
-    return _.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
+    var inner:JSX.Element[]=_.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
       return <ImageRow imagegroup={x} onThumbnailSelected={selectedImageControl.addSelectedImage}
         selectedImages={theSelectedImages} onThumbnailDeselected={selectedImageControl.removeSelectedImage}
         key={i} onThumbnailDrop={handleDropOnThumbnail} onThumbnailDragStart={thumbnailDragBegin}
@@ -268,6 +269,10 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}
         onThumbnailShiftSelect={handleShiftSelect} onThumbnailCtrlClick={handleThumbnailCtrlSelect}/>;
     });
+
+    return <SimpleBar className="image-rows-contain">
+      {inner}
+    </SimpleBar>;
   }
 
   function renderInitialDropZone():JSX.Element|null
