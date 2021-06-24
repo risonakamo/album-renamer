@@ -69,6 +69,12 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     setSelectedGroups(new Set(groupids));
   }
 
+  /** deselect all groups */
+  function deselectAllGroups():void
+  {
+    setSelectedGroups(new Set());
+  }
+
   /** group selection was toggled. also set the selection drag state to be true. unsets on mouseup
    *  at any time. */
   function handleToggleSelection(selected:boolean,group:ImageGroup):void
@@ -93,7 +99,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   function handleAutoRenameButton(value:string):void
   {
     props.ongroupsRenamed?.(autorenameGroups(props.groups,theSelectedGroups,value));
-    setSelectedGroups(new Set());
+    deselectAllGroups();
   }
 
   /** clicked the rename button. send the rename request */
@@ -138,6 +144,11 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     {
       e.preventDefault();
       selectAllGroups();
+    }
+
+    else if (e.key=="Escape")
+    {
+      deselectAllGroups();
     }
   }
 
