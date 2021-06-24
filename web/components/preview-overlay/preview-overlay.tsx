@@ -9,6 +9,9 @@ interface PreviewOverlayProps
   img:string
 
   dismissed():void
+
+  navForward():void
+  navBackward():void
 }
 
 export default function PreviewOverlay(props:PreviewOverlayProps):JSX.Element|null
@@ -23,14 +26,33 @@ export default function PreviewOverlay(props:PreviewOverlayProps):JSX.Element|nu
 
   useEffect(()=>{
     document.addEventListener("keydown",(e:KeyboardEvent)=>{
-      // dismiss on any keyboard click except when it is already not showing
-      // or ctrl button was pressed.
-      if (!showingRef.current || e.key=="Control")
+      // do nothing if not showing
+      if (!showingRef.current)
       {
         return;
       }
 
-      props.dismissed();
+      // navigate on left/right
+      if (e.key=="ArrowRight" || e.key=="d" || e.key=="D")
+      {
+        props.navForward();
+      }
+
+      else if (e.key=="ArrowLeft" || e.key=="a" || e.key=="A")
+      {
+        props.navBackward();
+      }
+
+      // all other keys except Ctrl dismiss the panel
+      else if (e.key=="Control")
+      {
+        return;
+      }
+
+      else
+      {
+        props.dismissed();
+      }
     });
   },[]);
 

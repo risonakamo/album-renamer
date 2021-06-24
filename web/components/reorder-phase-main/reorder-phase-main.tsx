@@ -32,11 +32,13 @@ interface PreviewPanelState
 export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Element
 {
   const {theImageGroups,imageGroupControl}=useImageGroups([]);
+
   const {theSelectedImages,theLastSelected,selectedImageControl}=useSelectedImages();
 
-  /** the current item being dragged */
+  // the current item being dragged
   const [currentDragItem,setCurrentDragItem]=useState<ImageData2|null>(null);
-  /** if the current item being dragged is also selected */
+
+  // if the current item being dragged is also selected
   const currentDragItemSelected=useRef<boolean>(false);
 
   const {theImageSize,imageSizeControl}=useImageSize(250,150,500,30);
@@ -255,6 +257,18 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     }
   }
 
+  /** previewer move forward */
+  function h_previewerForward():void
+  {
+    console.log("forward");
+  }
+
+  /** previewer move backward */
+  function h_previewerBack():void
+  {
+    console.log("back");
+  }
+
   /*----        RENDER        ----*/
   const imageCount:number=getImageCount(theImageGroups);
 
@@ -311,6 +325,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     </footer>
 
     <PreviewOverlay showing={thePreviewPanelState.showing} img={thePreviewPanelState.img}
-      dismissed={handlePreviewOverlayDismiss}/>
+      dismissed={handlePreviewOverlayDismiss} navForward={h_previewerForward}
+      navBackward={h_previewerBack}/>
   </div>;
 }
