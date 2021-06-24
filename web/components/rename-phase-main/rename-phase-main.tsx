@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import _ from "lodash";
 import SimpleBar from "simplebar-react";
 
@@ -30,8 +30,15 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
 {
   // set of keys of the currently selected ImageGroups
   const [theSelectedGroups,setSelectedGroups]=useState<Set<number>>(new Set());
+
+  // value of basepath field
   const [theBasePath,setBasePath]=useState<string>("");
+
+  // if selection drag over checkboxes is happening
   const [selectionDragInProgress,setSelectionDragInProgress]=useState<boolean>(false);
+
+  // the whole element itself, for focusing on mount
+  const phaseElement=useRef<HTMLDivElement>(null);
 
   useEffect(()=>{
     // mouse up at anytime clears selection drag.
@@ -47,6 +54,9 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
         setBasePath(basepath);
       }
     })();
+
+    // autofocus self
+    phaseElement.current?.focus();
   },[]);
 
   /** group selection was toggled. also set the selection drag state to be true. unsets on mouseup
@@ -106,6 +116,21 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     }
   }
 
+  /** key handler. */
+  function h_key(e:React.KeyboardEvent<HTMLDivElement>):void
+  {
+    if (document.activeElement!=e.currentTarget)
+    {
+      return;
+    }
+
+    if ((e.key=="a" || e.key=="A") && e.ctrlKey)
+    {
+      e.preventDefault();
+      console.log("select all");
+    }
+  }
+
   const duplicatesGroups:Set<string>=determineDuplicates(props.groups);
   var groupHasNoEmptyName:boolean=determineGroupHasNoEmptyNames(props.groups);
 
@@ -130,7 +155,9 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     buttonHoverText="must resolve errors before renaming";
   }
 
-  return <div className="rename-phase-section phase-layout">
+  return <div className="rename-phase-section phase-layout" onKeyDown={h_key} tabIndex={-1}
+    ref={phaseElement}
+  >
     <section className="top-section header-zone">
       <div className="header-zone-container inputs-zone">
         <ButtonTextBox label="BASEPATH" buttonLabel="BROWSE" className="base-path" value={theBasePath}

@@ -242,7 +242,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   function handleKey(e:React.KeyboardEvent<HTMLDivElement>):void
   {
     // if not focused
-    if (!(document.activeElement==e.currentTarget) || thePreviewPanelState.showing)
+    if (document.activeElement!=e.currentTarget || thePreviewPanelState.showing)
     {
       return;
     }
