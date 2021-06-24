@@ -59,6 +59,16 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     phaseElement.current?.focus();
   },[]);
 
+  /** add all current groups to selected groups */
+  function selectAllGroups():void
+  {
+    var groupids:number[]=_.map(props.groups,(x:ImageGroup):number=>{
+      return x.key;
+    });
+
+    setSelectedGroups(new Set(groupids));
+  }
+
   /** group selection was toggled. also set the selection drag state to be true. unsets on mouseup
    *  at any time. */
   function handleToggleSelection(selected:boolean,group:ImageGroup):void
@@ -127,7 +137,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     if ((e.key=="a" || e.key=="A") && e.ctrlKey)
     {
       e.preventDefault();
-      console.log("select all");
+      selectAllGroups();
     }
   }
 
