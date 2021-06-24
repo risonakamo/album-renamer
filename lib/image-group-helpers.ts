@@ -146,14 +146,16 @@ export function autorenameGroups(groups:ImageGroup[],targetGroups:Set<number>,
         return targetGroups.has(x.key);
     });
 
-    var digits=determinePadDigits(renameRule,targetGroupsGroups.length-1);
+    var digits:number=determinePadDigits(renameRule,targetGroupsGroups.length-1);
 
-    return _.map(targetGroupsGroups,(x:ImageGroup,i:number):ImageGroup=>{
+    var renamedGroups:ImageGroup[]=_.map(targetGroupsGroups,(x:ImageGroup,i:number):ImageGroup=>{
         return {
             ...x,
             name:generateRename(renameRule,i,digits)
         };
     });
+
+    return replaceMultiple(groups,renamedGroups);
 }
 
 /** given 2 imagedatas and the groups that they should exist in, attempt to retrieve all the imagedatas
@@ -306,4 +308,23 @@ function insertIntoGroupFront(items:ImageData2[],group:ImageGroup,back:boolean=f
 function compareImageGroup(a:ImageData2,b:ImageData2):number
 {
     return naturalCompare(a.name,b.name);
+}
+
+/** given array of image groups, and another array of image groups, replace all items matching
+ *  by key in the first array with the 2nd */
+function replaceMultiple(groups:ImageGroup[],replacegroups:ImageGroup[]):ImageGroup[]
+{
+    // replace groups keyed by key
+    var replaceMap:Record<number,ImageGroup>=_.keyBy(replacegroups,(x:ImageGroup):number=>{
+        return x.key;
+    });
+
+    return _.map(groups,(x:ImageGroup):ImageGroup=>{
+        if (x.key in replaceMap)
+        {
+            return replaceMap[x.key];
+        }
+
+        return x;
+    });
 }
