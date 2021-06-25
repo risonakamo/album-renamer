@@ -33,7 +33,6 @@ export function findNextImage(data:ImageData2[],searchImage:ImageData2,next:bool
 /** same as find next image, but just takes a path and returns the path of the next image */
 export function findNextPath(data:ImageData2[],searchPath:string,next:boolean=true):string
 {
-    console.log("imgs",data);
     return findNextImage(
         data,
         {

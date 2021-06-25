@@ -271,7 +271,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   /** previewer move forward */
   function h_previewerForward():void
   {
-    console.log("forward");
     setPreviewPanelState({
       showing:true,
       img:findNextPath(
@@ -284,7 +283,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   /** previewer move backward */
   function h_previewerBack():void
   {
-    console.log("back");
     setPreviewPanelState({
       showing:true,
       img:findNextPath(
