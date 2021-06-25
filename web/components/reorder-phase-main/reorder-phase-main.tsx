@@ -1,6 +1,7 @@
 import React,{useState,useRef,useEffect} from "react";
 import _ from "lodash";
 import SimpleBar from "simplebar-react";
+import {createSelector} from "reselect";
 
 import ImageRow from "components/image-row/image-row";
 import NewGroupZone from "components/new-group-zone/new-group-zone";
@@ -14,6 +15,7 @@ import {getImageCount,getImagesBetween} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
 import {useImageSize} from "hooks/useImageSize";
 import {useSelectedImages} from "hooks/useSelectedImages";
+import {findNextPath} from "lib/image-data-helpers";
 
 import "css/phase-layout.less";
 import "./reorder-phase-main.less";
@@ -47,6 +49,15 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     showing:false,
     img:""
   });
+
+  const flatImagesSelector=createSelector(
+    (groups:ImageGroup[]):ImageGroup[]=>groups,
+    (groups:ImageGroup[]):ImageData2[]=>{
+      return _.flatMap(groups,(x:ImageGroup):ImageData2[]=>{
+        return x.items;
+      });
+    }
+  );
 
   /** key handlers */
   useEffect(()=>{
@@ -261,12 +272,27 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   function h_previewerForward():void
   {
     console.log("forward");
+    setPreviewPanelState({
+      showing:true,
+      img:findNextPath(
+        flatImagesSelector(theImageGroups),
+        thePreviewPanelState.img
+      )
+    });
   }
 
   /** previewer move backward */
   function h_previewerBack():void
   {
     console.log("back");
+    setPreviewPanelState({
+      showing:true,
+      img:findNextPath(
+        flatImagesSelector(theImageGroups),
+        thePreviewPanelState.img,
+        false
+      )
+    });
   }
 
   /*----        RENDER        ----*/
