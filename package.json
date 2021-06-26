@@ -12,7 +12,8 @@
   },
   "build": {
     "win": {
-      "target": "zip"
+      "target": "zip",
+      "icon":"icon.png"
     },
     "files": [
       "build/**/*",
