@@ -5,7 +5,7 @@ import {Event} from "electron";
 
 import ThumbnailItem from "components/thumbnail-item/thumbnail-item";
 
-import {sortGroupAlpha} from "lib/image-group-helpers";
+import {sortGroupAlpha} from "lib/image-data-helpers";
 import {useDraggedOver} from "hooks/useDraggedOver";
 import {imageDataFromFileList} from "lib/file-handlers";
 

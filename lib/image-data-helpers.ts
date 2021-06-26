@@ -1,5 +1,6 @@
 // functions for working with image data alone
 import _ from "lodash";
+import naturalCompare from "natural-compare";
 
 /** given array of imagedata, find and return the next item or the previous item, or the same item
  *  if it is at the end of beginning */
@@ -41,4 +42,26 @@ export function findNextPath(data:ImageData2[],searchPath:string,next:boolean=tr
         },
         next
     ).path;
+}
+
+/** sort ImageGroup's items with natural name sort */
+export function sortGroupAlpha(group:ImageGroup,reverse:boolean=false):ImageGroup
+{
+    group={
+        ...group,
+        items:group.items.sort(compareImageGroup)
+    };
+
+    if (reverse)
+    {
+        _.reverse(group.items);
+    }
+
+    return group;
+}
+
+/** compare function for image data */
+function compareImageGroup(a:ImageData2,b:ImageData2):number
+{
+    return naturalCompare(a.name,b.name);
 }

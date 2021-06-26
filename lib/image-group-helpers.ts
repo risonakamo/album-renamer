@@ -1,6 +1,5 @@
 // functions for manipulating ImageGroups
 import _ from "lodash";
-import naturalCompare from "natural-compare";
 
 import {generateRename,determinePadDigits} from "lib/rename-rule";
 
@@ -58,22 +57,6 @@ export function dropAtTargetGroup(
     }
 
     return groups;
-}
-
-/** sort ImageGroup's items with natural name sort */
-export function sortGroupAlpha(group:ImageGroup,reverse:boolean=false):ImageGroup
-{
-    group={
-        ...group,
-        items:group.items.sort(compareImageGroup)
-    };
-
-    if (reverse)
-    {
-        _.reverse(group.items);
-    }
-
-    return group;
 }
 
 /** replace a group with another group in an array of groups by matching name, or add it
@@ -302,12 +285,6 @@ function insertIntoGroupFront(items:ImageData2[],group:ImageGroup,back:boolean=f
             ]
         };
     }
-}
-
-/** compare function for image data */
-function compareImageGroup(a:ImageData2,b:ImageData2):number
-{
-    return naturalCompare(a.name,b.name);
 }
 
 /** given array of image groups, and another array of image groups, replace all items matching
