@@ -25,6 +25,7 @@ interface ThumbnailItemProps
   onShiftSelect(data:ImageData2):void
 
   onCtrlClick(data:ImageData2):void
+  onRightClick(data:ImageData2):void
 }
 
 export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
@@ -45,13 +46,13 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   {
     if (e.ctrlKey)
     {
-      props.onCtrlClick?.(props.data);
+      props.onCtrlClick(props.data);
       return;
     }
 
     if (e.shiftKey)
     {
-      props.onShiftSelect?.(props.data);
+      props.onShiftSelect(props.data);
       return;
     }
 
@@ -64,6 +65,12 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     {
       props.onDeselect?.(props.data);
     }
+  }
+
+  /** right click. trigger right click handler */
+  function h_rightclick():void
+  {
+    props.onRightClick(props.data);
   }
 
   /** DRAG HANDLERS */
@@ -132,7 +139,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   return <div className="thumbnail-item" onClick={handleClick} onDragStart={dragBegin}
     onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}
     onDragLeave={useDraggedOverHandlers.handleDragLeave} onDragEnd={handleDragEnd}
-    draggable={true} style={topStyle}
+    draggable={true} style={topStyle} onContextMenu={h_rightclick}
   >
     <div className={cx("image-space",imageSpaceClass)} style={imageStyle}>
       <img src={props.data.path} className={cx(imgElementClasses)}

@@ -146,7 +146,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
         onDropped={props.onThumbnailDrop} onDragStart={props.onThumbnailDragStart}
         selectionNumber={selectionIndex} dragValidOverride={props.dragValidOverride}
         imageSize={props.imageSize} onShiftSelect={props.onThumbnailShiftSelect}
-        onCtrlClick={props.onThumbnailCtrlClick}/>;
+        onCtrlClick={props.onThumbnailCtrlClick} onRightClick={props.onThumbnailCtrlClick}/>;
     });
   }
 

@@ -69,13 +69,19 @@ export default function PreviewOverlay(props:PreviewOverlayProps):JSX.Element|nu
     }
   }
 
+  /** right click dismisses */
+  function h_rightclick():void
+  {
+    props.dismissed();
+  }
+
   if (!props.showing)
   {
     return null;
   }
 
   return <div className="preview-overlay" onClick={handleClick} onKeyDown={h_key}
-    tabIndex={-1} ref={selfElement}
+    tabIndex={-1} ref={selfElement} onContextMenu={h_rightclick}
   >
     <img src={props.img} className="tall"/>
   </div>;
