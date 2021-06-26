@@ -6,13 +6,15 @@
     "run-app": "electron .",
     "dev": "npm run build-app && npm run run-app",
     "build-web": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "build-web-prod":"webpack --env prod",
+    "build-release":"electron-builder"
   },
-  "build":{
-    "win":{
-      "target":"zip"
+  "build": {
+    "win": {
+      "target": "zip"
     },
-    "files":[
+    "files": [
       "build/**/*",
       "web/index.html",
       "web/assets/*"

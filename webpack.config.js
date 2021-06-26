@@ -3,82 +3,88 @@ const ForkTsCheckerWebpackPlugin=require("fork-ts-checker-webpack-plugin");
 // const CopyPlugin=require("copy-webpack-plugin");
 const WebpackBar=require("webpackbar");
 
-module.exports={
-    mode:"development",
-    entry:{
-        // add entry points here
-        index:"./web/index.tsx"
-    },
-    output:{
-        path:`${__dirname}/build/web`,
-        filename:"[name]-build.js"
-    },
+module.exports=(env)=>{
+    env=env || {};
 
-    module:{
-        rules:[
-            {
-                test:/\.(tsx|ts|js|jsx)$/,
-                exclude:/node_modules/,
-                use:{
-                    loader:"babel-loader",
-                    options:{
-                        presets:["@babel/preset-react","@babel/preset-typescript"]
+    var mode=env.prod?"production":"development";
+
+    return {
+        mode,
+        entry:{
+            // add entry points here
+            index:"./web/index.tsx"
+        },
+        output:{
+            path:`${__dirname}/build/web`,
+            filename:"[name]-build.js"
+        },
+
+        module:{
+            rules:[
+                {
+                    test:/\.(tsx|ts|js|jsx)$/,
+                    exclude:/node_modules/,
+                    use:{
+                        loader:"babel-loader",
+                        options:{
+                            presets:["@babel/preset-react","@babel/preset-typescript"]
+                        }
                     }
+                },
+                {
+                    test:/\.(less|css)$/,
+                    use:[
+                        MiniCssExtractPlugin.loader,
+                        {loader:"css-loader",options:{url:false}},
+                        {loader:"less-loader"}
+                    ]
                 }
-            },
-            {
-                test:/\.(less|css)$/,
-                use:[
-                    MiniCssExtractPlugin.loader,
-                    {loader:"css-loader",options:{url:false}},
-                    {loader:"less-loader"}
-                ]
+            ]
+        },
+
+        plugins:[
+            new MiniCssExtractPlugin({
+                filename:"[name]-build.css"
+            }),
+
+            new ForkTsCheckerWebpackPlugin({
+                typescript:{
+                    configFile:"tsconfig-web.json"
+                }
+            }),
+            new WebpackBar()
+
+            // new CopyPlugin([
+            //     {from:"src/index.html",to:"../"}
+            // ]),
+        ],
+
+        // optimization:{
+        //     splitChunks:{
+        //         chunks:"all",
+        //         automaticNameDelimiter:"-"
+        //     }
+        // },
+
+        resolve:{
+            extensions:[".tsx",".ts",".jsx",".js"],
+            alias:{
+                components:`${__dirname}/web/components`,
+                css:`${__dirname}/web/css`,
+                lib:`${__dirname}/lib`,
+                hooks:`${__dirname}/web/hooks`,
+                store:`${__dirname}/web/store`,
+                api:`${__dirname}/web/api`
             }
-        ]
-    },
+        },
 
-    plugins:[
-        new MiniCssExtractPlugin({
-            filename:"[name]-build.css"
-        }),
+        stats:{
+            entrypoints:false,
+            modules:false,
+            chunks:false,
+            // assets:false
+        },
 
-        new ForkTsCheckerWebpackPlugin({
-            typescript:{
-                configFile:"tsconfig-web.json"
-            }
-        }),
-        new WebpackBar()
-
-        // new CopyPlugin([
-        //     {from:"src/index.html",to:"../"}
-        // ]),
-    ],
-
-    // optimization:{
-    //     splitChunks:{
-    //         chunks:"all",
-    //         automaticNameDelimiter:"-"
-    //     }
-    // },
-
-    resolve:{
-        extensions:[".tsx",".ts",".jsx",".js"],
-        alias:{
-            components:`${__dirname}/web/components`,
-            css:`${__dirname}/web/css`,
-            lib:`${__dirname}/lib`,
-            hooks:`${__dirname}/web/hooks`,
-            store:`${__dirname}/web/store`,
-            api:`${__dirname}/web/api`
-        }
-    },
-
-    stats:{
-        entrypoints:false,
-        modules:false,
-        chunks:false,
-        // assets:false
-    },
-
-    devtool:"eval-source-map"
+        devtool:"eval-source-map"
+    };
 };
