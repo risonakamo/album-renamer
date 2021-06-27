@@ -20,6 +20,9 @@ interface ImageRowProps
 
   dragValidOverride:boolean
 
+  // image with this path will be highlighted
+  highlightedImage:string
+
   onThumbnailSelected(data:ImageData2):void
   onThumbnailDeselected(data:ImageData2):void
   onThumbnailShiftSelect(data:ImageData2):void
@@ -146,7 +149,8 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
         onDropped={props.onThumbnailDrop} onDragStart={props.onThumbnailDragStart}
         selectionNumber={selectionIndex} dragValidOverride={props.dragValidOverride}
         imageSize={props.imageSize} onShiftSelect={props.onThumbnailShiftSelect}
-        onCtrlClick={props.onThumbnailCtrlClick} onRightClick={props.onThumbnailCtrlClick}/>;
+        onCtrlClick={props.onThumbnailCtrlClick} onRightClick={props.onThumbnailCtrlClick}
+        highlighted={props.highlightedImage==x.path}/>;
     });
   }
 

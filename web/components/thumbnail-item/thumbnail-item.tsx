@@ -16,6 +16,8 @@ interface ThumbnailItemProps
 
   dragValidOverride:boolean
 
+  highlighted:boolean
+
   onSelected(data:ImageData2):void
   onDeselect(data:ImageData2):void
 
@@ -116,7 +118,8 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   /*-- RENDER --*/
   const imgElementClasses={
     wide:isWideFit,
-    tall:!isWideFit
+    tall:!isWideFit,
+    highlighted:props.highlighted
   };
 
   const imageSpaceClass={

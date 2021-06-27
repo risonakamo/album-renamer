@@ -32,6 +32,12 @@
         img
         {
             .scaling-img();
+
+            &.highlighted
+            {
+                outline: 2px solid fade(@selected-colour,80%);
+                outline-offset: -2px;
+            }
         }
 
         .selected-overlay

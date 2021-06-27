@@ -246,8 +246,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   function handlePreviewOverlayDismiss():void
   {
     setPreviewPanelState({
-      showing:false,
-      img:""
+      ...thePreviewPanelState,
+      showing:false
     });
   }
 
@@ -305,7 +305,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         onGroupDrop={handleDropOnGroupTitle} onGroupSorted={handleGroupSorted}
         onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
         onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}
-        onThumbnailShiftSelect={handleShiftSelect} onThumbnailCtrlClick={handleThumbnailCtrlSelect}/>;
+        onThumbnailShiftSelect={handleShiftSelect} onThumbnailCtrlClick={handleThumbnailCtrlSelect}
+        highlightedImage={thePreviewPanelState.img}/>;
     });
 
     return <SimpleBar className="image-rows-contain">
