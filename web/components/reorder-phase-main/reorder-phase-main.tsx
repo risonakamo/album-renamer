@@ -219,6 +219,11 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   /** submit the image groups, excluding ones with no items */
   function handleRenameButtonClick():void
   {
+    if (submitButtonDisabled)
+    {
+      return;
+    }
+
     props.onGroupsSubmit?.(_.filter(theImageGroups,(x:ImageGroup):boolean=>{
       return !!x.items.length;
     }));
@@ -277,11 +282,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     // ctrl+enter does same thing as clicking rename button
     else if (e.key=="Enter" && e.ctrlKey)
     {
-      if (submitButtonDisabled)
-      {
-        return;
-      }
-
       handleRenameButtonClick();
     }
   }

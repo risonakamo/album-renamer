@@ -40,6 +40,12 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   // the whole element itself, for focusing on mount
   const phaseElement=useRef<HTMLDivElement>(null);
 
+  // derived values
+  const duplicatesGroups:Set<string>=determineDuplicates(props.groups);
+  var groupHasNoEmptyName:boolean=determineGroupHasNoEmptyNames(props.groups);
+  const basePathError:boolean=!theBasePath.length;
+  const renameDisabled:boolean=basePathError || !!duplicatesGroups.size || !groupHasNoEmptyName;
+
   useEffect(()=>{
     // mouse up at anytime clears selection drag.
     document.addEventListener("mouseup",()=>{
@@ -105,6 +111,11 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   /** clicked the rename button. send the rename request */
   function handleRenameButtonPress():void
   {
+    if (renameDisabled)
+    {
+      return;
+    }
+
     sendRenameRequest(props.groups,theBasePath);
     props.renameCompleted?.();
   }
@@ -150,10 +161,13 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     {
       deselectAllGroups();
     }
-  }
 
-  const duplicatesGroups:Set<string>=determineDuplicates(props.groups);
-  var groupHasNoEmptyName:boolean=determineGroupHasNoEmptyNames(props.groups);
+    // ctrl enter does same as clicking rename button
+    else if (e.key=="Enter" && e.ctrlKey)
+    {
+      handleRenameButtonPress();
+    }
+  }
 
   function renderGroups():JSX.Element[]
   {
@@ -165,12 +179,9 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     });
   }
 
-  const basePathError:boolean=!theBasePath.length;
   const imageCount:number=getImageCount(props.groups);
 
-  const renameDisabled:boolean=basePathError || !!duplicatesGroups.size || !groupHasNoEmptyName;
-
-  var buttonHoverText:string|undefined;
+  var buttonHoverText:string="(ctrl+enter) Perform rename";
   if (renameDisabled)
   {
     buttonHoverText="must resolve errors before renaming";
