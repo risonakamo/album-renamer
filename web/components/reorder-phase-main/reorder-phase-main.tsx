@@ -59,6 +59,11 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     }
   );
 
+  const selfRef=useRef<HTMLDivElement>(null);
+
+  const imageCount:number=getImageCount(theImageGroups);
+  const submitButtonDisabled:boolean=!imageCount;
+
   /** key handlers */
   useEffect(()=>{
     document.addEventListener("keydown",(e:KeyboardEvent):void=>{
@@ -86,6 +91,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     window.addEventListener("dragend",()=>{
       setCurrentDragItem(null);
     });
+
+    selfRef.current?.focus();
   },[]);
 
   /** thumbnail drag began. save the item that is being dragged right now */
@@ -266,6 +273,17 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       imageGroupControl.removeItems(theSelectedImages);
       selectedImageControl.deselectAll();
     }
+
+    // ctrl+enter does same thing as clicking rename button
+    else if (e.key=="Enter" && e.ctrlKey)
+    {
+      if (submitButtonDisabled)
+      {
+        return;
+      }
+
+      handleRenameButtonClick();
+    }
   }
 
   /** previewer move forward */
@@ -294,8 +312,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   }
 
   /*----        RENDER        ----*/
-  const imageCount:number=getImageCount(theImageGroups);
-
   function renderImageRows():JSX.Element
   {
     var inner:JSX.Element[]=_.map(theImageGroups,(x:ImageGroup,i:number):JSX.Element=>{
@@ -324,9 +340,9 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     return <InitialDropZone onDropFiles={handleNewGroupDropFiles}/>
   }
 
-  const submitButtonDisabled:boolean=!imageCount;
-
-  return <div className="reorder-phase-section phase-layout" tabIndex={-1} onKeyDown={handleKey}>
+  return <div className="reorder-phase-section phase-layout" tabIndex={-1} onKeyDown={handleKey}
+    ref={selfRef}
+  >
     <section className="header-zone top-section">
       <NewGroupZone onClick={handleNewGroupClick} onDrop={handleNewGroupDrop}
         onDropFiles={handleNewGroupDropFiles}/>
@@ -335,7 +351,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       </div>
       <div className="next-button-zone header-zone-container">
         <Button84 onClick={handleRenameButtonClick} disabled={submitButtonDisabled}
-          icon="assets/temp_go-rename-group.png" hoverText="go to rename phase"/>
+          icon="assets/temp_go-rename-group.png" hoverText="(ctrl+enter) Proceed to Rename Phase"/>
       </div>
     </section>
 
