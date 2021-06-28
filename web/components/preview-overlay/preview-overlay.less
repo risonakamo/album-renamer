@@ -1,7 +1,8 @@
 @import (reference) "~css/fit-img";
 
 // tempcolour
-@fade-background: fade(black,50%);
+@fade-background: black;
+@name-overlay-background: black;
 
 .preview-overlay
 {
@@ -11,13 +12,22 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: @fade-background;
+    background-color: fade(@fade-background,50%);
     align-items: center;
     justify-content: center;
 
     img
     {
         .scaling-img();
+    }
+
+    .name-overlay
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 20px;
+        background: fade(@name-overlay-background,60%);
     }
 
     &:focus

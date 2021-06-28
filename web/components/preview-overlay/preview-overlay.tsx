@@ -6,7 +6,7 @@ import "./preview-overlay.less";
 interface PreviewOverlayProps
 {
   showing:boolean
-  img:string
+  img:ImageData2
 
   dismissed():void
 
@@ -83,6 +83,7 @@ export default function PreviewOverlay(props:PreviewOverlayProps):JSX.Element|nu
   return <div className="preview-overlay" onClick={handleClick} onKeyDown={h_key}
     tabIndex={-1} ref={selfElement} onContextMenu={h_rightclick}
   >
-    <img src={props.img} className="tall"/>
+    <img src={props.img.path} className="tall"/>
+    <p className="name-overlay">{props.img.name}</p>
   </div>;
 }

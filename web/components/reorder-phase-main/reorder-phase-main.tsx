@@ -15,7 +15,7 @@ import {getImageCount,getImagesBetween} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
 import {useImageSize} from "hooks/useImageSize";
 import {useSelectedImages} from "hooks/useSelectedImages";
-import {findNextPath} from "lib/image-data-helpers";
+import {findNextImage} from "lib/image-data-helpers";
 
 import "css/phase-layout.less";
 import "./reorder-phase-main.less";
@@ -28,7 +28,7 @@ interface ReorderPhaseMainProps
 interface PreviewPanelState
 {
   showing:boolean
-  img:string
+  img:ImageData2
 }
 
 export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Element
@@ -47,7 +47,10 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
 
   const [thePreviewPanelState,setPreviewPanelState]=useState<PreviewPanelState>({
     showing:false,
-    img:""
+    img:{
+      path:"",
+      name:""
+    }
   });
 
   const flatImagesSelector=createSelector(
@@ -250,7 +253,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   {
     setPreviewPanelState({
       showing:true,
-      img:data.path
+      img:data
     });
   }
 
@@ -291,7 +294,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   {
     setPreviewPanelState({
       showing:true,
-      img:findNextPath(
+      img:findNextImage(
         flatImagesSelector(theImageGroups),
         thePreviewPanelState.img
       )
@@ -303,7 +306,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   {
     setPreviewPanelState({
       showing:true,
-      img:findNextPath(
+      img:findNextImage(
         flatImagesSelector(theImageGroups),
         thePreviewPanelState.img,
         false
@@ -322,7 +325,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
         onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}
         onThumbnailShiftSelect={handleShiftSelect} onThumbnailCtrlClick={handleThumbnailCtrlSelect}
-        highlightedImage={thePreviewPanelState.img}/>;
+        highlightedImage={thePreviewPanelState.img.path}/>;
     });
 
     return <SimpleBar className="image-rows-contain">
