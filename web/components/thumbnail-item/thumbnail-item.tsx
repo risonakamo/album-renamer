@@ -47,7 +47,8 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
     // if scrollOnHighlighted enabled, and this thumbnail item is highlighted, scrolls to self
     if (props.highlighted && props.scrollOnHighlighted)
     {
-      selfRef.current?.scrollIntoView();
+      // !! TYPESCRIPT MISSING THIS
+      (selfRef.current as any).scrollIntoViewIfNeeded();
     }
   },[props.scrollOnHighlighted,props.highlighted]);
 
