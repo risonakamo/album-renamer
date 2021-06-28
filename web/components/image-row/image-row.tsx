@@ -22,6 +22,7 @@ interface ImageRowProps
 
   // image with this path will be highlighted
   highlightedImage:string
+  scrollOnHighlighted:boolean
 
   onThumbnailSelected(data:ImageData2):void
   onThumbnailDeselected(data:ImageData2):void
@@ -150,7 +151,7 @@ export default function ImageRow(props:ImageRowProps):JSX.Element
         selectionNumber={selectionIndex} dragValidOverride={props.dragValidOverride}
         imageSize={props.imageSize} onShiftSelect={props.onThumbnailShiftSelect}
         onCtrlClick={props.onThumbnailCtrlClick} onRightClick={props.onThumbnailCtrlClick}
-        highlighted={props.highlightedImage==x.path}/>;
+        highlighted={props.highlightedImage==x.path} scrollOnHighlighted={props.scrollOnHighlighted}/>;
     });
   }
 

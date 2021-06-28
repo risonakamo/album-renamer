@@ -1,4 +1,4 @@
-import React,{useRef,useState} from "react";
+import React,{useRef,useEffect} from "react";
 import cx from "classnames";
 
 import {useDraggedOver} from "hooks/useDraggedOver";
@@ -17,6 +17,7 @@ interface ThumbnailItemProps
   dragValidOverride:boolean
 
   highlighted:boolean
+  scrollOnHighlighted:boolean
 
   onSelected(data:ImageData2):void
   onDeselect(data:ImageData2):void
@@ -39,6 +40,16 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   const imgElement=useRef<HTMLImageElement>(null);
 
   const {isWideFit,handleImageLoad}=useIsWideFit(imgElement);
+
+  const selfRef=useRef<HTMLDivElement>(null);
+
+  useEffect(()=>{
+    // if scrollOnHighlighted enabled, and this thumbnail item is highlighted, scrolls to self
+    if (props.highlighted && props.scrollOnHighlighted)
+    {
+      selfRef.current?.scrollIntoView();
+    }
+  },[props.scrollOnHighlighted,props.highlighted]);
 
   /*-- HANDLERS --*/
   /** handle item clicked. call select or deselect based on current selection state. calls shift select
@@ -142,7 +153,7 @@ export default function ThumbnailItem(props:ThumbnailItemProps):JSX.Element
   return <div className="thumbnail-item" onClick={handleClick} onDragStart={dragBegin}
     onDrop={handleDrop} onDragEnter={handleDragEnter} onDragOver={handleDragOver}
     onDragLeave={useDraggedOverHandlers.handleDragLeave} onDragEnd={handleDragEnd}
-    draggable={true} style={topStyle} onContextMenu={h_rightclick}
+    draggable={true} style={topStyle} onContextMenu={h_rightclick} ref={selfRef}
   >
     <div className={cx("image-space",imageSpaceClass)} style={imageStyle}>
       <img src={props.data.path} className={cx(imgElementClasses)}

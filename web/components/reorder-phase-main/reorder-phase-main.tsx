@@ -29,6 +29,7 @@ interface PreviewPanelState
 {
   showing:boolean
   img:ImageData2
+  scrollOnHighlight:boolean
 }
 
 export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Element
@@ -50,7 +51,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     img:{
       path:"",
       name:""
-    }
+    },
+    scrollOnHighlight:false
   });
 
   const flatImagesSelector=createSelector(
@@ -248,21 +250,24 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     }
   }
 
-  /** thumbnail ctrl click loads and opens preview overlay */
+  /** thumbnail ctrl click loads and opens preview overlay. also shared with thumbnail rightclick.
+   *  also enables scrollOnHighlight for thumbnail items */
   function handleThumbnailCtrlSelect(data:ImageData2):void
   {
     setPreviewPanelState({
       showing:true,
-      img:data
+      img:data,
+      scrollOnHighlight:true
     });
   }
 
-  /** preview overlay signaled dismiss. hide it. */
+  /** preview overlay signaled dismiss. hide it. disables scrollOnHighlight */
   function handlePreviewOverlayDismiss():void
   {
     setPreviewPanelState({
       ...thePreviewPanelState,
-      showing:false
+      showing:false,
+      scrollOnHighlight:false
     });
   }
 
@@ -293,6 +298,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   function h_previewerForward():void
   {
     setPreviewPanelState({
+      ...thePreviewPanelState,
       showing:true,
       img:findNextImage(
         flatImagesSelector(theImageGroups),
@@ -305,6 +311,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   function h_previewerBack():void
   {
     setPreviewPanelState({
+      ...thePreviewPanelState,
       showing:true,
       img:findNextImage(
         flatImagesSelector(theImageGroups),
@@ -325,7 +332,8 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
         onDropNewImages={handleDroppedNewItems} dragValidOverride={!!currentDragItem}
         onGroupRenamed={handleGroupRenamed} imageSize={theImageSize}
         onThumbnailShiftSelect={handleShiftSelect} onThumbnailCtrlClick={handleThumbnailCtrlSelect}
-        highlightedImage={thePreviewPanelState.img.path}/>;
+        highlightedImage={thePreviewPanelState.img.path}
+        scrollOnHighlighted={thePreviewPanelState.scrollOnHighlight}/>;
     });
 
     return <SimpleBar className="image-rows-contain">
