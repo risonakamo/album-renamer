@@ -15,7 +15,7 @@ import {getImageCount,getImagesBetween} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
 import {useImageSize} from "hooks/useImageSize";
 import {useSelectedImages} from "hooks/useSelectedImages";
-import {findNextImage} from "lib/image-data-helpers";
+import {findNextImage,imageBeforeSelected} from "lib/image-data-helpers";
 
 import "css/phase-layout.less";
 import "./reorder-phase-main.less";
@@ -92,6 +92,25 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
 
     selfRef.current?.focus();
   },[]);
+
+  /** focus on the item before all selected items, or after if the first item is selected */
+  function focusBeforeSelected():void
+  {
+    // find image before selected items to focus on
+    var focusItem:ImageData2|undefined=imageBeforeSelected(
+      flatImagesSelector(theImageGroups),
+      theSelectedImages
+    );
+
+    if (focusItem)
+    {
+      setPreviewPanelState({
+        img:focusItem,
+        showing:false,
+        scrollOnHighlight:true
+      });
+    }
+  }
 
   /** thumbnail drag began. save the item that is being dragged right now */
   function thumbnailDragBegin(item:ImageData2,selected:boolean):void
@@ -182,11 +201,14 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   }
 
   /** items dropped in new group zone. create new group from the currently selected items, or the single
-   *  item if the currently selected item is not selected */
+   *  item if the currently selected item is not selected. focus on the item that came before the selected
+   *  items, if moving selected items */
   function handleNewGroupDrop():void
   {
     if (currentDragItemSelected.current)
     {
+      focusBeforeSelected();
+
       imageGroupControl.addGroupWithItems(theSelectedImages);
       selectedImageControl.deselectAll();
     }
