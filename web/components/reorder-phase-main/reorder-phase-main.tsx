@@ -71,13 +71,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
 
   /** key handlers */
   useEffect(()=>{
-    document.addEventListener("keydown",(e:KeyboardEvent):void=>{
-      if (e.key=="Escape")
-      {
-        selectedImageControl.deselectAll();
-      }
-    });
-
     document.addEventListener("wheel",(e:WheelEvent):void=>{
       if (e.ctrlKey && e.deltaY!=0)
       {
@@ -269,6 +262,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       showing:false,
       scrollOnHighlight:false
     });
+    selfRef.current?.focus();
   }
 
   /** key handler. perform delete */
@@ -291,6 +285,11 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     else if (e.key=="Enter" && e.ctrlKey)
     {
       handleRenameButtonClick();
+    }
+
+    else if (e.key=="Escape")
+    {
+      selectedImageControl.deselectAll();
     }
   }
 
