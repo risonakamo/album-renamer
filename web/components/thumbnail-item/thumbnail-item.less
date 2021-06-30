@@ -1,6 +1,7 @@
 @import (reference) "~css/drop-target";
 @import (reference) "~css/dashed-overlay";
 @import (reference) "~css/fit-img";
+@import (reference) "~css/transitions";
 
 // tempcolour
 @selected-colour: #1980e8;
@@ -28,6 +29,7 @@
         overflow: hidden;
 
         transition: width .2s,height .2s;
+        .tr-outline();
 
         img
         {
@@ -47,6 +49,7 @@
                 @selected-border-colour
             );
             opacity: 0;
+            .tr-opacity-fast();
 
             p
             {
@@ -58,6 +61,7 @@
         {
             .dashed-overlay(transparent,white);
             .drop-target-border();
+            .tr-opacity-fast();
 
             opacity: 0;
         }

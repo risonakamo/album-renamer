@@ -1,3 +1,5 @@
+@import (reference) "~css/transitions";
+
 // tempcolour
 @scrollbar-colour: #d8d8d8;
 
@@ -10,6 +12,8 @@
 
         .simplebar-scrollbar
         {
+            .tr-bg-fast();
+
             &::before
             {
                 border-radius: 0;

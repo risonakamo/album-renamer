@@ -1,4 +1,5 @@
 @import (reference) "~css/drop-target";
+@import (reference) "~css/transitions";
 
 // tempcolour
 @hover-border-colour: white;
@@ -12,11 +13,14 @@
     justify-content: center;
     cursor: pointer;
     user-select: none;
+    opacity: .8;
+    .tr-opacity-outline();
 
     &:hover
     {
         outline: 2px dashed fade(@hover-border-colour,45%);
         outline-offset: -2px;
+        opacity: 1;
     }
 
     &.drop-target

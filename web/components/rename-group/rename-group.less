@@ -1,3 +1,5 @@
+@import (reference) "~css/transitions";
+
 // tempcolour
 @checkbox-main: #f2f2f2;
 @input-highlight: #175dbb;
@@ -11,6 +13,7 @@
 {
     height: 80px;
     display: flex;
+    .tr-bg-fast();
 
     .checkbox-zone
     {
@@ -23,6 +26,7 @@
         cursor: pointer;
         user-select: none;
         -webkit-user-drag: none;
+        .tr-border();
 
         .checkbox
         {
@@ -83,6 +87,7 @@
             border-radius: 2px;
             box-sizing: border-box;
             margin-top: 15px;
+            .tr-bg-fast();
 
             &.empty
             {
@@ -142,6 +147,7 @@
                 vertical-align: top;
                 border-radius: 2px;
                 flex: 1;
+                .tr-bg-fast();
 
                 &:hover
                 {

@@ -1,0 +1,55 @@
+@normal-time: .2s;
+@faster-time: .15s;
+
+.tr-outline()
+{
+    transition: outline-color @normal-time;
+    outline-color: transparent;
+}
+
+.tr-outline-fast()
+{
+    transition: outline-color @faster-time;
+    outline-color: transparent;
+}
+
+.tr-text()
+{
+    transition: color @normal-time;
+}
+
+.tr-opacity()
+{
+    transition: opacity @normal-time;
+}
+
+.tr-opacity-fast()
+{
+    transition: opacity @faster-time;
+}
+
+.tr-opacity-outline()
+{
+    transition: opacity @normal-time,outline-color @normal-time;
+    outline: transparent;
+}
+
+.tr-bg()
+{
+    transition: background-color @normal-time;
+}
+
+.tr-bg-fast()
+{
+    transition: background-color @faster-time;
+}
+
+.tr-border()
+{
+    transition: border-color @normal-time;
+}
+
+.tr-background-opacity()
+{
+    transition: background-color @normal-time,opacity @normal-time;
+}
