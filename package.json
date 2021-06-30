@@ -8,7 +8,7 @@
     "build-web": "webpack",
     "watch": "webpack --watch",
     "build-web-prod":"webpack --env prod",
-    "build-release":"electron-builder"
+    "build-release":"npm run build-web-prod && electron-builder"
   },
   "build": {
     "win": {
