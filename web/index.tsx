@@ -22,6 +22,8 @@ function IndexMain():JSX.Element
   const [theCurrentPhase,setCurrentPhase]=useState<RenamePhase>("reorder");
   const {theImageGroups,imageGroupControl}=useImageGroups([]);
 
+  const [isCopyMode,setCopyMode]=useState<boolean>(true);
+
   /** reorder phase submitted groups. switch to rename phase and load the groups. */
   function handleReorderSubmit(groups:ImageGroup[]):void
   {
@@ -48,6 +50,12 @@ function IndexMain():JSX.Element
     imageGroupControl.setImageGroups([]);
   }
 
+  /** copy mode button clicked. toggle copy mode */
+  function h_copyModeToggle(newMode:boolean):void
+  {
+    setCopyMode(newMode);
+  }
+
   function renderReorderPhase():JSX.Element|null
   {
     if (theCurrentPhase!="reorder")
@@ -55,7 +63,8 @@ function IndexMain():JSX.Element
       return null;
     }
 
-    return <ReorderPhaseMain onGroupsSubmit={handleReorderSubmit}/>;
+    return <ReorderPhaseMain onGroupsSubmit={handleReorderSubmit} copyMode={isCopyMode}
+      onCopyModeToggle={h_copyModeToggle}/>;
   }
 
   function renderRenamePhase():JSX.Element|null

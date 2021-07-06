@@ -24,6 +24,9 @@ import "./reorder-phase-main.less";
 interface ReorderPhaseMainProps
 {
   onGroupsSubmit?(groups:ImageGroup[]):void
+
+  copyMode:boolean
+  onCopyModeToggle(newMode:boolean):void
 }
 
 interface PreviewPanelState
@@ -57,8 +60,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   });
 
   const selfRef=useRef<HTMLDivElement>(null);
-
-  const [isCopyMode,setCopyMode]=useState<boolean>(true);
 
   // --- derived states ---
   const flatImagesSelector=createSelector(
@@ -348,12 +349,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     });
   }
 
-  /** clicked copy mode button. toggle copy mode state */
-  function h_copyModeButtonClick(newMode:boolean):void
-  {
-    setCopyMode(newMode);
-  }
-
   /*----        RENDER        ----*/
   function renderImageRows():JSX.Element
   {
@@ -410,7 +405,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
           imageCount={imageCount}/>
       </div>
       <div className="right section">
-        <CopyMoveModeButton copyMode={isCopyMode} onToggledCopyMode={h_copyModeButtonClick}/>
+        <CopyMoveModeButton copyMode={props.copyMode} onToggledCopyMode={props.onCopyModeToggle}/>
       </div>
     </footer>
 
