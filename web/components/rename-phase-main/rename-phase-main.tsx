@@ -6,6 +6,7 @@ import ButtonTextBox from "components/button-text-box/button-text-box";
 import Button84 from "components/button-84/button-84";
 import RenameGroup from "components/rename-group/rename-group";
 import FooterText from "components/footer-text/footer-text";
+import CopyMoveModeButton from "components/copy-move-mode-button/copy-move-mode-button";
 
 import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
 import {sendRenameRequest,selectBasepath,getDefaultBasepath} from "api/electron-bridge-api";
@@ -24,6 +25,9 @@ interface RenamePhaseMainProps
 
   // later return details about the rename
   renameCompleted?():void
+
+  copyMode:boolean
+  onCopyModeToggle(newMode:boolean):void
 }
 
 export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
@@ -212,8 +216,13 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     </section>
 
     <footer className="top-section footer-zone">
-      <FooterText selected={theSelectedGroups.size} groupCount={props.groups.length}
-        imageCount={imageCount}/>
+      <div className="left section">
+        <FooterText selected={theSelectedGroups.size} groupCount={props.groups.length}
+          imageCount={imageCount}/>
+      </div>
+      <div className="right section">
+        <CopyMoveModeButton copyMode={props.copyMode} onToggledCopyMode={props.onCopyModeToggle}/>
+      </div>
     </footer>
   </div>;
 }

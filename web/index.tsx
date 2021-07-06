@@ -75,7 +75,8 @@ function IndexMain():JSX.Element
     }
 
     return <RenamePhaseMain groups={theImageGroups} ongroupsRenamed={handleGroupsRenamed}
-      groupUpdated={handleGroupUpdate} renameCompleted={handleRenameCompleted}/>;
+      groupUpdated={handleGroupUpdate} renameCompleted={handleRenameCompleted} copyMode={isCopyMode}
+      onCopyModeToggle={h_copyModeToggle}/>;
   }
 
   return <>
