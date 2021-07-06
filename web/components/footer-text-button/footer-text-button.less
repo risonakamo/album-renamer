@@ -1,0 +1,23 @@
+@import (reference) "~css/transitions";
+
+// tempcolour
+@hover-background: #dedede;
+
+.footer-text-button
+{
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+    padding: 0 2px;
+    .tr-bg();
+
+    &:hover
+    {
+        background-color: fade(@hover-background,10%);
+    }
+
+    &:active
+    {
+        background-color: fade(@hover-background,20%);
+    }
+}
