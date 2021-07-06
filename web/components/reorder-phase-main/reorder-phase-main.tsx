@@ -399,7 +399,9 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
           imageCount={imageCount}/>
       </div>
       <div className="right section">
-        <FooterTextButton/>
+        <FooterTextButton className="copy-mode" icon="assets/temp_copy-indicate.png">
+          COPY
+        </FooterTextButton>
       </div>
     </footer>
 
