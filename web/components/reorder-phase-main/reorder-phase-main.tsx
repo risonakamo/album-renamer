@@ -10,7 +10,7 @@ import InitialDropZone from "components/initial-drop-zone/initial-drop-zone";
 import Button84 from "components/button-84/button-84";
 import FooterText from "components/footer-text/footer-text";
 import PreviewOverlay from "components/preview-overlay/preview-overlay";
-import FooterTextButton from "components/footer-text-button/footer-text-button";
+import CopyMoveModeButton from "components/copy-move-mode-button/copy-move-mode-button";
 
 import {getImageCount,getImagesBetween} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
@@ -349,9 +349,9 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
   }
 
   /** clicked copy mode button. toggle copy mode state */
-  function h_copyModeButtonClick():void
+  function h_copyModeButtonClick(newMode:boolean):void
   {
-    setCopyMode(!isCopyMode);
+    setCopyMode(newMode);
   }
 
   /*----        RENDER        ----*/
@@ -384,10 +384,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     return <InitialDropZone onDropFiles={handleNewGroupDropFiles}/>
   }
 
-  const copyButtonText:string=isCopyMode?"COPY":"MOVE";
-  const copyButtonImg:string=isCopyMode?"temp_copy-indicate":"temp_move-indicate";
-  const copyButtonClass:string=isCopyMode?"copy-mode":"move-mode";
-
   return <div className="reorder-phase-section phase-layout" tabIndex={-1} onKeyDown={handleKey}
     ref={selfRef}
   >
@@ -414,11 +410,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
           imageCount={imageCount}/>
       </div>
       <div className="right section">
-        <FooterTextButton className={copyButtonClass} icon={`assets/${copyButtonImg}.png`}
-          onClick={h_copyModeButtonClick}
-        >
-          {copyButtonText}
-        </FooterTextButton>
+        <CopyMoveModeButton copyMode={isCopyMode} onToggledCopyMode={h_copyModeButtonClick}/>
       </div>
     </footer>
 
