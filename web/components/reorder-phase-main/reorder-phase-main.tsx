@@ -56,6 +56,11 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     scrollOnHighlight:false
   });
 
+  const selfRef=useRef<HTMLDivElement>(null);
+
+  const [isCopyMode,setCopyMode]=useState<boolean>(true);
+
+  // --- derived states ---
   const flatImagesSelector=createSelector(
     (groups:ImageGroup[]):ImageGroup[]=>groups,
     (groups:ImageGroup[]):ImageData2[]=>{
@@ -64,8 +69,6 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       });
     }
   );
-
-  const selfRef=useRef<HTMLDivElement>(null);
 
   const imageCount:number=getImageCount(theImageGroups);
   const submitButtonDisabled:boolean=!imageCount;
@@ -94,6 +97,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     selfRef.current?.focus();
   },[]);
 
+  // ---- STATE CONTROL ----
   /** focus on the item before all selected items, or after if the first item is selected */
   function focusBeforeSelected():void
   {
@@ -113,6 +117,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     }
   }
 
+  // ---- HANDLERS ----
   /** thumbnail drag began. save the item that is being dragged right now */
   function thumbnailDragBegin(item:ImageData2,selected:boolean):void
   {
@@ -343,6 +348,12 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     });
   }
 
+  /** clicked copy mode button. toggle copy mode state */
+  function h_copyModeButtonClick():void
+  {
+    setCopyMode(!isCopyMode);
+  }
+
   /*----        RENDER        ----*/
   function renderImageRows():JSX.Element
   {
@@ -373,6 +384,10 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
     return <InitialDropZone onDropFiles={handleNewGroupDropFiles}/>
   }
 
+  const copyButtonText:string=isCopyMode?"COPY":"MOVE";
+  const copyButtonImg:string=isCopyMode?"temp_copy-indicate":"temp_move-indicate";
+  const copyButtonClass:string=isCopyMode?"copy-mode":"move-mode";
+
   return <div className="reorder-phase-section phase-layout" tabIndex={-1} onKeyDown={handleKey}
     ref={selfRef}
   >
@@ -399,8 +414,10 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
           imageCount={imageCount}/>
       </div>
       <div className="right section">
-        <FooterTextButton className="copy-mode" icon="assets/temp_copy-indicate.png">
-          COPY
+        <FooterTextButton className={copyButtonClass} icon={`assets/${copyButtonImg}.png`}
+          onClick={h_copyModeButtonClick}
+        >
+          {copyButtonText}
         </FooterTextButton>
       </div>
     </footer>
