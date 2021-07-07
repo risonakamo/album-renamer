@@ -13,7 +13,7 @@ export function attachRenameService():void
             return renameGroupToRenameActions(x,args.basepath);
         });
 
-        doRename(renameActions,true);
+        doRename(renameActions,args.copy);
     });
 
     // return default basepath rename path. currently the userprofile/Desktop

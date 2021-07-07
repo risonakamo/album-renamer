@@ -1,12 +1,15 @@
 import {contextBridge,ipcRenderer} from "electron";
 
-contextBridge.exposeInMainWorld("electron_bridge",{
+var bridgeDef:ElectronBridge={
     // send rename request to electron backend
-    sendRenameRequest:(groups:ImageGroup[],basepath:string):void=>{
-        ipcRenderer.send("request-rename",{
+    sendRenameRequest:(groups:ImageGroup[],basepath:string,copy:boolean):void=>{
+        var request:RenameRequest={
             groups,
-            basepath
-        } as RenameRequest);
+            basepath,
+            copy
+        };
+
+        ipcRenderer.send("request-rename",request);
     },
 
     // send request to select basepath. return the basepath from the api.
@@ -18,4 +21,6 @@ contextBridge.exposeInMainWorld("electron_bridge",{
     getDefaultBasepath:async ():Promise<string|undefined>=>{
         return await ipcRenderer.invoke("get-default-basepath");
     }
-} as ElectronBridge);
+};
+
+contextBridge.exposeInMainWorld("electron_bridge",bridgeDef);

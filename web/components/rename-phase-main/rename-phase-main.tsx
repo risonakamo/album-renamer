@@ -120,7 +120,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
       return;
     }
 
-    sendRenameRequest(props.groups,theBasePath);
+    sendRenameRequest(props.groups,theBasePath,props.copyMode);
     props.renameCompleted?.();
   }
 
