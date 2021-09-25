@@ -24,6 +24,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   const [theGroupNameValue,setGroupNameValue]=useState<string>("");
   const [theImageRuleValue,setImageRuleValue]=useState<string>("");
   const [groupNameEditedOverride,setGroupNameEdited]=useState<boolean>(false);
+  const [inputFocused,setInputFocused]=useState<boolean>(false);
 
   const mainNameInput=useRef<HTMLInputElement>(null);
 
@@ -66,7 +67,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     }
   }
 
-  /** submit group change. also shared with image rule field. */
+  /** submit group change. also shared with image rule field. also unset input focus state */
   function handleGroupNameBlur():void
   {
     props.onBlur?.({
@@ -74,12 +75,20 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
       name:theGroupNameValue.trim(),
       imagerule:theImageRuleValue
     });
+
+    setInputFocused(false);
   }
 
   /** set image rule state value */
   function handleImageRuleInputChange(e:React.ChangeEvent<HTMLInputElement>):void
   {
     setImageRuleValue(e.currentTarget.value);
+  }
+
+  /** input focused. set input focus state */
+  function h_inputFocus():void
+  {
+    setInputFocused(true);
   }
 
 
@@ -94,6 +103,9 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   // row counts as in "renamed" state, only if not in error state
   const renamed:boolean=(props.group.renamed || groupNameEditedOverride) && !props.errorInput;
 
+  // top level "renamed" state. only applicable if input NOT focused
+  const topRenamed:boolean=renamed && !inputFocused;
+
   const groupNameInputClass:Mapping={
     empty:!theGroupNameValue.length,
     error:props.errorInput,
@@ -105,7 +117,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   };
 
   const topClass:Mapping={
-    renamed
+    renamed:topRenamed
   };
 
   const imageCount:number=props.group.items.length;
@@ -122,13 +134,13 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
       <div>
         <input className={cx("group-name-input",groupNameInputClass)} value={theGroupNameValue}
           onChange={handleGroupNameChange} ref={mainNameInput} onKeyDown={handleGroupNameEnter}
-          onBlur={handleGroupNameBlur}/>
+          onBlur={handleGroupNameBlur} onFocus={h_inputFocus}/>
         <div className="statuses">
           <div className="image-count">{`${imageCount} images`}</div>
           <div className="mid-arrow">➜</div>
           <input className="image-rename-rule-input" placeholder="#" tabIndex={-1}
             onKeyDown={handleGroupNameEnter} onChange={handleImageRuleInputChange}
-            onBlur={handleGroupNameBlur} value={theImageRuleValue}/>
+            onBlur={handleGroupNameBlur} value={theImageRuleValue} onFocus={h_inputFocus}/>
         </div>
       </div>
     </div>
