@@ -194,7 +194,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
       var selected:boolean=theSelectedGroups.has(x.key);
       return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}
         onBlur={handleRenameGroupRename} selectionDragInProgress={selectionDragInProgress}
-        errorInput={duplicatesGroups.has(x.name)}/>;
+        errorInput={duplicatesGroups.has(x.name)} imageSize={200}/>;
     });
   }
 

@@ -14,6 +14,7 @@ interface RenameGroupProps
   selected?:boolean
   selectionDragInProgress?:boolean
   errorInput?:boolean
+  imageSize:number
 
   onToggleSelect?(selected:boolean,group:ImageGroup):void
   onBlur?(group:ImageGroup):void
@@ -96,7 +97,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   function renderMiniThumbnails():JSX.Element[]
   {
     return _.map(props.group.items,(x:ImageData2,i:number):JSX.Element=>{
-      return <MiniSquareThumbnail image={x.path} key={i}/>;
+      return <MiniSquareThumbnail image={x.path} key={i} size={props.imageSize}/>;
     });
   }
 
@@ -105,6 +106,8 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
 
   // top level "renamed" state. only applicable if input NOT focused
   const topRenamed:boolean=renamed && !inputFocused;
+
+  const imageCount:number=props.group.items.length;
 
   const groupNameInputClass:Mapping={
     empty:!theGroupNameValue.length,
@@ -120,9 +123,11 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     renamed:topRenamed
   };
 
-  const imageCount:number=props.group.items.length;
+  const topStyle:React.CSSProperties={
+    height:`${props.imageSize}px`
+  };
 
-  return <div className={cx("rename-group",topClass)}>
+  return <div className={cx("rename-group",topClass)} style={topStyle}>
     <div className="checkbox-zone zone" onMouseDown={handleCheckboxClick}
       onMouseEnter={handleCheckboxMouseIn}
     >
