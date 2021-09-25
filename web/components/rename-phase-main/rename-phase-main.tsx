@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useRef} from "react";
+import React,{useState,useEffect,useRef,useMemo} from "react";
 import _ from "lodash";
 import SimpleBar from "simplebar-react";
 
@@ -44,12 +44,21 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   // the whole element itself, for focusing on mount
   const phaseElement=useRef<HTMLDivElement>(null);
 
-  // derived values
-  const duplicatesGroups:Set<string>=determineDuplicates(props.groups);
-  var groupHasNoEmptyName:boolean=determineGroupHasNoEmptyNames(props.groups);
+
+  /**--- DERIVED STATE --- */
+  const duplicatesGroups:Set<string>=useMemo(()=>{
+    return determineDuplicates(props.groups);
+  },[props.groups]);
+
+  var groupHasNoEmptyName:boolean=useMemo(()=>{
+    return determineGroupHasNoEmptyNames(props.groups);
+  },[props.groups]);
+
   const basePathError:boolean=!theBasePath.length;
   const renameDisabled:boolean=basePathError || !!duplicatesGroups.size || !groupHasNoEmptyName;
 
+
+  /**--- EFFECTS --- */
   useEffect(()=>{
     // mouse up at anytime clears selection drag.
     document.addEventListener("mouseup",()=>{
@@ -69,6 +78,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     phaseElement.current?.focus();
   },[]);
 
+
+  /**----- STATE CONTROL -----*/
   /** add all current groups to selected groups */
   function selectAllGroups():void
   {
@@ -85,6 +96,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     setSelectedGroups(new Set());
   }
 
+
+  /**----- HANDLERS -----*/
   /** group selection was toggled. also set the selection drag state to be true. unsets on mouseup
    *  at any time. */
   function handleToggleSelection(selected:boolean,group:ImageGroup):void
@@ -173,6 +186,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     }
   }
 
+
+  /**----- RENDER -----*/
   function renderGroups():JSX.Element[]
   {
     return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
