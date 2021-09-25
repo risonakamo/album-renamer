@@ -100,7 +100,8 @@ export function addGroup(items:ImageData2[],groups:ImageGroup[]):AddGroupResult
         name:`group${maxkey}`,
         items,
         key:maxkey,
-        imagerule:""
+        imagerule:"",
+        renamed:false
     };
 
     return {
@@ -134,7 +135,8 @@ export function autorenameGroups(groups:ImageGroup[],targetGroups:Set<number>,
     var renamedGroups:ImageGroup[]=_.map(targetGroupsGroups,(x:ImageGroup,i:number):ImageGroup=>{
         return {
             ...x,
-            name:generateRename(renameRule,i,digits)
+            name:generateRename(renameRule,i,digits),
+            renamed:true
         };
     });
 

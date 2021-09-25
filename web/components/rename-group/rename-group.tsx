@@ -1,5 +1,5 @@
 import React,{useState,useRef,useEffect} from "react";
-import cx from "classnames";
+import cx,{Mapping} from "classnames";
 import _ from "lodash";
 import SimpleBar from "simplebar-react";
 
@@ -23,6 +23,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
 {
   const [theGroupNameValue,setGroupNameValue]=useState<string>("");
   const [theImageRuleValue,setImageRuleValue]=useState<string>("");
+  const [groupNameEditedOverride,setGroupNameEdited]=useState<boolean>(false);
 
   const mainNameInput=useRef<HTMLInputElement>(null);
 
@@ -35,6 +36,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   function handleGroupNameChange(e:React.ChangeEvent<HTMLInputElement>):void
   {
     setGroupNameValue(e.currentTarget.value);
+    setGroupNameEdited(true);
   }
 
   /** trigger selection toggle. returns opposite of the current selection state. */
@@ -60,6 +62,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     {
       e.preventDefault();
       (e.currentTarget as HTMLElement).blur();
+      setGroupNameEdited(true);
     }
   }
 
@@ -79,6 +82,8 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     setImageRuleValue(e.currentTarget.value);
   }
 
+
+  /** --- RENDER --- */
   function renderMiniThumbnails():JSX.Element[]
   {
     return _.map(props.group.items,(x:ImageData2,i:number):JSX.Element=>{
@@ -86,18 +91,26 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
     });
   }
 
-  const groupNameInputClass={
+  // row counts as in "renamed" state, only if not in error state
+  const renamed:boolean=(props.group.renamed || groupNameEditedOverride) && !props.errorInput;
+
+  const groupNameInputClass:Mapping={
     empty:!theGroupNameValue.length,
-    error:props.errorInput
+    error:props.errorInput,
+    renamed
   };
 
-  const checkboxClass={
+  const checkboxClass:Mapping={
     checked:props.selected
+  };
+
+  const topClass:Mapping={
+    renamed
   };
 
   const imageCount:number=props.group.items.length;
 
-  return <div className="rename-group">
+  return <div className={cx("rename-group",topClass)}>
     <div className="checkbox-zone zone" onMouseDown={handleCheckboxClick}
       onMouseEnter={handleCheckboxMouseIn}
     >

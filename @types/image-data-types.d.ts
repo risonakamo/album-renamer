@@ -12,4 +12,6 @@ interface ImageGroup
     items:ImageData2[]
     key:number
     imagerule:string
+
+    renamed:boolean
 }

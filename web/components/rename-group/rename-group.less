@@ -8,6 +8,7 @@
 @rename-rule-colour: #5234d4;
 @hover-background: #47689a;
 @error-input: #ce2727;
+@renamed-input: #a28329;
 
 .rename-group
 {
@@ -118,6 +119,11 @@
             {
                 color: @error-input;
             }
+
+            &.renamed
+            {
+                color: @renamed-input;
+            }
         }
 
         .statuses
@@ -185,5 +191,10 @@
     &:hover
     {
         background-color: fade(@hover-background,5%);
+    }
+
+    &.renamed
+    {
+        opacity: .3;
     }
 }
