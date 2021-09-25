@@ -14,7 +14,7 @@ import CopyMoveModeButton from "components/copy-move-mode-button/copy-move-mode-
 
 import {getImageCount,getImagesBetween} from "lib/image-group-helpers";
 import {useImageGroups} from "hooks/useImageGroups";
-import {useImageSize} from "hooks/useImageSize";
+import {useImageSize,useImageSizeWheelHandler} from "hooks/useImageSize";
 import {useSelectedImages} from "hooks/useSelectedImages";
 import {findNextImage,imageBeforeSelected} from "lib/image-data-helpers";
 
@@ -61,6 +61,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
 
   const selfRef=useRef<HTMLDivElement>(null);
 
+
   // --- derived states ---
   const flatImagesSelector=createSelector(
     (groups:ImageGroup[]):ImageGroup[]=>groups,
@@ -76,27 +77,15 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
 
   /** key handlers */
   useEffect(()=>{
-    document.addEventListener("wheel",(e:WheelEvent):void=>{
-      if (e.ctrlKey && e.deltaY!=0)
-      {
-        if (e.deltaY>0)
-        {
-          imageSizeControl.decrement();
-        }
-
-        else
-        {
-          imageSizeControl.increment();
-        }
-      }
-    });
-
     window.addEventListener("dragend",()=>{
       setCurrentDragItem(null);
     });
 
     selfRef.current?.focus();
   },[]);
+
+  useImageSizeWheelHandler(imageSizeControl);
+
 
   // ---- STATE CONTROL ----
   /** focus on the item before all selected items, or after if the first item is selected */
@@ -117,6 +106,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       });
     }
   }
+
 
   // ---- HANDLERS ----
   /** thumbnail drag began. save the item that is being dragged right now */
@@ -348,6 +338,7 @@ export default function ReorderPhaseMain(props:ReorderPhaseMainProps):JSX.Elemen
       )
     });
   }
+
 
   /*----        RENDER        ----*/
   function renderImageRows():JSX.Element

@@ -8,6 +8,8 @@ import RenameGroup from "components/rename-group/rename-group";
 import FooterText from "components/footer-text/footer-text";
 import CopyMoveModeButton from "components/copy-move-mode-button/copy-move-mode-button";
 
+import {useImageSize,useImageSizeWheelHandler} from "hooks/useImageSize";
+
 import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
 import {sendRenameRequest,selectBasepath,getDefaultBasepath} from "api/electron-bridge-api";
 import {determineDuplicates,determineGroupHasNoEmptyNames} from "lib/group-verify";
@@ -44,6 +46,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   // the whole element itself, for focusing on mount
   const phaseElement=useRef<HTMLDivElement>(null);
 
+  const {theImageSize,imageSizeControl}=useImageSize(80,80,200,20);
+
 
   /**--- DERIVED STATE --- */
   const duplicatesGroups:Set<string>=useMemo(()=>{
@@ -77,6 +81,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     // autofocus self
     phaseElement.current?.focus();
   },[]);
+
+  useImageSizeWheelHandler(imageSizeControl);
 
 
   /**----- STATE CONTROL -----*/
@@ -194,7 +200,7 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
       var selected:boolean=theSelectedGroups.has(x.key);
       return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}
         onBlur={handleRenameGroupRename} selectionDragInProgress={selectionDragInProgress}
-        errorInput={duplicatesGroups.has(x.name)} imageSize={200}/>;
+        errorInput={duplicatesGroups.has(x.name)} imageSize={theImageSize}/>;
     });
   }
 

@@ -1,5 +1,12 @@
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import _ from "lodash";
+
+interface ImageSizeControl
+{
+    increment():void
+    decrement():void
+    setImageSize:React.Dispatch<React.SetStateAction<number>>
+}
 
 /** return a controlled image size state with a specified minimum and maximum size, and an increment
  *  for when using the increment and decrement function */
@@ -32,4 +39,25 @@ export function useImageSize(initial:number,minsize:number,maxsize:number,inc:nu
             setImageSize
         }
     };
+}
+
+/** attach an image size control to document wheel handler */
+export function useImageSizeWheelHandler(imageSizeControl:ImageSizeControl):void
+{
+    useEffect(()=>{
+        document.addEventListener("wheel",(e:WheelEvent):void=>{
+            if (e.ctrlKey && e.deltaY!=0)
+            {
+                if (e.deltaY>0)
+                {
+                    imageSizeControl.decrement();
+                }
+
+                else
+                {
+                    imageSizeControl.increment();
+                }
+            }
+        });
+    },[]);
 }
