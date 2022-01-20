@@ -18,7 +18,7 @@ interface RenameGroupProps
 
   onToggleSelect?(selected:boolean,group:ImageGroup):void
   onBlur?(group:ImageGroup):void
-  onThumbnailRightclick(image:ImageData2):void
+  onThumbnailRightclick(image:ImageData2,group:ImageGroup):void
 }
 
 export default function RenameGroup(props:RenameGroupProps):JSX.Element
@@ -101,7 +101,7 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
       /** handle mini thumbnail right click. gives the image but not needed. */
       function h_minithumbnailRightclick():void
       {
-        props.onThumbnailRightclick(x);
+        props.onThumbnailRightclick(x,props.group);
       }
 
       return <MiniSquareThumbnail image={x.path} key={i} size={props.imageSize}

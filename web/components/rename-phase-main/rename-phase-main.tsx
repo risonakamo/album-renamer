@@ -10,6 +10,7 @@ import CopyMoveModeButton from "components/copy-move-mode-button/copy-move-mode-
 import PreviewOverlay from "components/preview-overlay/preview-overlay";
 
 import {useImageSize,useImageSizeWheelHandler} from "hooks/useImageSize";
+import {usePreviewPanelGroupControl} from "hooks/usePreviewPanelGroupControl";
 
 import {getImageCount,autorenameGroups} from "lib/image-group-helpers";
 import {sendRenameRequest,selectBasepath,getDefaultBasepath} from "api/electron-bridge-api";
@@ -49,13 +50,14 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
 
   const {theImageSize,imageSizeControl}=useImageSize(80,80,200,20);
 
-  const [previewPanelShowing,setPreviewPanelShowing]=useState<boolean>(false);
-
-  const [previewPanelImage,setPreviewPanelImage]=useState<ImageData2>({
-    path:"",
-    name:""
-  });
-
+  const [
+    previewPanelShowing,
+    previewPanelImage,
+    previewPanelOpen,
+    previewPanelDismiss,
+    previewPanelNavF,
+    previewPanelNavB
+  ]=usePreviewPanelGroupControl();
 
   /**--- DERIVED STATE --- */
   const duplicatesGroups:Set<string>=useMemo(()=>{
@@ -203,24 +205,25 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   /** preview panel dismiss. hide the preview panel */
   function h_previewDismiss():void
   {
-    setPreviewPanelShowing(false);
+    previewPanelDismiss();
   }
 
+  /** preview panel triggered nav forward */
   function h_previewForward():void
   {
-
+    previewPanelNavF();
   }
 
+  /** preview panel triggered nav backward */
   function h_previewBackward():void
   {
-
+    previewPanelNavB();
   }
 
   /** right clicked a mini thumbnail. trigger the preview panel */
-  function h_renameGroupThumbnailRightclick(image:ImageData2):void
+  function h_renameGroupThumbnailRightclick(image:ImageData2,group:ImageGroup):void
   {
-    setPreviewPanelImage(image);
-    setPreviewPanelShowing(true);
+    previewPanelOpen(image,group);
   }
 
 
