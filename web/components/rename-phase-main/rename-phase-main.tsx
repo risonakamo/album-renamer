@@ -7,6 +7,7 @@ import Button84 from "components/button-84/button-84";
 import RenameGroup from "components/rename-group/rename-group";
 import FooterText from "components/footer-text/footer-text";
 import CopyMoveModeButton from "components/copy-move-mode-button/copy-move-mode-button";
+import PreviewOverlay from "components/preview-overlay/preview-overlay";
 
 import {useImageSize,useImageSizeWheelHandler} from "hooks/useImageSize";
 
@@ -47,6 +48,13 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   const phaseElement=useRef<HTMLDivElement>(null);
 
   const {theImageSize,imageSizeControl}=useImageSize(80,80,200,20);
+
+  const [previewPanelShowing,setPreviewPanelShowing]=useState<boolean>(false);
+
+  const [previewPanelImage,setPreviewPanelImage]=useState<ImageData2>({
+    path:"",
+    name:""
+  });
 
 
   /**--- DERIVED STATE --- */
@@ -192,6 +200,29 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
     }
   }
 
+  /** preview panel dismiss. hide the preview panel */
+  function h_previewDismiss():void
+  {
+    setPreviewPanelShowing(false);
+  }
+
+  function h_previewForward():void
+  {
+
+  }
+
+  function h_previewBackward():void
+  {
+
+  }
+
+  /** right clicked a mini thumbnail. trigger the preview panel */
+  function h_renameGroupThumbnailRightclick(image:ImageData2):void
+  {
+    setPreviewPanelImage(image);
+    setPreviewPanelShowing(true);
+  }
+
 
   /**----- RENDER -----*/
   function renderGroups():JSX.Element[]
@@ -200,7 +231,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
       var selected:boolean=theSelectedGroups.has(x.key);
       return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}
         onBlur={handleRenameGroupRename} selectionDragInProgress={selectionDragInProgress}
-        errorInput={duplicatesGroups.has(x.name)} imageSize={theImageSize}/>;
+        errorInput={duplicatesGroups.has(x.name)} imageSize={theImageSize}
+        onThumbnailRightclick={h_renameGroupThumbnailRightclick}/>;
     });
   }
 
@@ -245,5 +277,8 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
         <CopyMoveModeButton copyMode={props.copyMode} onToggledCopyMode={props.onCopyModeToggle}/>
       </div>
     </footer>
+
+    <PreviewOverlay showing={previewPanelShowing} img={previewPanelImage}
+      dismissed={h_previewDismiss} navForward={h_previewForward} navBackward={h_previewBackward}/>
   </div>;
 }
