@@ -53,8 +53,11 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   const [
     previewPanelShowing,
     previewPanelImage,
+    previewPanelGroup,
+
     previewPanelOpen,
     previewPanelDismiss,
+
     previewPanelNavF,
     previewPanelNavB
   ]=usePreviewPanelGroupControl();
@@ -231,11 +234,13 @@ export default function RenamePhaseMain(props:RenamePhaseMainProps):JSX.Element
   function renderGroups():JSX.Element[]
   {
     return _.map(props.groups,(x:ImageGroup,i:number):JSX.Element=>{
-      var selected:boolean=theSelectedGroups.has(x.key);
+      const selected:boolean=theSelectedGroups.has(x.key);
+      const highlighted:boolean=previewPanelGroup.name==x.name;
+
       return <RenameGroup group={x} key={i} onToggleSelect={handleToggleSelection} selected={selected}
         onBlur={handleRenameGroupRename} selectionDragInProgress={selectionDragInProgress}
         errorInput={duplicatesGroups.has(x.name)} imageSize={theImageSize}
-        onThumbnailRightclick={h_renameGroupThumbnailRightclick}/>;
+        onThumbnailRightclick={h_renameGroupThumbnailRightclick} highlighted={highlighted}/>;
     });
   }
 

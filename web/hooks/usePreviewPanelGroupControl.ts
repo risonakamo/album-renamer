@@ -78,6 +78,7 @@ export function usePreviewPanelGroupControl()
         // state for preview panel
         showing,
         currentImage,
+        images,
 
         // control
         open,

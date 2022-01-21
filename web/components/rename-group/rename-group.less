@@ -1,4 +1,5 @@
 @import (reference) "~css/transitions";
+@import (reference) "~css/colours";
 
 // tempcolour
 @checkbox-main: #f2f2f2;
@@ -9,6 +10,7 @@
 @hover-background: #47689a;
 @error-input: #ce2727;
 @renamed-input: #a28329;
+@group-highlighted-border: @rename-group-highlight;
 
 .rename-group
 {
@@ -196,5 +198,11 @@
     &.renamed
     {
         opacity: .3;
+    }
+
+    &.highlighted .entry-zone
+    {
+        outline: 4px solid fade(@group-highlighted-border,70%);
+        outline-offset: -4px;
     }
 }

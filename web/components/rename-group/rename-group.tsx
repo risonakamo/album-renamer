@@ -15,6 +15,7 @@ interface RenameGroupProps
   selectionDragInProgress?:boolean
   errorInput?:boolean
   imageSize:number
+  highlighted?:boolean
 
   onToggleSelect?(selected:boolean,group:ImageGroup):void
   onBlur?(group:ImageGroup):void
@@ -128,7 +129,8 @@ export default function RenameGroup(props:RenameGroupProps):JSX.Element
   };
 
   const topClass:Mapping={
-    renamed:topRenamed
+    renamed:topRenamed,
+    highlighted:props.highlighted
   };
 
   const topStyle:React.CSSProperties={
